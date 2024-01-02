@@ -4,6 +4,7 @@ namespace app\admin\behavior;
 
 class AdminLog
 {
+    //排除日志
     const noLog = [
         '/employee/readCard'
     ];
@@ -14,7 +15,11 @@ class AdminLog
             //不不记录判断
             $arr = json_decode($params->getContent(), true);
             $parsedUrl = parse_url($arr['url']);
-            \app\admin\model\AdminLog::record();
+            $pathArr = explode('/', $parsedUrl['path']);
+            $func = sprintf("/%s/%s", $pathArr[2], $pathArr[3]);
+            if (!in_array($func, self::noLog)) {
+                \app\admin\model\AdminLog::record();
+            }
         }
     }
 }
