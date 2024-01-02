@@ -400,8 +400,6 @@ class Employee extends Backend
                 if ($res === false) {
                     $this->error($row->getError());
                 }
-                //写入标签
-                AdminLog::record('权限');
 
                 $this->success('');
             }
@@ -449,17 +447,13 @@ class Employee extends Backend
                 if (!$res) {
                     $this->error('体检信息录入失败');
                 }
-                AdminLog::record("体检录入");
                 //更新操作步骤
-                //更新操作步骤
-                if ($params['status'] == 1 && $emp_info['status'] != 4) {
-                    $emp_status = 3;
-                } else {
-                    $emp_status = 21;
-                }
-                $rs1 = $emp_info->save(['status' => $emp_status]);
-                if ($rs1 === false) {
-                    $this->error('数据异常');
+                if ($emp_info['status'] != 4) {
+                    $emp_status = $params['status'] == 1 ? 3 : 21;
+                    $rs1 = $emp_info->save(['status' => $emp_status]);
+                    if ($rs1 === false) {
+                        $this->error('数据异常');
+                    }
                 }
 
                 $msg = $params['status'] == 1 ? '信息录入完成，请等待员工报道' : '';
@@ -567,20 +561,20 @@ class Employee extends Backend
                     $data['status'] = $state == '合格' ? 1 : 2;
 
                     //更新体检信息
-                    $res3 = $res4 = true;
                     $data['create_time'] = time();
                     $res2 = $this->empExamModel->insert($data);
-                    //重复数据判断
-                    if ($data['status'] == 1 && $emp_info['status'] != 4) {
-                        //员工待报到
-                        $res3 = $this->model->where(['emp_id_2'=>$emp_id_2])->update(['status'=>3]);
-                    } else {
-                        //不符合
-                        $res4 = $this->model->where(['emp_id_2'=>$emp_id_2])->update(['status'=>21]);
-                    }
-                    if ($res2 === false || $res3 === false || $res4 === false) {
+                    if ($res2 === false) {
                         throw new Exception('批量导入失败');
                     }
+                    //重复数据判断
+                    if ($emp_info['status'] != 4) {
+                        $emp_status = $data['status'] == 1 ? 3 : 21;
+                        $res3 = $this->model->where(['emp_id_2'=>$emp_id_2])->update(['status'=>$emp_status]);
+                        if ($res3 === false) {
+                            throw new Exception('批量导入失败');
+                        }
+                    }
+
                 } else {
                     //失败记录
                     $data['state'] = $state;
