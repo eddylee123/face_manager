@@ -1,0 +1,18 @@
+{include file='index/head' /}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
+            <div class="title"><h1>{$page.page_title}</h1></div>
+            <div class="list-group">
+                {foreach $lists as $key=>$v}
+                <a class="list-group-item list-group-item-action">{$v.id}、{$v.title}</a>
+                {$v.content}
+                {/foreach}
+
+            </div>
+            {$pages}
+        </div>
+        {include file='index/right' /}
+    </div>
+</div>
+{include file='index/foot' /}

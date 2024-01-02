@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Cache-Control" content="no-siteapp" /><!--页面不转为手机站-->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache,no-store, must-revalidate">
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if lt IE 9]-->
+        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <!--[endif]-->
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="format-detection" content="telephone=no" />
+        <title></title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <style type="text/css">
+            body,form,select,p,textarea,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,div,span,table,tbody,tr,th,td,img{margin:0;padding:0}
+            body{font:12px/22px simsun,Microsoft YaHei;word-wrap:break-word;color:#333;background:#FFF;padding-top:15px;}
+            input{vertical-align:middle;color:#a3a3a3;margin:0;padding:0}
+            img{border:0;vertical-align:middle} ul{list-style:none} table{border-collapse:collapse;border-spacing:0}
+            a{text-decoration:none}
+            .cen{width:100%;margin:0 auto}
+            .circle{-moz-border-radius:9px;-webkit-border-radius:9px;border-radius:9px;display:inline-block}
+            .tbl td,.tbl th{border:1px solid #dcdcdc;text-align:center;}
+            .tbl td{text-align:center}
+            .area{width:100%}
+        </style>
+    </head>
+    <body>
+        <?php $count = count($array); if($count){ ?>
+        <table class="tbl cen"><tr><th>总数 <?php echo $count;?> 条 ， <a href="/admin123.php/index/order_sel">返回查询页</a></th></tr></table>
+ <div class="">
+    <table class="tbl cen">
+        <tr>
+            <th>订单id</th>
+            <th>订单编号</th>
+            <th>防伪码</th>
+            <th>活动名称</th>
+            <th>奖品名称</th>
+            <th>是否发货</th>
+            <th>是否中奖</th>
+            <!--<th>open_id</th>-->
+            <th>中奖时间</th>
+            <th>姓名</th>
+            <th>电话1</th>
+            <th>电话2</th>
+            <!--<th>身份证</th>-->
+        </tr>
+<?php 
+foreach($array as $k=>$r){;?>
+<?php echo '<tr>';?>
+       <?php echo '<td>',$r['order_id'],'</td>';?>
+       <?php echo '<td>`',$r['order_no'],'</td>';?>
+       <?php echo '<td>`',$r['code'],'</td>';?>
+       <?php echo '<td>',$r['event_name'],'</td>';?>
+       <?php echo '<td>',$r['award_name'],'</td>';?>
+       <?php echo '<td>';?>
+           <?php 
+           if($r['is_send']==1){
+           echo '已发放';
+           }
+           elseif($r['is_send']==0){
+           echo '未发放';
+           }
+           elseif($r['is_send']==2){
+           echo '发放失败';
+           }
+           elseif($r['is_send']==3){
+           echo '待收货';
+           }
+           ?>
+       <?php echo '</td>';?>
+   <?php echo '<td>',($r['is_lucky']==1 ? '<span style="color:red">是</span>':'<span style="color:blue">否</span>'),'</td>';?>
+       <?php //echo '<td>',$r['open_id'],'</td>';?>
+       <?php echo '<td>',date('`Y-m-d H:i:s' , $r['add_time']),'</td>';?>
+       <?php echo '<td>',$r['姓名'],'</td>';?>
+       <?php echo '<td>',$r['电话1'],'</td>';?>
+       <?php echo '<td>',$r['电话2'],'</td>';?>
+       <?php //echo '<td>',$r['身份证'],'</td>'; ?>
+       <?php echo ''; ?>
+    <?php } ?>
+</table>
+</div>
+<?php } ?>
+    </body>
+</html>

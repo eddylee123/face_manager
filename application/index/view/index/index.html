@@ -1,0 +1,41 @@
+{include file='index/head' /}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {assign name="ad_arr" value=":position_ad(1)"}
+            <div class="carousel slide" id="demo" data-ride="carousel">
+                <ul class="carousel-indicators">
+                    {foreach $ad_arr as $key=>$vo } 
+                    <li data-target="#demo" data-slide-to="{$key}" {if $key==0} class="active"{/if}></li>
+                    {/foreach}
+                </ul>
+                <div class="carousel-inner">
+                    {foreach $ad_arr as $key=>$vo } 
+                    <div class="carousel-item {if $key==0}active{/if}">
+                        <a href="{$vo.url}"><img style="width:{$vo.width};height:{$vo.height}" src="{$vo.image}" /></a>
+                    </div>
+                    {/foreach}
+                </div>
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
+            <div class="title">最新文章</div>
+            <div class="list-grou">
+                {foreach $lists as $key=>$v}
+                <a href="{:tongyiurl($v.id , 'detail')}" class="list-group-item list-group-item-action">{$v.title}</a>
+                {/foreach}
+            </div>
+        </div>
+        {include file='index/right' /}
+
+    </div>
+</div>
+{include file='index/foot' /}

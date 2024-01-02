@@ -1,0 +1,116 @@
+<style type="text/css">
+    .control-label span {
+        color: red;
+    }
+    .kq-list {
+        width: 180px;
+    }
+</style>
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Emp_id_2')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input class="form-control" name="row[emp_id_2]" type="text" value="{$row.emp_id_2}" readonly>
+        </div>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Emp_name')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input class="form-control" name="row[emp_name]" type="text" value="{$row.emp_name}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Id_card')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input class="form-control" name="row[id_card]" type="text" value="{$row.id_card}" readonly>
+        </div>
+    </div>
+    {if $row['emp_source'] == '劳务工'}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Auth_date')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-auth_date" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[auth_date]" type="text" value="{$row.auth_date}">
+        </div>
+    </div>
+    {/if}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cs_level')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <div class="checkbox cs-list">
+                {foreach name="cs_level_list" item="vo"}
+                <label for="row[cs_level][]-{$key}"><input id="row[cs_level][]-{$key}" name="row[cs_level][]" type="checkbox" value="{$key}" {in name="key" value="$cs_arr" }checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Kq_level')}:</label>
+        <label><input id="kq_all" name="kq_all" type="checkbox" value="-1" />全选</label>
+        <div class="col-xs-12 col-sm-2">
+            <div class="checkbox kq-list">
+                {foreach name="kq_level_list" item="vo"}
+                <label for="row[kq_level][]-{$key}"><input id="row[kq_level][]-{$key}" name="row[kq_level][]" type="checkbox" value="{$key}" {in name="key" value="$kq_arr" }checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" class="btn btn-info btn-embossed nex">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script src="/assets/js/index/jquery.min.js"></script>
+<script type="text/javascript">
+        $(function () {
+            //全选
+            if ($(".kq-list input[type='checkbox']").length
+                == $(".kq-list input[type='checkbox']:checked").length){
+                $("#kq_all").prop("checked",true);
+            }
+            //下一步点击
+            $(".nex").click(function () {
+                var form = $('form').serializeArray();
+                ajaxSub(form);
+            });
+
+            //全选反选
+            $("#kq_all").click(function () {
+                $(".kq-list input[type='checkbox']").prop("checked",$("#kq_all").is(":checked"));
+            });
+            $(".kq-list").click(function () {
+                var len=$(".kq-list input[type='checkbox']").length;
+                var sum = $(".kq-list input[type='checkbox']:checked").length;
+                if (len == sum){
+                    $("#kq_all").prop("checked",true);
+                } else {
+                    $("#kq_all").prop("checked",false);
+                }
+            })
+
+            function ajaxSub(form) {
+                $.ajax({
+                    url: 'employee/roles?emp2='+"{$row.emp_id_2}",
+                    type: 'POST',
+                    data: form,
+                    dataType: 'json',
+                    success: function (ret) {
+                        // console.log(ret);return;
+                        if (ret.code === 1) {
+                            Toastr.success('操作成功');
+                            Fast.api.close();
+                            parent.location.reload();
+                        } else {
+                            Toastr.error(ret.msg);
+                        }
+                    }, error: function () {
+                        Toastr.error(__('系统异常，请稍后再试'));
+                    }
+                });
+            }
+
+
+        })
+
+</script>

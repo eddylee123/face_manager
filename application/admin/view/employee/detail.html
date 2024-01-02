@@ -1,0 +1,425 @@
+<link rel="stylesheet" href="/assets/css/step.css">
+<script src="/assets/js/index/jquery.min.js"></script>
+
+<form id="detail-form" class="form-horizontal" method="POST" action="">
+    <div class="step">
+        <ul class="nav nav-pills nav-justified step step-progress" data-step="1" id="step-cluster">
+            {foreach name="stepList" item="vo"}
+            <li>
+                <a>{$vo}<span class="caret"></span></a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="title">1.基础信息</div>
+    <div class="area tab-1">
+        <div class="form-group">
+            <label class="control-label col-xs-3 col-sm-2">{:__('Emp_name')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                <input id="c-emp_name" class="form-control" name="row[emp_name]" type="text" value="{$row.emp_name|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-3 col-sm-2">{:__('Sex')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[sex]', $sexList, $row['sex'],['disabled'=>"disabled"] )}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Address')}:</label>
+            <div class=" col-xs-12 col-sm-8">
+                <input id="c-address" class="form-control" name="row[address]" type="text" value="{$row.address|htmlentities}" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Education')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-education" class="form-control selectpicker" name="row[education]" disabled>
+                    {foreach name="eduList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.education"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Folk')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-folk" class="form-control selectpicker" name="row[folk]" disabled>
+                    {foreach name="folkList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.folk"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Id_card')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-id_card" class="form-control" name="row[id_card]" type="text" value="{$row.id_card|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Id_department')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-id_department" class="form-control" name="row[id_department]" type="text" value="{$row.id_department|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Id_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-id_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[id_date]" type="text" value="{$row.id_date}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Id_validity')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-id_validity" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[id_validity]" type="text" value="{$row.id_validity}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Come_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-come_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[come_date]" type="text" value="{$row.come_date}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Birthday')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-birthday" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[birthday]" type="text" value="{$row.birthday}" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Marry')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-marry" class="form-control selectpicker" name="row[marry]" disabled>
+                    {foreach name="marryList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.marry"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Emp_source')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-emp_source" class="form-control selectpicker" name="row[emp_source]" disabled>
+                    {foreach name="empSourceList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.emp_source"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Age')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-age" class="form-control" name="row[age]" type="number" value="{$row.age|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Tel')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-tel" class="form-control" name="row[tel]" type="text" value="{$row.tel|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Army')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-army" class="form-control selectpicker" name="row[army]" disabled>
+                    {foreach name="armyList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.army"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('transport')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-trans" class="form-control selectpicker" name="row[transport]" disabled>
+                    {foreach name="transList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.transport"}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Position')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-position" class="form-control" name="row[position]" type="text" value="{$row.position|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Shoe')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-shoe" class="form-control" name="row[shoe]" type="number" value="{$row.shoe|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_man')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-urgency_man" class="form-control" name="row[urgency_man]" type="text" value="{$row.urgency_man|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_relation')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-urgency_relation" class="form-control" name="row[urgency_relation]" type="text" value="{$row.urgency_relation|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_tel')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-urgency_tel" class="form-control" name="row[urgency_tel]" type="text" value="{$row.urgency_tel|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Intro_name')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-intro_name" class="form-control" name="row[intro_name]" type="text" value="{$row.intro_name|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Intro_emp_id')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-intro_emp_id" class="form-control" name="row[intro_emp_id]" type="text" value="{$row.intro_emp_id|htmlentities}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Remark')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-remark" class="form-control" name="row[remark]" type="text" value="{$row.remark|htmlentities}" readonly>
+            </div>
+        </div>
+        {if $row['status'] == '4'}
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Contract_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-contract_date" data-rule="required" class="form-control" data-use-current="true" name="row[contract_date]" type="text" value="{$row.contract_date}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Contract_validate')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-contract_validate" data-rule="required" class="form-control" data-use-current="true" name="row[contract_validate]" type="text" value="{$row.contract_validate}" readonly>
+            </div>
+        </div>
+        {/if}
+        {if $row['emp_source'] == '劳务工'}
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Serv_company')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-serv_company"  class="form-control" data-use-current="true" name="row[serv_company]" type="text" value="{$row.serv_company}" readonly>
+            </div>
+        </div>
+        {/if}
+        <div class="form-group">
+            <label class="control-label col-xs-3 col-sm-2">{:__('Resign')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[resign]', $radio_list, $row['resign'],['disabled'=>"disabled"])}
+            </div>
+            <label class="control-label col-xs-3 col-sm-2">{:__('Leave')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[leave]', $radio_list, $row['leave'],['disabled'=>"disabled"])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3 col-sm-2">{:__('Disease')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[disease]', $radio_list, $row['disease'],['disabled'=>"disabled"])}
+            </div>
+            <label class="control-label col-xs-3 col-sm-2">{:__('Disability')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[disability]', $radio_list, $row['disability'],['disabled'=>"disabled"])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3 col-sm-2">{:__('Dis_contract')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[dis_contract]', $radio_list, $row['dis_contract'],['disabled'=>"disabled"])}
+            </div>
+            <label class="control-label col-xs-3 col-sm-2">{:__('Insurance')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[insurance]', $radio_list, $row['insurance'],['disabled'=>"disabled"])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3 col-sm-2">{:__('black')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[black]', $radio_list, $row['black'],['disabled'=>"disabled"])}
+            </div>
+            <label class="control-label col-xs-3 col-sm-2">{:__('Fault')}:</label>
+            <div class="col-xs-3 col-sm-3">
+                {:Form::radios('row[fault]', $radio_list, $row['fault'],['disabled'=>"disabled"])}
+            </div>
+        </div>
+    </div>
+
+    <div class="title">2.人像照片</div>
+    <div class="area">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">人像照片</label>
+            <div class="img-list">
+                <img src="{$img.img1}">
+                <img src="{$img.img2}">
+                <img src="/assets/img/btn_photo.png" class="tab-2">
+            </div>
+        </div>
+    </div>
+
+    <div class="title">3.健康信息</div>
+    <div class="area">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Cert_number')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-cert_number" class="form-control" name="exam[cert_number]" type="text" value="{$exam.cert_number|htmlentities}" readonly>
+            </div>
+            <label class="control-label col-xs-12 col-sm-2">{:__('Exam_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-exam_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="exam[exam_date]" type="text" value="{$exam.exam_date}" readonly>
+            </div>
+            <input type="button" class="exam-list" name="btn-exam" value="体检记录">
+        </div>
+        <div class="tab-3">
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('Cert_date')}:</label>
+                <div class="col-xs-12 col-sm-3">
+                    <input id="c-cert_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="exam[cert_date]" type="text" value="{$exam.cert_date}" readonly>
+                </div>
+                <label class="control-label col-xs-12 col-sm-2">{:__('Cert_validity')}:</label>
+                <div class="col-xs-12 col-sm-3">
+                    <input id="c-cert_validity" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="exam[cert_validity]" type="text" value="{$exam.cert_validity}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('Hb')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-hb" class="form-control" name="exam[hb]" type="text" value="{$exam.hb|htmlentities}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('RemarkExam')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input class="form-control" name="exam[remark]" type="text" value="{$exam.remark|htmlentities}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('Re_exam')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-re_exam" class="form-control" name="exam[re_exam]" type="text" value="{$exam.re_exam|htmlentities}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('Exam_org')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-exam_org" class="form-control" name="exam[exam_org]" type="text" value="{$exam.exam_org|htmlentities}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    {:Form::radios('exam[status]', $statusListExam, $exam['status'],['disabled'=>"disabled"] )}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="title">4.权限信息</div>
+    <div class="area tab-4">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Cs_level')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <div class="checkbox cs-list">
+                    {foreach name="cs_level_list" item="vo"}
+                    <label for="row[cs_level][]-{$key}"><input disabled id="row[cs_level][]-{$key}" name="row[cs_level][]" type="checkbox" value="{$key}" {in name="key" value="$cs_arr" }checked{/in} /> {$vo}</label>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Kq_level')}:</label>
+            <div class="col-xs-12 col-sm-2">
+                <div class="checkbox" style="width: 200px">
+                    {foreach name="kq_level_list" item="vo"}
+                    <label for="row[kq_level][]-{$key}"><input disabled id="row[kq_level][]-{$key}" name="row[kq_level][]" type="checkbox" value="{$key}" {in name="key" value="$kq_arr" }checked{/in} /> {$vo}</label>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+        {if $row['emp_source'] == '劳务工'}
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Auth_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-auth_date" class="form-control" data-use-current="true" name="row[auth_date]" type="text" value="{$row.auth_date}" readonly>
+            </div>
+        </div>
+        {/if}
+    </div>
+
+    <div class="form-group layer-footer">
+        <input type="hidden" name="pass" value="1">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" class="btn btn-danger close-dia">确定</button>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    $(function () {
+        //下一步点击
+        $(".close-dia").click(function () {
+            window.location = "{$index}";
+        });
+        $(".tab-1").click(function () {
+            parent.Fast.api.open("employee/edit?ids={$row.id}", '基础信息', {area:["100%", "100%"]});
+        });
+        $(".tab-2").click(function () {
+            parent.Fast.api.open("employee/photo?emp2={$row.emp_id_2}", '人脸拍照', {area:["100%", "100%"]});
+        });
+        $(".tab-3").click(function () {
+            if ("{$row.status}" > 1) {
+                parent.Fast.api.open("employee/exam?emp2={$row.emp_id_2}", '体检信息', {area:["100%", "100%"]});
+            }
+            return false;
+        });
+        $(".tab-4").click(function () {
+            if ("{$row.status}" < 2) {
+                return false;
+            }
+            parent.Fast.api.open("employee/roles?emp2={$row.emp_id_2}", '权限信息', {area:["100%", "100%"]});
+        });
+        $(".exam-list").click(function () {
+            parent.Fast.api.open("emp_exam/index?emp2={$row.emp_id_2}", '体检记录', {area:["100%", "100%"]});
+        });
+
+        function bsStep(i) {
+            $('.step').each(function () {
+                var a, $this = $(this);
+                if (i > $this.find('li').length) {
+                    a = $this.find('li').length;
+                }
+                else if (i == undefined && $this.data('step') == undefined) {
+                    a = 1;
+                }
+                else if (i == undefined && $this.data('step') != undefined) {
+                    a = $(this).data('step');
+                }
+                else {
+                    a = i;
+                }
+                $(this).find('li').removeClass('active');
+                $(this).find('li:lt(' + a + ')').addClass('active');
+            });
+        };
+
+        bsStep("{$step}");
+
+        function ajaxSub(form) {
+            $.ajax({
+                url: 'employee/report?id_card='+"{$row.id_card}",
+                type: 'POST',
+                data: form,
+                dataType: 'json',
+                success: function (ret) {
+                    // console.log(ret);return;
+                    if (ret.code === 1) {
+                        if (ret.data.url.length > 0) {
+                            Toastr.success('操作成功，正在跳转……');
+                            setTimeout(function () {
+                                Fast.api.close();
+                                parent.Fast.api.open(ret.data.url, ret.data.named, {area:["100%", "100%"]});
+                            }, 2000);
+                        } else {
+                            Toastr.success('操作成功');
+                            Fast.api.close();
+                        }
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                }, error: function () {
+                    Toastr.error(__('系统异常，请稍后再试'));
+                }
+            });
+        }
+    })
+
+</script>

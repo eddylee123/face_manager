@@ -1,0 +1,8 @@
+/application/extra/site.php
+/.idea
+/runtime/cache
+/runtime/log
+/runtime/temp
+/public/uploads
+/runtime
+.env

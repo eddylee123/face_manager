@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="/assets/css/step.css">
+<style type="text/css">
+    .control-label span {
+        color: red;
+    }
+</style>
+<form id="exam-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="title">1.个人信息</div>
+    <div class="area tab-1">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Username')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-username" data-rule="required" class="form-control" name="row[username]" type="text" value="{$row.username|htmlentities}">
+            </div>
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Age')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-age" data-rule="required" class="form-control" name="row[age]" type="number" value="{$row.age|htmlentities}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Id_card')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-id_card" data-rule="required" class="form-control" name="row[id_card]" type="text" value="{$row.id_card|htmlentities}">
+            </div>
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Sex')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                {:Form::radios('row[sex]', $sexList, $row['sex'])}
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Tel')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-tel" data-rule="required" class="form-control" name="row[tel]" type="text" value="{$row.tel|htmlentities}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Cert_number')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-cert_number" data-rule="required" class="form-control" name="row[cert_number]" type="text" value="">
+            </div>
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Exam_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-exam_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[exam_date]" type="text" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Cert_date')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-cert_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[cert_date]" type="text" value="">
+            </div>
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Cert_validity')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <input id="c-cert_validity" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[cert_validity]" type="text" value="">
+            </div>
+        </div>
+    </div>
+    <div class="title">2.体检详情</div>
+    <div class="area tab-2">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Re_exam')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-re_exam" class="form-control" name="row[re_exam]" type="text" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('RemarkExam')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-remark" class="form-control" name="row[remark]" type="text" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Exam_org')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-exam_org" class="form-control" name="row[exam_org]" type="text" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Status')}:</label>
+            <div class="col-xs-12 col-sm-8">
+                {:build_radios('row[status]', $statusListExam, 2)}
+            </div>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" class="btn btn-success btn-embossed push" value="sub">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script src="/assets/js/index/jquery.min.js"></script>
+<script src="/assets/libs/nice-validator/dist/jquery.validator.min.js"></script>
+<script src="/assets/libs/nice-validator/dist/local/zh-CN.js"></script>
+<script type="text/javascript">
+    $(function ($) {
+        $('.push').click(function () {
+            var flag = $(this).val();
+            var state = $('form').isValid();
+            if (state) {
+                ajaxSub(flag);
+            }
+        });
+
+        function ajaxSub(flag) {
+            var form = $('form').serializeArray();
+            $.ajax({
+                url: base_file+"/employee/exam?emp2={$row.emp_id_2}",
+                type: 'POST',
+                data: form,
+                dataType: 'json',
+                success: function (ret) {
+                    // console.log(ret);return;
+                    if (ret.code === 1) {
+                        if (flag === 'sub') {
+                            Toastr.success('操作成功');
+                            Fast.api.close();
+                            parent.location.reload();
+                        } else {
+
+                        }
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                }, error: function () {
+                    Toastr.error(__('系统异常，请稍后再试'));
+                }
+            });
+        }
+
+        $('form').validator({
+            fields: {
+                'row[username]': "required",
+                'row[age]': "required",
+                'row[id_card]': "required",
+                'row[sex]': "required",
+                'row[tel]': "required",
+                'row[cert_number]': "required",
+                'row[exam_date]': "required",
+                'row[cert_date]': "required",
+                'row[cert_validity]': "required",
+                'row[status]': "required",
+            }
+        });
+    })
+</script>

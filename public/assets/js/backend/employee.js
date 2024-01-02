@@ -1,0 +1,176 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'employee/index' + location.search,
+                    add_url: 'employee/add',
+                    // edit_url: 'employee/edit',
+                    // del_url: 'employee/del',
+                    multi_url: 'employee/multi',
+                    import_url: 'employee/import',
+                    table: 'employee',
+                }
+            });
+
+            var table = $("#table");
+
+            //  e.preventDefault();
+            //var ids = Table.api.selectedids(table);
+            /*
+            Config.columns
+            Config.moduleurl
+            Config.controllername
+               , formatter: function(val, row){
+               var html = url_class_val(row.id+'" datas="status=1' , "btn btn-xs btn-success btn-editone" , '<i class="fa fa-pencil"></i>');
+               return html;
+               }}
+               */
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'id',
+                sortName: 'id',
+                searchFormVisible:true,
+                exportOptions: {
+                    fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
+                    ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
+                },
+
+                columns: [
+                    [
+                        // {checkbox: true},
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate,
+                            buttons: [
+                                {
+                                    name: 'base',
+                                    text:__('员工信息'),
+                                    title: __('员工信息'),
+                                    //图标
+                                    icon: 'fa fa-user-circle',
+                                    //btn-dialog表示为弹窗
+                                    classname: 'btn btn-xs btn-default',
+                                    //弹窗位置，//自带参数ids
+                                    url: 'employee/detail',
+                                    //弹窗大小
+                                    extend: 'data-area=\'["100%","100%"]\', target="_blank"',
+
+                                }
+                            ]
+                        },
+                        {field: 'emp_id', title: __('Emp_id'), operate: 'LIKE'},
+                        {field: 'emp_id_2', title: __('Emp_id_2'), operate: 'LIKE'},
+                        {field: 'status', title: __('Status'),searchList: Config.status_list, formatter: Table.api.formatter.status},
+                        {field: 'emp_name', title: __('Emp_name'), operate: 'LIKE'},
+                        {field: 'sex', title: __('Sex'), searchList: {"男":__('男'),"女":__('女')}, formatter: Table.api.formatter.normal},
+                        {field: 'education', title: __('Education'), operate: false},
+                        {field: 'id_card', title: __('Id_card')},
+                        {field: 'emp_source', title: __('Emp_source'), searchList: {"合同工":__('合同工'),"劳务工":__('劳务工')}, formatter: Table.api.formatter.normal},
+                        {field: 'tel', title: __('Tel')},
+                        {field: 'marry', title: __('Marry'), searchList: Config.sex_list, formatter: Table.api.formatter.normal},
+                        {field: 'age', title: __('Age'), operate: false},
+                        // {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
+                        {field: 'come_date', title: __('Come_date'), operate:'RANGE_da', addclass:'datetimerange', autocomplete:false},
+                        {field: 'kq_date', title: __('Kq_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
+                        {field: 'exam_time', title: '体检时间', operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime,visible:false},
+                        {field: 'address', title: '身份证地址'},
+                        //设置权限
+                        {field: 'id', title: __('权限'), table: table,
+                            buttons:
+                                [
+                                    {
+                                        name: 'roles',
+                                        text:__('权限'),
+                                        title: __('权限'),
+                                        //图标
+                                        icon: 'fa fa-user-plus',
+                                        //btn-dialog表示为弹窗
+                                        classname: 'btn btn-xs btn-primary btn-dialog',
+                                        //弹窗位置，//自带参数ids
+                                        url: 'employee/roles?emp2={row.emp_id_2}',
+                                        //弹窗大小
+                                        extend: 'data-area=\'["100%","100%"]\'',
+                                        //参数回传的数据
+                                        callback:function(){}
+                                    },
+                                ], operate:false, formatter: Table.api.formatter.buttons
+                        },
+                    ]
+                ]
+                ,onLoadSuccess: function(){
+                    $('.search , .columns-right').hide();
+                    $('.btn_export').unbind('click').click(function(){
+                        $('.dropdown-menu li[data-type="excel"]').trigger('click');
+                    });
+                    $('#ctime').attr('autocomplete','off');
+                    //报道
+                    $('.btn_report').unbind('click').click(function(){
+                        //sessionStorage.removeItem('device');
+                        var device = sessionStorage.getItem('device');
+                        if (device !== null) {
+                            $.ajax({
+                                url: base_file+"/employee/readCard?device="+device,
+                                type: 'POST',
+                                data: {},
+                                dataType: 'json',
+                                success: function (ret) {
+                                    // console.log(ret);return;
+                                    if (ret.code === 1) {
+                                        Fast.api.open(
+                                            'employee/report?id_card='+ret.data.id,
+                                            '报到详情',
+                                            {area:["100%", "100%"]
+                                            });
+                                    } else {
+                                        Toastr.error(ret.msg);
+                                    }
+                                }, error: function () {
+                                    Toastr.error(__('系统异常，请稍后再试'));
+                                }
+                            });
+                        } else {
+                            //没有绑定设备弹窗
+                            Toastr.error(__('设备暂未绑定，请先绑定后操作~'));
+                            Fast.api.open("employee/device", '设备绑定', {area: ["70%", "70%"]});
+                        }
+                    });
+                    //导出
+                    $('#btn-export-table').unbind('click').click(function(){
+                        var jsonData = JSON.stringify($('form').serializeArray());
+                        // console.log();return;
+
+                        var url = base_file+"/employee/export?filter="+btoa(encodeURI(jsonData));
+                        window.open(url, '_blank');
+                    })
+                }
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+        },
+        roles: function () {
+            Controller.api.bindevent();
+        },
+        exam: function () {
+            Controller.api.bindevent();
+        },
+        report: function () {
+            Controller.api.bindevent();
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            }
+        },
+
+    };
+    return Controller;
+});

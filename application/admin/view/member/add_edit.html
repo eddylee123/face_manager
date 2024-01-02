@@ -1,0 +1,149 @@
+<style type="text/css">
+    #pass_span{ line-height:32px;padding-left:5px;  }
+</style>
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{notempty name="row.title"}{$row.title}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">实例ID:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[instanceId]" type="text" value="{notempty name="row.instanceId"}{$row.instanceId}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {empty name="row.status"} {assign name="row.status" value="0"} {/empty}
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" data-rule="required" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label>
+            {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pass_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="button" class="btn btn-success btn_sel" value="选择" /><span id="pass_span">{notempty name="row.pass_id"}{$row.pass_id}{/notempty}</span>
+            <input id="c-pass_id" data-source="pass/index" class="form-control" name="row[pass_id]" type="hidden" value="{notempty name="row.pass_id"}{$row.pass_id}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Username')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" data-rule="required" class="form-control" name="row[user]" type="text" value="{notempty name="row.user"}{$row.user}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Password')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-password" data-rule="required" class="form-control" name="row[pass]" type="text" value="{notempty name="row.pass"}{$row.pass}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">费用:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cost" class="form-control" name="row[cost]" type="text" value="{notempty name="row.cost"}{$row.cost}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Outer_net')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-outer_net" class="form-control" name="row[outer_net]" type="text" value="{notempty name="row.outer_net"}{$row.outer_net}{/notempty}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Inside_net')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-inside_net" class="form-control" name="row[inside_net]" type="text" value="{notempty name="row.inside_net"}{$row.inside_net}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Port')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-port" class="form-control" name="row[port]" type="text" value="{notempty name="row.port"}{$row.port}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cpu')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cpu" class="form-control" name="row[cpu]" type="text" value="{notempty name="row.cpu"}{$row.cpu}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Hard_disk')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-hard_disk" class="form-control" name="row[hard_disk]" type="text" value="{notempty name="row.hard_disk"}{$row.hard_disk}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Memory')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-memory" class="form-control" name="row[memory]" type="text" value="{notempty name="row.memory"}{$row.memory}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('System')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-system" class="form-control" name="row[system]" type="text" value="{notempty name="row.system"}{$row.system}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">认证时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sign_time" name="row[sign_time]" class="form-control datetimepicker" type="text" value="{notempty name="row.sign_time"}{$row.sign_time}{/notempty}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Files')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                {empty name="row.files"}{~$row.files=''}{/empty}
+                <input id="c-files" class="form-control" size="50" name="row[files]" type="text" value="{$row.files|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-files" data-category="asset" class="btn btn-danger faupload" data-mimetype="jpg,png,bmp,jpeg,gif,zip,rar,xls,csv,xlsx,wav,mp4,mp3,pdf,txt,gz" data-input-id="c-files" data-multiple="true" data-preview-id="p-files"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-files" class="btn btn-primary fachoose" data-mimetype="jpg,png,bmp,jpeg,gif,zip,rar,xls,csv,xlsx,wav,mp4,mp3,pdf,txt,gz" data-input-id="c-files" data-multiple="true"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-files"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-files"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Other')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-other" class="form-control " rows="6" name="row[other]" cols="50">{notempty name="row.other"}{$row.other}{/notempty}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('comment')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-other" class="form-control " rows="6" name="row[comment]" cols="50">{notempty name="row.comment"}{$row.comment}{/notempty}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Action')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-action" class="form-control " readonly="readonly" rows="6" name="row[action]" cols="50">{notempty name="row.action"}{$row.action}{/notempty}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Remarks')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-remarks" class="form-control " readonly="readonly" rows="5" name="row[remarks]" cols="50">{notempty name="row.remarks"}{$row.remarks}{/notempty}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

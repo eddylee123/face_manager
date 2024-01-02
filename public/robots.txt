@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:admin123.php/
+Disallow:api123.html/

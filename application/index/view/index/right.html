@@ -1,0 +1,6 @@
+<div class="col-sm-4 col-md-4 col-lg-4 col-xl-3">
+    <div class="title">TAG标签</div>
+    {foreach $third as $key=>$v}
+    <a href="{:tongyiurl($v.tagname , 'search')}" class="tag">{$v.tagname}</a>
+    {/foreach}
+</div>

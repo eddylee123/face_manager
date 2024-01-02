@@ -1,0 +1,325 @@
+<style type="text/css">
+    .control-label span {
+        color: red;
+    }
+</style>
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group" style="margin-left: 20px;">
+        <button type="button" class="btn btn-danger btn-embossed read">身份证读取</button>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-3 col-sm-2"><span>*</span>{:__('Emp_name')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            <input id="c-emp_name" data-rule="required;length(~20)" class="form-control" name="row[emp_name]" type="text" value="">
+        </div>
+        <label class="control-label col-xs-3 col-sm-2"><span>*</span>{:__('Sex')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[sex]', $sexList )}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Address')}:</label>
+        <div class=" col-xs-12 col-sm-8">
+            <input id="c-address" data-rule="required;length(~200)" class="form-control" name="row[address]" type="text" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Education')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <select  id="c-education" data-rule="required" class="form-control selectpicker" name="row[education]">
+                {foreach name="eduList" item="vo"}
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Folk')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <select  id="c-folk" data-rule="required" class="form-control selectpicker" name="row[folk]">
+                {foreach name="folkList" item="vo"}
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Id_card')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-id_card" data-rule="required;IDcard" class="form-control" name="row[id_card]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Id_department')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-id_department" data-rule="required;length(~200)" class="form-control" name="row[id_department]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Id_date')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-id_date" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[id_date]" type="text" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Id_validity')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-id_validity" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[id_validity]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Come_date')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-come_date" data-rule="required" class="form-control" name="row[come_date]" type="text" value="{$come_date}" readonly>
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Birthday')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-birthday" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[birthday]" type="text" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Marry')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <select  id="c-marry" data-rule="required" class="form-control selectpicker" name="row[marry]">
+                {foreach name="marryList" item="vo"}
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Emp_source')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            {:Form::radios('row[emp_source]', $empSourceList, '合同工')}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Age')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-age" data-rule="required;digits" class="form-control" name="row[age]" type="number" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Tel')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-tel" data-rule="required;mobile" class="form-control" name="row[tel]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Shoe')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-shoe" data-rule="required;digits" class="form-control" name="row[shoe]" type="number" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Army')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            {:Form::radios('row[army]', $armyList)}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Position')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-position" class="form-control" name="row[position]" type="text" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2">{:__('transport')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <select  id="c-trans" class="form-control selectpicker" name="row[transport]">
+                {foreach name="transList" item="vo"}
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_man')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-urgency_man" class="form-control" name="row[urgency_man]" type="text" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_relation')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            {:Form::select('row[urgency_relation]', $relation_list)}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Urgency_tel')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-urgency_tel" class="form-control" name="row[urgency_tel]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Intro_name')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-intro_name" class="form-control" name="row[intro_name]" type="text" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Intro_emp_id')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input id="c-intro_emp_id" class="form-control" name="row[intro_emp_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-remark" class="form-control" name="row[remark]" type="text" value="">
+        </div>
+    </div>
+<!--    <div class="form-group">-->
+<!--        <label class="control-label col-xs-3 col-sm-2">{:__('Resign')}:</label>-->
+<!--        <div class="col-xs-3 col-sm-3">-->
+<!--            {:Form::radios('row[resign]', $radio_list)}-->
+<!--        </div>-->
+<!--        <label class="control-label col-xs-3 col-sm-2">{:__('Leave')}:</label>-->
+<!--        <div class="col-xs-3 col-sm-3">-->
+<!--            {:Form::radios('row[leave]', $radio_list)}-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="form-group">
+        <label class="control-label col-xs-3 col-sm-2">{:__('Disease')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[disease]', $radio_list)}
+        </div>
+        <label class="control-label col-xs-3 col-sm-2">{:__('Disability')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[disability]', $radio_list)}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-3 col-sm-2">{:__('Dis_contract')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[dis_contract]', $radio_list, 1)}
+        </div>
+        <label class="control-label col-xs-3 col-sm-2">{:__('Insurance')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[insurance]', $radio_list, 1)}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-3 col-sm-2">{:__('black')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[black]', $radio_list)}
+        </div>
+        <label class="control-label col-xs-3 col-sm-2">{:__('Fault')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            {:Form::radios('row[fault]', $radio_list)}
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-info btn-embossed disabled">{:__('OK')}</button>
+            <button type="button" class="btn btn-success btn-embossed push" value="nex">下一步</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+
+        </div>
+    </div>
+</form>
+<script src="/assets/js/index/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //下一步点击
+        $('.push').click(function () {
+            var flag = $(this).val();
+            var state = $('form').isValid();
+            if (state) {
+                ajaxSub(flag);
+            }
+        });
+
+        function ajaxSub(flag) {
+            var form = $('form').serializeArray();
+            $.ajax({
+                url: base_file+"/employee/add",
+                type: 'POST',
+                data: form,
+                dataType: 'json',
+                success: function (ret) {
+                    // console.log(ret);return;
+                    if (ret.code === 1) {
+                        if (flag === 'nex') {
+                            Toastr.success('操作成功，正在跳转……');
+                            setTimeout(function () {
+                                Fast.api.close();
+                                parent.Fast.api.open(ret.data.url, '人脸拍照', {area: ["100%", "100%"]});
+                            }, 2000);
+                        } else {
+                            Toastr.success('操作成功');
+                            Fast.api.close();
+                            parent.location.reload();
+                        }
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                }, error: function () {
+                    Toastr.error(__('系统异常，请稍后再试'));
+                }
+            });
+        }
+
+        $(".read").click(function () {
+            var device = sessionStorage.getItem('device');
+            if (device !== null) {
+                $.ajax({
+                    url: base_file+"/employee/readCard?flag=add&device="+device,
+                    type: 'POST',
+                    data: {},
+                    dataType: 'json',
+                    success: function (ret) {
+                        if (ret.code === 1) {
+                            var data = ret.data;
+                            $('#c-emp_name').val(data.name);
+                            $('#c-id_card').val(data.id);
+                            $('#c-address').val(data.address);
+                            $("input[name='row[sex]'][value='"+data.sex+"']").prop("checked",true);
+                            $('#c-folk').selectpicker("val", data.folk); //民族
+                            $('#c-id_department').val(data.dep);
+                            $('#c-birthday').val(data.birth);
+                            $('#c-id_date').val(data.begin);
+                            $('#c-id_validity').val(data.end);
+                            $('#c-age').val(data.age);
+                            if (data.err_msg.length > 0) {
+                                Toastr.error(ret.data.err_msg);
+                            }
+                        } else {
+                            Toastr.error(ret.msg);
+                        }
+                    }, error: function () {
+                        Toastr.error(__('系统异常，请稍后再试'));
+                    }
+                });
+            } else {
+                //没有绑定设备弹窗
+                Toastr.error(__('设备暂未绑定，请先绑定后操作~'));
+                Fast.api.open("employee/device", '设备绑定', {area: ["70%", "70%"]});
+            }
+        });
+
+        $("#c-intro_emp_id").change(function () {
+            var emp_id = $(this).val();
+            if (emp_id.length == 10) {
+                $.get(base_file + "/employee/empInfo?emp_id=" + emp_id, function (ret) {
+                    if (ret.code == 1) {
+                        $("#c-intro_name").val(ret.msg);
+                    }
+                });
+            }
+        })
+
+        $('form').validator({
+            fields: {
+                'row[emp_name]': "required",
+                'row[sex]': "required",
+                'row[address]': "required",
+                'row[education]': "required",
+                'row[folk]': "required",
+                'row[id_card]': "required",
+                'row[id_department]': "required",
+                'row[id_date]': "required",
+                'row[id_validity]': "required",
+                'row[come_date]': "required",
+                'row[birthday]': "required",
+                'row[emp_source]': "required",
+                'row[marry]': "required",
+                'row[age]': "required",
+                'row[tel]': "required",
+                'row[army]': "required",
+                'row[shoe]': "required",
+            }
+        });
+
+    })
+</script>

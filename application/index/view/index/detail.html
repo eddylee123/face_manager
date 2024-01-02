@@ -1,0 +1,23 @@
+{include file='index/head' /}
+<style type="text/css">
+    .line p{line-height:24px;} 
+    .line p{margin-bottom:0;}
+</style>
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
+            <h1 class="mt-3 text-center detail_h1">{$rows.title}</h1>
+            <div class="list-group mt-4 line">
+                {$rows.content}
+            </div>
+            <hr style="border:1 dashed #987cb9" color="#987cb9" size=1>
+            <div>
+                {foreach $tags as $r}
+                <a href="{:tongyiurl($r , 'search' )}">{$r}</a>
+                {/foreach}
+            </div>
+        </div>
+        {include file='index/right' /}
+    </div>
+</div>
+{include file='index/foot' /}

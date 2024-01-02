@@ -1,0 +1,15 @@
+{include file='index/head' /}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
+            <div class="title"><h1>{$page.page_title}</h1></div>
+            <div class="list-group">
+                {foreach $lists as $key=>$v}
+                <a href="{:tongyiurl($v.id , 'detail')}" class="list-group-item list-group-item-action">{$v.title}</a>
+                {/foreach}
+            </div>
+        </div>
+        {include file='index/right' /}
+    </div>
+</div>
+{include file='index/foot' /}

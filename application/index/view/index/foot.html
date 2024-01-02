@@ -1,0 +1,25 @@
+<div class="container-fluid foot mt-4">
+    <div class="container">联系qq：{:config('site.qq_number')} 备案号：<a href="https://beian.miit.gov.cn/#/Integrated/index"
+            target="_blank">{:config('site.beian')}</a>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+            $('#se').click(function(){
+                var search = $("#te").val();
+                if(search==''){
+                alert('搜索内容不能为空');
+                return false;
+                }
+                window.location.href='/search/'+search;
+                });
+            });
+$('#te').focus().bind('keypress', function (event) {
+        var search = $(this).val();
+        if (event.keyCode == "13") {
+        window.location.href='/search/'+search;
+        }
+        });
+    </script>
+</body>
+</html>

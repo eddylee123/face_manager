@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Cache-Control" content="no-siteapp" /><!--页面不转为手机站-->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache,no-store, must-revalidate">
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if lt IE 9]-->
+        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <!--[endif]-->
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="format-detection" content="telephone=no" />
+        <title></title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <style type="text/css">
+            body,form,select,p,textarea,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,div,span,table,tbody,tr,th,td,img{margin:0;padding:0}
+            body{font:12px/22px simsun,Microsoft YaHei;word-wrap:break-word;color:#333;background:#FFF;padding-top:15px;}
+            input{vertical-align:middle;color:#a3a3a3;margin:0;padding:0}
+            img{border:0;vertical-align:middle} ul{list-style:none} table{border-collapse:collapse;border-spacing:0}
+            .cen{width:100%;margin:0 auto}
+            .circle{-moz-border-radius:9px;-webkit-border-radius:9px;border-radius:9px;display:inline-block}
+            .tbl td,.tbl th{border:1px solid #dcdcdc;text-align:center;}
+            .tbl td{text-align:center}
+            .area{width:100%}
+        </style>
+    </head>
+    <body>
+        <form action="" method="post">
+        <table class="cen tbl">
+            <tr><td><textarea rows="6" name="area" class="area" placeholder="微信昵称:
+验证码:https://e.kwwblcj.com/?c=60140145123456789&open_id=oJ7JruNHqOMzyLKbUEF3abcdefgh
+
+微信昵称:
+https://e.kwwblcj.com/?c=60140145123456789&open_id=oJ7JruNHqOMzyLKbUEF3abcdefgh">{$post}</textarea></td></tr>
+
+            <tr><td><input type="reset" class="btn btn-default area_hide" value="隐藏" /><input type="submit" class="click btn btn-info" value="查询" /></td></tr>
+        </table>
+        </form>
+        <?php $count = count($array); if($count){ ?>
+    <table class="tbl cen"><tr><th>总数 <?php echo $count;?> 条</th></tr></table>
+ <div class="">
+    <table class="tbl cen">
+        <tr>
+            <th>验证码</th>
+            <th>防伪码</th>
+            <!--<th>open_id</th>-->
+            <th>活动名称</th>
+            <th>奖品</th>
+            <th>红包金额</th>
+            <th>IP</th>
+            <th>城市</th>
+            <th>奖品发送时间</th>
+            <th>参与时间</th>
+            <th>生产时间</th>
+        </tr>
+<?php 
+foreach($array as $k=>$r){;?>
+<?php echo '<tr>';?>
+       <?php echo '<td>',$r['check'],'</td>';?>
+       <?php echo '<td>`',$r['code'],'</td>';?>
+       <?php //echo '<td>',$r['open_id'],'</td>';?>
+       <?php echo '<td>',$r['event_name'],'</td>';?>
+       <?php echo '<td>',$r['award_name'],'</td>';?>
+       <?php echo '<td>',($r['money'] ? $r['money']/100:$r['money']),'</td>';?>
+       <?php echo '<td>',$r['add_ip'],'</td>';?>
+       <?php echo '<td>',$r['province'],',',$r['city'],'</td>';?>
+       <?php echo '<td>',date('Y-m-d H:i:s' , $r['send_time']),'</td>';?>
+       <?php echo '<td>',date('Y-m-d H:i:s' , $r['add_time']),'</td>';?>
+       <?php echo '<td>',date('Y-m-d H:i:s' , $r['product_create_time']),'</td>';?>
+    <?php } ?>
+</table>
+</div>
+<?php } ?>
+    </body>
+</html>
