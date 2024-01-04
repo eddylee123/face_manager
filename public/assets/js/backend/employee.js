@@ -8,7 +8,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     index_url: 'employee/index' + location.search,
                     add_url: 'employee/add',
                     // edit_url: 'employee/edit',
-                    // del_url: 'employee/del',
+                    del_url: 'employee/del',
                     multi_url: 'employee/multi',
                     import_url: 'employee/import',
                     table: 'employee',
@@ -42,7 +42,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         // {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate,
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
                             buttons: [
                                 {
                                     name: 'base',
@@ -58,7 +58,16 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     extend: 'data-area=\'["100%","100%"]\', target="_blank"',
 
                                 }
-                            ]
+                            ],
+                            formatter: function(value, row, index){
+                                var that = $.extend({}, this);
+                                var table = $(that.table).clone(true);
+                                if (row.status == 3 || row.status == 4) {
+                                    $(table).data("operate-del", null);
+                                }
+                                that.table = table;
+                                return Table.api.formatter.operate.call(that, value, row, index);
+                            },
                         },
                         {field: 'emp_id', title: __('Emp_id'), operate: 'LIKE'},
                         {field: 'emp_id_2', title: __('Emp_id_2'), operate: 'LIKE'},
@@ -110,24 +119,36 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         //sessionStorage.removeItem('device');
                         var device = sessionStorage.getItem('device');
                         if (device !== null) {
-                            $.ajax({
-                                url: base_file+"/employee/readCard?device="+device,
-                                type: 'POST',
-                                data: {},
-                                dataType: 'json',
-                                success: function (ret) {
-                                    // console.log(ret);return;
-                                    if (ret.code === 1) {
-                                        Fast.api.open(
-                                            'employee/report?id_card='+ret.data.id,
-                                            '报到详情',
-                                            {area:["100%", "100%"]
-                                            });
-                                    } else {
-                                        Toastr.error(ret.msg);
-                                    }
-                                }, error: function () {
-                                    Toastr.error(__('系统异常，请稍后再试'));
+                            $.get(base_file+"/employee/readCard?device="+device, function (ret) {
+                                if (ret.code === 1) {
+                                    Fast.api.open(
+                                        'employee/report?id_card='+ret.data.id,
+                                        '报到详情',
+                                        {area:["100%", "100%"]
+                                        });
+                                } else {
+                                    Toastr.error(ret.msg);
+                                }
+                            });
+                        } else {
+                            //没有绑定设备弹窗
+                            Toastr.error(__('设备暂未绑定，请先绑定后操作~'));
+                            Fast.api.open("employee/device", '设备绑定', {area: ["70%", "70%"]});
+                        }
+                    });
+                    //报名
+                    $('.btn_sign').click(function(){
+                        var device = sessionStorage.getItem('device');
+                        if (device !== null) {
+                            $.get(base_file+"/employee/readCard?device="+device, function (ret) {
+                                if (ret.code === 1) {
+                                    Fast.api.open(
+                                        'employee/report?id_card='+ret.data.id,
+                                        '报到详情',
+                                        {area:["100%", "100%"]
+                                        });
+                                } else {
+                                    Toastr.error(ret.msg);
                                 }
                             });
                         } else {

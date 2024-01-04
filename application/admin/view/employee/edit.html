@@ -219,9 +219,13 @@
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
+            {if $act == 'sign'}
+            <button type="button" class="btn btn-success btn-embossed push" value="sign">确认报名</button>
+            {else}
             <button type="button" class="btn btn-info btn-embossed push" value="sub">{:__('OK')}</button>
             <button type="button" class="btn btn-success btn-embossed push" value="nex">下一步</button>
             <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+            {/if}
         </div>
     </div>
 </form>
@@ -231,6 +235,8 @@
 <script src="/assets/libs/nice-validator/dist/local/zh-CN.js"></script>
 
 <script type="text/javascript">
+    import fa from "../../../../public/assets/libs/moment/src/locale/fa";
+
     $(function ($) {
         $(".read").click(function () {
             var device = sessionStorage.getItem('device');
@@ -270,6 +276,7 @@
             }
         });
 
+        //编辑|报名
         $('.push').click(function () {
             var flag = $(this).val();
             var state = $('form').isValid();
@@ -280,8 +287,12 @@
 
         function ajaxSub(flag) {
             var form = $('form').serializeArray();
+            var url = base_file+"/employee/edit?ids={$row.id}";
+            if (flag == 'sign') {
+                url = base_file+"/employee/sign?id_card={$row.id_card}"
+            }
             $.ajax({
-                url: base_file+"/employee/edit?ids={$row.id}",
+                url: url,
                 type: 'POST',
                 data: form,
                 dataType: 'json',

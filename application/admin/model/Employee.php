@@ -5,13 +5,13 @@ namespace app\admin\model;
 use fast\Http;
 use think\Db;
 use think\Model;
+use traits\model\SoftDelete;
 
 
 class Employee extends Model
 {
 
-
-
+    use SoftDelete;
 
 
     // 表名
@@ -92,6 +92,7 @@ class Employee extends Model
     public function getStatusList()
     {
         return [
+            '0' => '基础资料待确认',
             '1' => '待拍照',
             '2' => '待体检',
             '3' => '待报道',

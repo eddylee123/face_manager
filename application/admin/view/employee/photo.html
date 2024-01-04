@@ -17,18 +17,18 @@
 <div class="main" style="">
 
     <div class="video-group">
-        <video id="video" autoplay style="width: 320px;height: 240px"></video>
+        <video id="video" autoplay style="width: 320px;height: 320px"></video>
         <span>拍照区域（素颜、面部无遮挡）</span>
     </div>
     <!--描绘video截图-->
     <div class="canvas-group">
-        <canvas id="canvas" class="canvas-cs" width="320" height="240">
+        <canvas id="canvas" class="canvas-cs" width="320" height="320">
             <img id="img1" src="{$info['img1']}">
         </canvas>
         <input type="radio" name="flag" value="img_url" checked /> 照片1
     </div>
     <div class="canvas-group">
-        <canvas id="canvas2" class="canvas-cs" width="320" height="240">
+        <canvas id="canvas2" class="canvas-cs" width="320" height="320">
             <img id="img2" src="{$info['img2']}">
         </canvas>
         <input type="radio" name="flag" value="dis_img_url" /> 照片2
@@ -122,8 +122,8 @@
         //默认照片
         var img1 = document.getElementById("img1");
         var img2 = document.getElementById("img2");
-        context.drawImage(img1, 0, 0, 320, 240);
-        context2.drawImage(img2, 0, 0, 320, 240);
+        context.drawImage(img1, 0, 0, 320, 320);
+        context2.drawImage(img2, 0, 0, 320, 320);
 
         $('#capture').click(function () {
             var flag = $("input[name='flag']:checked").val();
@@ -131,10 +131,10 @@
 
             var image = new Image();
             if (flag === 'dis_img_url') {
-                context2.drawImage(video, 0, 0, 320, 240);
+                context2.drawImage(video, 0, 0, 320, 320);
                 image.src = canvas2.toDataURL('image/jpeg');
             } else {
-                context.drawImage(video, 0, 0, 320, 240);
+                context.drawImage(video, 0, 0, 320, 320);
                 image.src = canvas.toDataURL('image/jpeg');
             }
 

@@ -162,7 +162,7 @@ class Employee extends Backend
             if ($params) {
                 if (!empty($params['id_card'])) {
                     $exist = $this->model
-                        ->where(['id_card'=>$params['id_card'],'resign'=>0])
+                        ->where(['id_card'=>$params['id_card']])
                         ->find();
                     if ($exist) {
                         $this->error('员工信息已存在，请勿重复注册');
@@ -247,6 +247,7 @@ class Employee extends Backend
         }
 
         $this->view->assign("row", $row);
+        $this->view->assign("act", 'edit');
         return $this->view->fetch();
     }
 
@@ -985,6 +986,50 @@ class Employee extends Backend
             $this->success($rs['emp']['name']);
         }
         $this->error();
+    }
+
+    public function sign()
+    {
+        $id_card = $this->request->param('id_card', '');
+        if (empty($id_card)) {
+            $this->error('请求参数异常', $_SERVER['HTTP_REFERER']);
+        }
+        //基础信息
+        $row = $this->model
+            ->where(['id_card'=>$id_card,'status'=>0])
+            ->find();
+        if (empty($row)) {
+            $this->error('暂无该人员待确认基础资料，请核对后再试', $_SERVER['HTTP_REFERER']);
+        }
+
+        if ($this->request->isPost())
+        {
+            $params = $this->request->post("row/a", [], 'trim');
+
+            if ($params) {
+                try {
+                    if (!empty($this->admin['org_id'])) {
+                        $params['org_id'] = $this->admin['org_id'];
+                        $params['dept_id'] = $this->admin['org_id'];
+                    }
+                    $params['is_new'] = 0;
+                    $result = $row->where(['id'=>$ids])->update($params);
+                    if ($result !== false) {
+                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
+                        $this->success('', null, ['url'=>$url]);
+                    } else {
+                        $this->error($row->getError());
+                    }
+                } catch (Exception $e) {
+                    $this->error($e->getMessage());
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+
+        $this->view->assign("row", $row);
+        $this->view->assign("act", 'sign');
+        return $this->view->fetch('edit');
     }
 
     public function exportAction($data)
