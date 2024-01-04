@@ -862,6 +862,7 @@ class Employee extends Backend
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $armyList = $this->model->getArmyList();
         
         //设置表头
         $sheet->setCellValue('A1', '工号');
@@ -890,6 +891,7 @@ class Employee extends Backend
         $sheet->setCellValue('X1', '劳务公司');
         $sheet->setCellValue('Y1', '健康证日期');
         $sheet->setCellValue('Z1', '健康证结束日期');
+        $sheet->setCellValue('AA1', '是否退伍');
 
         //改变此处设置的长度数值
         $sheet->getColumnDimension('A')->setWidth(15);
@@ -960,6 +962,7 @@ class Employee extends Backend
                 $sheet->setCellValueExplicitByColumnAndRow(24, $row, $v['serv_company'], \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicitByColumnAndRow(25, $row, $cert_date, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                 $sheet->setCellValueExplicitByColumnAndRow(26, $row, $cert_validity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValueExplicitByColumnAndRow(27, $row, $armyList[$v['army']], \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
 
                 $row++;
             }
