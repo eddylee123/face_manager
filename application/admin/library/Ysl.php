@@ -3,6 +3,7 @@
 
 namespace app\admin\library;
 
+use fast\Http;
 use think\Cookie;
 
 /**
@@ -19,19 +20,20 @@ class Ysl
     public function photoHandle($pid, $photo)
     {
         //获取token
-        $key = 'face:check:ysl:ysl_token';
-        $redis = alone_redis();
-        $token = $redis->get($key);
-        if (empty($token)) {
-            $res = $this->getToken();
-                if ($res['code'] == 200) {
-                    $redis->set($key, $res['data']['token'], 7200);
-                    $token = $res['data']['token'];
-                }
-            }
-        if (empty($token)) {
-            return output(0, 'token异常');
-        }
+//        $key = 'face:check:ysl:ysl_token';
+//        $redis = alone_redis();
+//        $token = $redis->get($key);
+//        if (empty($token)) {
+//            $res = $this->getToken();
+//                if ($res['code'] == 200) {
+//                    $redis->set($key, $res['data']['token'], 7200);
+//                    $token = $res['data']['token'];
+//                }
+//            }
+//        if (empty($token)) {
+//            return output(0, 'token异常');
+//        }
+        $token = $this->getTokenNew();
 
         $rs = $this->checkPhoto($token, $pid, $photo);
 
@@ -59,6 +61,13 @@ class Ysl
 
         return self::curlRequest($disposeUrl, $method, $body);
     }
+
+    public function getTokenNew()
+    {
+        $url = "http://10.254.30.36:8081/face/ysl/token";
+        return Http::get($url);
+    }
+
 
     /**
      * 照片检测
