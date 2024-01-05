@@ -95,6 +95,10 @@ class Ysl
             $ext = 'jpg';
             $new_file = $dir."/{$pid}.{$ext}";
             $file_base64 = str_replace($result[1], '', $photo);
+            $save = file_put_contents($new_file, base64_decode($file_base64));
+            if (!$save){
+                return output(0);
+            }
 
             //检测
             if ($ext == 'jpg') {
@@ -117,11 +121,11 @@ class Ysl
             if (empty($rs) || empty($rs['code'])) {
                 return output(0);
             }
-            //保存照片
-            $save = file_put_contents($new_file, base64_decode($file_base64));
-            if (!$save){
-                return output(0);
-            }
+//            $rs = [
+//                'code'=>200,
+//                'msg'=>'成功'
+//            ];
+//            $new_file = 'E:\face_shaoyang\img_bak2\z230600340.jpg';
 
             return output($rs['code'], $rs['msg'], ['new_file'=>$new_file]);
         }
