@@ -281,13 +281,10 @@ class Employee extends Backend
         $url = $named = '';
         $emp_info = $this->model->where(['emp_id_2'=>$emp2])->find();
         if ($emp_info['status'] == 1){
-            //判断合同工
+            //判断劳务工
             if ($emp_info['emp_source'] == '劳务工') {
                 $named = '权限';
                 $url = $this->request->baseFile().'/employee/roles?emp2='.$emp2;
-            } else {
-                $named = '体检信息';
-                $url = $this->request->baseFile().'/employee/exam?emp2='.$emp2;
             }
         }
 
