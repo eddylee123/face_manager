@@ -253,32 +253,24 @@
         $(".read").click(function () {
             var device = sessionStorage.getItem('device');
             if (device !== null) {
-                $.ajax({
-                    url: base_file+"/employee/readCard?flag=add&device="+device,
-                    type: 'POST',
-                    data: {},
-                    dataType: 'json',
-                    success: function (ret) {
-                        if (ret.code === 1) {
-                            var data = ret.data;
-                            $('#c-emp_name').val(data.name);
-                            $('#c-id_card').val(data.id);
-                            $('#c-address').val(data.address);
-                            $("input[name='row[sex]'][value='"+data.sex+"']").prop("checked",true);
-                            $('#c-folk').selectpicker("val", data.folk); //民族
-                            $('#c-id_department').val(data.dep);
-                            $('#c-birthday').val(data.birth);
-                            $('#c-id_date').val(data.begin);
-                            $('#c-id_validity').val(data.end);
-                            $('#c-age').val(data.age);
-                            if (data.err_msg.length > 0) {
-                                Toastr.error(ret.data.err_msg);
-                            }
-                        } else {
-                            Toastr.error(ret.msg);
+                $.get(base_file+"/employee/readCard?device="+device, function (ret) {
+                    if (ret.code === 1) {
+                        var data = ret.data;
+                        $('#c-emp_name').val(data.name);
+                        $('#c-id_card').val(data.id);
+                        $('#c-address').val(data.address);
+                        $("input[name='row[sex]'][value='"+data.sex+"']").prop("checked",true);
+                        $('#c-folk').selectpicker("val", data.folk); //民族
+                        $('#c-id_department').val(data.dep);
+                        $('#c-birthday').val(data.birth);
+                        $('#c-id_date').val(data.begin);
+                        $('#c-id_validity').val(data.end);
+                        $('#c-age').val(data.age);
+                        if (data.err_msg.length > 0) {
+                            Toastr.error(ret.data.err_msg);
                         }
-                    }, error: function () {
-                        Toastr.error(__('系统异常，请稍后再试'));
+                    } else {
+                        Toastr.error(ret.msg);
                     }
                 });
             } else {

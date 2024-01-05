@@ -999,7 +999,7 @@ class Employee extends Backend
             ->where(['id_card'=>$id_card,'status'=>0])
             ->find();
         if (empty($row)) {
-            $this->error('暂无该人员待确认基础资料，请核对后再试', $_SERVER['HTTP_REFERER']);
+            $this->error('暂无待确认基础资料，请核对后再试', $_SERVER['HTTP_REFERER']);
         }
 
         if ($this->request->isPost())
@@ -1012,8 +1012,8 @@ class Employee extends Backend
                         $params['org_id'] = $this->admin['org_id'];
                         $params['dept_id'] = $this->admin['org_id'];
                     }
-                    $params['is_new'] = 0;
-                    $result = $row->where(['id'=>$ids])->update($params);
+                    $params['status'] = 1;
+                    $result = $row->where(['id'=>$row['id']])->update($params);
                     if ($result !== false) {
                         $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
                         $this->success('', null, ['url'=>$url]);

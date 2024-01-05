@@ -143,8 +143,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             $.get(base_file+"/employee/readCard?device="+device, function (ret) {
                                 if (ret.code === 1) {
                                     Fast.api.open(
-                                        'employee/report?id_card='+ret.data.id,
-                                        '报到详情',
+                                        'employee/sign?id_card='+ret.data.id,
+                                        '报名确认',
                                         {area:["100%", "100%"]
                                         });
                                 } else {
