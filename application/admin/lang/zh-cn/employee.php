@@ -11,7 +11,7 @@ return [
     'Address'          => '联系地址',
     'Education'        => '学历',
     'Org_id'           => '所属基地代码',
-    'Dept_id'          => '实际上班基地',
+    'Dept_id'          => '所属部门',
     'Remark'           => '备注',
     'Sex'              => '性别',
     'Id_card'          => '身份证号',

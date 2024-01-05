@@ -183,10 +183,6 @@ class Employee extends Backend
                     $this->error('该账号未绑定基地信息，无法新增');
                 }
                 $params['org_id'] = $this->admin['org_id'];
-                $params['dept_id'] = $this->admin['org_id'];
-
-//                echo "<pre/>";
-//                print_r($params);exit;
 
                 try {
                     $result = $this->model->create($params);
@@ -229,9 +225,9 @@ class Employee extends Backend
                 try {
                     if (!empty($this->admin['org_id'])) {
                         $params['org_id'] = $this->admin['org_id'];
-                        $params['dept_id'] = $this->admin['org_id'];
                     }
                     $params['is_new'] = 0;
+
                     $result = $row->where(['id'=>$ids])->update($params);
                     if ($result !== false) {
                         $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
@@ -245,7 +241,11 @@ class Employee extends Backend
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        //部门编码
+        $dept = $this->model->getDept($this->admin['org_id']);
+        $deptList = $dept['Data'] ?: '';
 
+        $this->view->assign("deptList", $deptList);
         $this->view->assign("row", $row);
         $this->view->assign("act", 'edit');
         return $this->view->fetch();
@@ -705,7 +705,11 @@ class Employee extends Backend
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        //部门编码
+        $dept = $this->model->getDept($this->admin['org_id']);
+        $deptList = $dept['Data'] ?: '';
 
+        $this->view->assign("deptList", $deptList);
         $this->view->assign("row", $row);
         $this->view->assign("img", $img);
         $this->view->assign("exam", $exam);
@@ -776,6 +780,11 @@ class Employee extends Backend
         ];
         $step = $row['status'] == 21 ? 2 : $row['status'];
         $index = $this->request->baseFile().'/employee?ref=addtabs';
+        //部门编码
+        $dept = $this->model->getDept($this->admin['org_id']);
+        $deptList = $dept['Data'] ?: '';
+
+        $this->view->assign("deptList", $deptList);
         $this->view->assign("stepList", $stepList);
         $this->view->assign("step", $step);
         $this->view->assign("index", $index);
@@ -1010,7 +1019,6 @@ class Employee extends Backend
                 try {
                     if (!empty($this->admin['org_id'])) {
                         $params['org_id'] = $this->admin['org_id'];
-                        $params['dept_id'] = $this->admin['org_id'];
                     }
                     $params['status'] = 1;
                     $result = $row->where(['id'=>$row['id']])->update($params);

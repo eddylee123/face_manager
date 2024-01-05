@@ -272,6 +272,16 @@
                 <input id="c-contract_validate" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[contract_validate]" type="text" value="">
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">{:__('Dept_id')}:</label>
+            <div class="col-xs-12 col-sm-3">
+                <select  id="c-dept_id" class="form-control" name="row[dept_id]">
+                    {foreach name="deptList" item="vo"}
+                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
         {if $row['emp_source'] == '劳务工'}
         <div class="form-group">
             <label class="control-label col-xs-12 col-sm-2">{:__('Serv_company')}:</label>
