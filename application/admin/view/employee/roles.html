@@ -71,8 +71,15 @@
             }
             //下一步点击
             $(".nex").click(function () {
-                var form = $('form').serializeArray();
-                ajaxSub(form);
+                layer.confirm("<span style='vertical-align:top;'>描述：</span><textarea id='role_remark'></textarea>", {
+                    btn: ['确定', '取消'], //按钮
+                    // area:["300px","200px"]
+                }, function (index) {
+                    var role_remark = $('#role_remark').val();
+                    var form = $('form').serializeArray();
+                    form.push({"name":"role_remark", "value":role_remark})
+                    ajaxSub(form);
+                });
             });
 
             //全选反选

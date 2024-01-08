@@ -10,7 +10,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     // edit_url: 'employee/edit',
                     del_url: 'employee/del',
                     multi_url: 'employee/multi',
-                    import_url: 'employee/import',
+                    import_url: 'employ/import',
                     table: 'employee',
                 }
             });
@@ -78,7 +78,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'id_card', title: __('Id_card')},
                         {field: 'emp_source', title: __('Emp_source'), searchList: {"合同工":__('合同工'),"劳务工":__('劳务工')}, formatter: Table.api.formatter.normal},
                         {field: 'tel', title: __('Tel')},
-                        {field: 'marry', title: __('Marry'), searchList: Config.sex_list, formatter: Table.api.formatter.normal},
+                        {field: 'marry', title: __('Marry'), searchList: Config.marry_list, formatter: Table.api.formatter.normal},
                         {field: 'age', title: __('Age'), operate: false},
                         // {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         {field: 'come_date', title: __('Come_date'), operate:'RANGE_da', addclass:'datetimerange', autocomplete:false},
@@ -162,10 +162,27 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         var jsonData = JSON.stringify($('form').serializeArray());
                         // console.log();return;
 
-                        var url = base_file+"/employee/export?filter="+btoa(encodeURI(jsonData));
+                        var url = base_file+"/employ/export?filter="+btoa(encodeURI(jsonData));
                         window.open(url, '_blank');
-                    })
+                    });
                 }
+            });
+            //体检导入
+            require(['upload'], function(Upload){
+                Upload.api.plupload('#plupload-files', function (data, ret) {
+                    if (ret.code == 1) {
+                        $.get("employ/import",{"file":ret.data.url}, function (rs) {
+                            $(".btn-refresh").trigger("click"); // 触发窗体页面刷新
+                            Toastr.success(rs.msg);
+                            setTimeout(function(){
+                                if (rs.data.err_num > 0) {
+                                    //失败弹窗
+                                    Fast.api.open("exam_log/lists?time="+rs.data.time, '失败记录', {area:["100%", "100%"]});
+                                }
+                            }, 2000);
+                        });
+                    }
+                });
             });
 
             // 为表格绑定事件

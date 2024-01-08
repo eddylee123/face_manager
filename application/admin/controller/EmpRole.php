@@ -9,12 +9,12 @@ use app\common\controller\Backend;
  *
  * @icon fa fa-circle-o
  */
-class EmpExam extends Backend
+class EmpRole extends Backend
 {
     
     /**
      * EmpExam模型对象
-     * @var \app\admin\model\EmpExam
+     * @var \app\admin\model\EmpRole
      */
     protected $model = null;
     /**
@@ -25,10 +25,8 @@ class EmpExam extends Backend
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\EmpExam;
+        $this->model = new \app\admin\model\EmpRole();
         $this->employeeModel = new \app\admin\model\Employee();
-        $this->view->assign("sexList", $this->model->getSexList());
-        $this->view->assign("statusList", $this->model->getStatusList());
     }
 
     public function index()
@@ -64,7 +62,6 @@ class EmpExam extends Backend
             return json($result);
         }
 
-        $this->assignconfig("status_list", $this->model->getStatusList());
         return $this->view->fetch();
     }
     /**

@@ -58,7 +58,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'remark', title: __('Remark'), operate: false},
                         {field: 're_exam', title: __('Re_exam'), operate: false},
                         {field: 'exam_org', title: __('Exam_org'), operate: false},
-                        {field: 'create_time', title: __('录入时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, operate: false},
+                        {field: 'create_time', title: __('录入时间'), addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, operate: false},
                     ]
                 ]
                 ,onLoadSuccess: function(){
