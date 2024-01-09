@@ -1,0 +1,121 @@
+<style type="text/css">
+    .info-show {
+        border:1px solid #e5e5e5;
+        padding-top: 15px;
+        margin-bottom: 10px;
+        display: none;
+    }
+    .info-show .form-group span {
+        text-align: left;
+    }
+    .kq-list {
+        width: 180px;
+    }
+</style>
+<form id="emp-info-form" class="form-horizontal" role="form" data-toggle="validator" method="GET" action="">
+
+<div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">工号:</label>
+    <div class="col-xs-12 col-sm-3">
+        <input id="c-emp_id" data-rule="required" class="form-control" name="emp_id" type="text">
+    </div>
+    <button type="button" class="btn btn-info search">搜索</button>
+</div>
+</form>
+<div class="form-horizontal info-show">
+    <div class="form-group">
+        <label class="control-label col-sm-2">工号:</label>
+        <span class="control-label col-sm-3 c-empNo"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">姓名:</label>
+        <span class="control-label col-sm-3 c-name"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">部门:</label>
+        <span class="control-label col-sm-3 c-deptName"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">性别:</label>
+        <span class="control-label col-sm-3 c-sex"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">职级:</label>
+        <span class="control-label col-sm-3 c-duty"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">岗位:</label>
+        <span class="control-label col-sm-3 c-station"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">状态:</label>
+        <span class="control-label col-sm-3 c-incumbency"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">电话:</label>
+        <span class="control-label col-sm-3 c-tel"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">所属基地:</label>
+        <span class="control-label col-sm-3 c-belongDept"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">消费权限:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox cs-list">
+                {foreach name="cs_level_list" item="vo"}
+                <label for="cs_level-{$key}"><input disabled id="cs_level-{$key}" type="checkbox" value="{$key}"/> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">消费权限:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox kq-list">
+                {foreach name="kq_level_list" item="vo"}
+                <label for="kq_level-{$key}"><input disabled id="kq_level-{$key}" type="checkbox" value="{$key}"/> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/index/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".search").click(function () {
+        var emp_id = $('#c-emp_id').val();
+        $.get(base_file + "/employee/empInfo?emp_id=" + emp_id, function (ret) {
+            if (ret.code == 1) {
+                $(".c-empNo").html(ret.data.empNo);
+                $(".c-name").html(ret.data.name);
+                $(".c-deptName").html(ret.data.deptName);
+                $(".c-sex").html(ret.data.sex);
+                $(".c-duty").html(ret.data.duty);
+                $(".c-station").html(ret.data.station);
+                $(".c-incumbency").html(ret.data.incumbency);
+                $(".c-tel").html(ret.data.tel);
+                $(".c-belongDept").html(ret.data.belongDept);
+                $(".cs-list input[type='checkbox']").prop("checked", false);
+                $(".kq-list input[type='checkbox']").prop("checked", false);
+                var cs = ret.data.cs_level;
+                for(let key in cs) {
+                    if (cs.hasOwnProperty(key)) {
+                        $("#cs_level-"+cs[key]).prop("checked",true);
+                    }
+                }
+                var kq = ret.data.kq_level;
+                for(let key in kq) {
+                    if (kq.hasOwnProperty(key)) {
+                        $("#kq_level-"+kq[key]).prop("checked",true);
+                    }
+                }
+
+                $(".info-show").css("display", "block");
+            } else {
+                $(".info-show").css("display", "none");
+                Toastr.error('员工查询信息异常')
+            }
+        });
+    })
+</script>

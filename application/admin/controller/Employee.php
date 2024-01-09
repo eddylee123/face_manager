@@ -689,11 +689,25 @@ class Employee extends Backend
         return $this->view->fetch();
     }
 
-    public function empInfo($emp_id)
+    public function empName($emp_id)
     {
         $rs = $this->model->getEmpInfo($emp_id);
         if ($rs['msg'] == '查询成功') {
             $this->success($rs['emp']['name']);
+        }
+        $this->error();
+    }
+
+    public function empInfo($emp_id)
+    {
+        $rs = $this->model->getEmpInfo($emp_id);
+        if ($rs['msg'] == '查询成功') {
+            $emp = $rs['emp'];
+            $emp['cs_level'] = !empty($emp['XFLevel']) ?
+                split_param($emp['XFLevel'], $this->empRoleModel->csLevel) : [];
+            $emp['kq_level'] = !empty($emp['MJLevel']) ?
+                split_param($emp['MJLevel'], $this->empRoleModel->kqLevel) : [];
+            $this->success('查询成功', '', $emp);
         }
         $this->error();
     }
@@ -739,10 +753,5 @@ class Employee extends Backend
         $this->view->assign("row", $row);
         $this->view->assign("act", 'sign');
         return $this->view->fetch('edit');
-    }
-
-    public function roleList()
-    {
-
     }
 }

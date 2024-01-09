@@ -283,7 +283,7 @@
         $("#c-intro_emp_id").change(function () {
             var emp_id = $(this).val();
             if (emp_id.length == 10) {
-                $.get(base_file + "/employee/empInfo?emp_id=" + emp_id, function (ret) {
+                $.get(base_file + "/employee/empName?emp_id=" + emp_id, function (ret) {
                     if (ret.code == 1) {
                         $("#c-intro_name").val(ret.msg);
                     }
