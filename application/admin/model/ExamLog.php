@@ -8,9 +8,7 @@ use think\Model;
 class ExamLog extends Model
 {
 
-    
-
-    
+    protected $pk = 'id';
 
     // 表名
     protected $name = 'exam_log';

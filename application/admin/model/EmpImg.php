@@ -7,11 +7,7 @@ use think\Model;
 
 class EmpImg extends Model
 {
-
-    
-
-    
-
+    protected $pk = 'id';
     // 表名
     protected $name = 'emp_img';
     

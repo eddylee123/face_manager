@@ -9,6 +9,7 @@ use think\Model;
 
 class EmpRole extends Model
 {
+    protected $pk = 'id';
 
     public $role = [
         1 => '食堂消费',

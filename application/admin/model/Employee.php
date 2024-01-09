@@ -13,7 +13,7 @@ class Employee extends Model
 
     use SoftDelete;
 
-
+    protected $pk = 'id';
     // 表名
     protected $name = 'employee';
     

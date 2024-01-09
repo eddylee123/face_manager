@@ -7,11 +7,7 @@ use think\Model;
 
 class EmpExam extends Model
 {
-
-    
-
-    
-
+    protected $pk = 'id';
     // 表名
     protected $name = 'emp_exam';
     
