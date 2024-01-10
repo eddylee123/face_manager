@@ -124,7 +124,9 @@ class Employ extends Backend
             $remark = trim($currentSheet->getCellByColumnAndRow(11, $currentRow)->getValue());
             $state = trim($currentSheet->getCellByColumnAndRow(12, $currentRow)->getValue());
 
-            if (empty($id_card)) continue;
+            if (empty($id_card) || empty($username) || empty($exam_date)) {
+                continue;
+            }
             //判断去重
             $is = $this->empExamModel
                 ->where(['id_card'=>$id_card,'exam_date'=>$exam_date])
