@@ -361,16 +361,22 @@
             window.location = "{$index}";
         });
         $(".tab-1").click(function () {
+            if ("{$row.status}" < 1) {
+                return false;
+            }
             parent.Fast.api.open("employee/edit?ids={$row.id}", '基础信息', {area:["100%", "100%"]});
         });
         $(".tab-2").click(function () {
+            if ("{$row.status}" < 1) {
+                return false;
+            }
             parent.Fast.api.open("employee/photo?emp2={$row.emp_id_2}", '人脸拍照', {area:["100%", "100%"]});
         });
         $(".tab-3").click(function () {
-            if ("{$row.status}" > 1) {
-                parent.Fast.api.open("employee/exam?emp2={$row.emp_id_2}", '体检信息', {area:["100%", "100%"]});
+            if ("{$row.status}" < 1) {
+                return false;
             }
-            return false;
+            parent.Fast.api.open("employee/exam?emp2={$row.emp_id_2}", '体检信息', {area:["100%", "100%"]});
         });
         $(".tab-4").click(function () {
             if ("{$row.status}" < 2) {

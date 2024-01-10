@@ -101,8 +101,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         url: 'employee/roles?emp2={row.emp_id_2}',
                                         //弹窗大小
                                         extend: 'data-area=\'["100%","100%"]\'',
-                                        //参数回传的数据
-                                        callback:function(){}
+                                        visible: function (row) {
+                                            if (row.status > 0){
+                                                return true;
+                                            }
+                                            return false;
+                                        }
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
