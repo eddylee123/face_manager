@@ -145,7 +145,11 @@
             <td colspan="4">联系方式</td>
         </tr>
         <tr>
+            {if !empty($row['urgency_man'])}
             <td colspan="3">{$row['urgency_man']}</td>
+            {else}
+            <td colspan="3">&nbsp;</td>
+            {/if}
             <td colspan="3">{$row['urgency_relation']}</td>
             <td colspan="4">{$row['urgency_tel']}</td>
         </tr>
