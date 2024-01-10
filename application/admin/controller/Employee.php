@@ -11,6 +11,7 @@ use app\common\controller\Backend;
 use app\gateway\controller\Events;
 use fast\Arr;
 use fast\Random;
+use think\Env;
 use think\Exception;
 use think\Session;
 
@@ -553,9 +554,18 @@ class Employee extends Backend
                     }
                     $params['status'] = 4;
                     $params['kq_date'] = date('Y-m-d');
-                    //获取工号
+
                     $url = $named = '';
-                    $params['emp_id'] = $this->model->getNewEmpId($row['org_id'], $row['emp_name'], $row['emp_source']);
+                    //获取工号
+                    if (Env::get('app.debug') == true) {
+                        if ($row['emp_source'] == '合同工') {
+                            $params['emp_id'] = $this->model->getEmpHtg($row['org_id']);
+                        } else {
+                            $params['emp_id'] = $this->model->getEmpHtg($row['org_id']);
+                        }
+                    } else {
+                        $params['emp_id'] = $this->model->getNewEmpId($row['org_id'], $row['emp_name'], $row['emp_source']);
+                    }
                     //开启所有权限
                     $params['cs_level'] = array_sum(array_keys($this->empRoleModel->csLevel));
                     $params['kq_level'] = array_sum(array_keys($this->empRoleModel->kqLevel));
