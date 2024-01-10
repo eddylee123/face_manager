@@ -64,7 +64,7 @@ class Ysl
 
     public function getTokenNew()
     {
-        $url = "http://10.254.30.36:8081/face/ysl/token";
+        $url = "http://10.254.30.43:8081/face/ysl/token";
         return Http::get($url);
     }
 
