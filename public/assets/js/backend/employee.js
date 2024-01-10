@@ -118,11 +118,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         //btn-dialog表示为弹窗
                                         classname: 'btn btn-xs btn-danger btn-dialog',
                                         //弹窗位置，//自带参数ids
-                                        url: 'pdf/make?emp_id={row.emp_id}',
+                                        url: 'pdf/make?emp2={row.emp_id_2}',
                                         //弹窗大小
                                         extend: 'data-area=\'["100%","100%"]\'',
                                         visible: function (row) {
-                                            if (row.status == 4){
+                                            if (row.status > 0){
                                                 return true;
                                             }
                                             return false;

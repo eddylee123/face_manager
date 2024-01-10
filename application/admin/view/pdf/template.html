@@ -10,7 +10,7 @@
         margin: 0mm;
     }
     .table-index {
-        width: 100rem;
+        width: 100%;
         border-collapse: collapse;
         border: 1px solid black;
     }
@@ -18,14 +18,20 @@
         border: 1px solid black;
         padding: 5px;
     }
-    .table-index tr td:first-child {
-        width: 10rem;
-    }
+    /*.table-index tr td:first-child {*/
+    /*    width: 12%;*/
+    /*}*/
     .td-1 {
-        width: 10rem;
+        width: 10%;
     }
     .td-2 {
         border: none;
+    }
+    .td-3 {
+        width: 12%;
+    }
+    .td-4 {
+        width: 8%;
     }
     .td-mid {
         text-align: center;
@@ -34,9 +40,14 @@
     .radio {
         margin: 0;
     }
+    .content h2 {
+        text-align: center;
+        margin-bottom: 2%;
+    }
 </style>
 <body>
-<div id="content">
+<div class="content">
+    <h2>入职申请表(一线)</h2>
     <table class="table-index">
         <tr>
             <td>姓名</td>
@@ -44,9 +55,9 @@
             <td>性别</td>
             <td class="td-1">{$row['sex']}</td>
             <td>出生日期</td>
-            <td class="td-1">{$row['birthday']}</td>
+            <td colspan="2">{$row['birthday']}</td>
             <td>籍贯</td>
-            <td colspan="3">{$row['native_place']}</td>
+            <td colspan="2">{$row['native_place']}</td>
         </tr>
         <tr>
             <td>学历</td>
@@ -58,10 +69,10 @@
             <td>身体状况</td>
             <td class="td-1">{$row['body']}</td>
             <td>婚姻状况</td>
-            <td class="td-1">{$row['marry']}</td>
+            <td class="td-4">{$row['marry']}</td>
         </tr>
         <tr>
-            <td>身份证号码</td>
+            <td class="td-3">身份证号码</td>
             <td colspan="10">{$row['id_card']}</td>
         </tr>
         <tr>
@@ -79,7 +90,7 @@
         <tr>
             <td>介绍人工号</td>
             <td colspan="2">{$row['intro_emp_id']}</td>
-            <td>介绍人姓名</td>
+            <td class="td-3">介绍人姓名</td>
             <td colspan="2">{$row['intro_name']}</td>
         </tr>
         <tr>
@@ -92,7 +103,7 @@
         <tr>
             {if !empty($edu_exp_arr)}
                 {foreach name="edu_exp_arr" item="vo"}
-                <td colspan="4">{$vo['time_range']}</td>
+                <td colspan="4">{$vo['startDate']}-{$vo['endDate']}</td>
                 <td colspan="6">{$vo['school']}</td>
                 {/foreach}
             {else}
@@ -111,9 +122,9 @@
         <tr>
             {if !empty($work_exp_arr)}
             {foreach name="work_exp_arr" item="vo"}
-            <td colspan="3">{$vo['work_date']}</td>
-            <td colspan="6">{$vo['tel']}</td>
-            <td colspan="1">{$vo['reason']}</td>
+            <td colspan="3">{$vo['startDate']}-{$vo['endDate']}</td>
+            <td colspan="6">{$vo['name']}/{$vo['tel']}</td>
+            <td colspan="1">个人原因</td>
             {/foreach}
             {else}
             <td colspan="3">&nbsp;</td>
@@ -181,8 +192,8 @@
         </tr>
         <tr>
             <td colspan="2" class="td-2">接待人签名:</td>
-            <td colspan="4" class="td-2"></td>
-            <td colspan="1" class="td-2">填表人签名:</td>
+            <td colspan="3" class="td-2"></td>
+            <td colspan="2" class="td-2">填表人签名:</td>
             <td colspan="1" class="td-2"></td>
             <td colspan="1" class="td-2">日期:</td>
             <td colspan="1" class="td-2"></td>
@@ -196,20 +207,32 @@
             <td colspan="1" class="td-2">职位:</td>
             <td colspan="1" class="td-2"></td>
             <td colspan="1" class="td-2">工号:</td>
-            <td colspan="2" class="td-2"></td>
+            <td colspan="1" class="td-2"></td>
             <td colspan="1" class="td-2">到职日期:</td>
-            <td colspan="2" class="td-2"></td>
+            <td colspan="2" class="td-2">{$row['kq_date']}</td>
         </tr>
     </table>
 </div>
-    <div class="form-group" style="margin-top: 20px;text-align: center">
+    <div class="form-group" id="make" style="margin-top: 20px;text-align: center">
         <button type="button" class="btn btn-danger" onclick="generatePDF()">打印</button>
     </div>
 </body>
 <script type="text/javascript">
     // javascript
     function generatePDF() {
-        window.print();return false;
+        window.print();
+        return false;
+    }
+    window.onbeforeprint = function() {
+        document.getElementById("make").style.display = "none";
+        document.getElementsByTagName("header")[0].style.display = "none";
+        document.getElementsByTagName("footer")[0].style.display = "none";
+    }
+
+    window.onafterprint = function() {
+        document.getElementById("make").style.display = "block";
+        document.getElementsByTagName("header")[0].style.display = "block";
+        document.getElementsByTagName("footer")[0].style.display = "block";
     }
 </script>
 </html>
