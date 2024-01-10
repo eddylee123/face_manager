@@ -106,6 +106,30 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
+                        {field: 'id', title: __('权限'), table: table,
+                            buttons:
+                                [
+                                    {
+                                        name: 'roles',
+                                        text:__('打印'),
+                                        title: __('打印'),
+                                        //图标
+                                        icon: 'fa fa-file',
+                                        //btn-dialog表示为弹窗
+                                        classname: 'btn btn-xs btn-danger btn-dialog',
+                                        //弹窗位置，//自带参数ids
+                                        url: 'pdf/make?emp_id={row.emp_id}',
+                                        //弹窗大小
+                                        extend: 'data-area=\'["100%","100%"]\'',
+                                        visible: function (row) {
+                                            if (row.status == 4){
+                                                return true;
+                                            }
+                                            return false;
+                                        }
+                                    },
+                                ], operate:false, formatter: Table.api.formatter.buttons
+                        },
                     ]
                 ]
                 ,onLoadSuccess: function(){
