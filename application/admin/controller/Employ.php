@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use think\Exception;
+use think\Session;
 
 class Employ extends Backend
 {
@@ -41,6 +42,8 @@ class Employ extends Backend
      */
     protected $examLogModel = null;
 
+    protected $admin;
+
     public function _initialize()
     {
         parent::_initialize();
@@ -49,6 +52,8 @@ class Employ extends Backend
         $this->empRoleModel = new EmpRole();
         $this->empExamModel = new \app\admin\model\EmpExam();
         $this->examLogModel = new \app\admin\model\ExamLog();
+
+        $this->admin = Session::get('admin');
     }
 
     /**
