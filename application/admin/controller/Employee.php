@@ -352,6 +352,8 @@ class Employee extends Backend
                 Arr::forget($data, $flag);
                 AdminLog::record('人脸拍照', $data);
             }
+            //同步更新
+            $this->model->where(['emp_id_2'=>$emp2])->update(['is_new'=>0]);
 
             return outJson(output(200));
         }
