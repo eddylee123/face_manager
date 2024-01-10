@@ -26,10 +26,10 @@ class Pdf extends Backend
     public function make()
     {
         $emp2 = $this->request->param('emp2');
-        if (empty($emp2)) $this->error('请求参数异常');
+        if (empty($emp2)) $this->error('请求参数异常', $_SERVER['HTTP_REFERER']);
 
         $row = $this->empModel->where(['emp_id_2'=>$emp2])->find();
-        if (!$row) $this->error('员工信息异常');
+        if (!$row) $this->error('员工信息异常', $_SERVER['HTTP_REFERER']);
 
         $edu_exp_arr = $work_exp_arr = $family_member_arr = [];
         if(!empty($row['edu_exp'])) {
