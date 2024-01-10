@@ -379,6 +379,10 @@ class Employee extends Backend
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a", [], 'strip_tags');
             $role_remark = $this->request->post("role_remark", '');
+            $length = strlen($role_remark);
+            if ($length < 10 || $length > 255) {
+                $this->error('描述内容长度为10~255个字');
+            }
             Arr::forget($params, ['emp_id_2','emp_name','id_card']);
             if ($params) {
                 if (!empty($params['cs_level'])) {
