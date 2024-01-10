@@ -267,6 +267,7 @@
                         $('#c-id_validity').val(data.end);
                         $('#c-age').val(data.age);
                         if (data.err_msg.length > 0) {
+                            $('#c-remark').val(ret.data.err_msg);
                             Toastr.error(ret.data.err_msg);
                         }
                     } else {
