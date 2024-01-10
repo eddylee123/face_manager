@@ -71,10 +71,12 @@ class ExamLog extends Backend
             $empInfo = $this->employeeModel
                 ->whereIn('emp_id_2', $emp2Arr)
                 ->column('status', 'emp_id_2');
-
+            $empInfo = array_column($empInfo, 'status','emp_id_2');
             foreach ($list as &$v) {
-                $v['emp_status'] = $empInfo[$v['emp_id_2']] ?? '';
+                $v['emp_status'] = $empInfo[$v['emp_id_2']] ?? '状态异常';
             }
+//            echo "<pre/>";
+//            print_r($list);exit();
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
