@@ -29,8 +29,8 @@ class ExamLog extends Model
     public function getStatusList()
     {
         return [
-            0 => '失败',
-            1 => '成功',
+            '1' => '成功',
+            '0' => '失败',
         ];
     }
     

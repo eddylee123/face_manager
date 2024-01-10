@@ -1,4 +1,6 @@
 /application/extra/site.php
+/application/admin/controller/Test.php
+/application/admin/view
 /.idea
 /runtime/cache
 /runtime/log
