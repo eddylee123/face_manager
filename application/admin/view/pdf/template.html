@@ -69,7 +69,7 @@
             <td>身体状况</td>
             <td class="td-1">{$row['body']}</td>
             <td>婚姻状况</td>
-            <td class="td-4">{$row['marry']}</td>
+            <td class="td-1">{$row['marry']}</td>
         </tr>
         <tr>
             <td class="td-3">身份证号码</td>
@@ -100,17 +100,19 @@
             <td colspan="4">起止日期</td>
             <td colspan="6">毕业培训学校</td>
         </tr>
-        <tr>
-            {if !empty($edu_exp_arr)}
-                {foreach name="edu_exp_arr" item="vo"}
+        {if !empty($edu_exp_arr)}
+        {foreach name="edu_exp_arr" item="vo"}
+            <tr>
                 <td colspan="4">{$vo['startDate']}-{$vo['endDate']}</td>
                 <td colspan="6">{$vo['school']}</td>
-                {/foreach}
-            {else}
+            </tr>
+        {/foreach}
+        {else}
+            <tr>
                 <td colspan="4">&nbsp;</td>
                 <td colspan="6">&nbsp;</td>
-            {/if}
-        </tr>
+            </tr>
+        {/if}
         <tr>
             <td colspan="10" class="td-mid">工作经历与经验</td>
         </tr>
@@ -119,19 +121,21 @@
             <td colspan="6">单位名称及联系电话</td>
             <td colspan="1">离职原因</td>
         </tr>
+        {if !empty($work_exp_arr)}
+        {foreach name="work_exp_arr" item="vo"}
         <tr>
-            {if !empty($work_exp_arr)}
-            {foreach name="work_exp_arr" item="vo"}
             <td colspan="3">{$vo['startDate']}-{$vo['endDate']}</td>
             <td colspan="6">{$vo['name']}/{$vo['tel']}</td>
             <td colspan="1">个人原因</td>
-            {/foreach}
-            {else}
+        </tr>
+        {/foreach}
+        {else}
+        <tr>
             <td colspan="3">&nbsp;</td>
             <td colspan="6">&nbsp;</td>
             <td colspan="1">&nbsp;</td>
-            {/if}
         </tr>
+        {/if}
         <tr>
             <td colspan="10" class="td-mid">紧急联系人</td>
         </tr>
@@ -153,19 +157,26 @@
             <td colspan="3">关系</td>
             <td colspan="4">联系方式</td>
         </tr>
+        {if !empty($family_member_arr)}
+        {foreach name="family_member_arr" item="vo"}
         <tr>
-            {if !empty($family_member_arr)}
-            {foreach name="family_member_arr" item="vo"}
             <td colspan="3">{$vo['name']}</td>
             <td colspan="3">{$vo['relation']}</td>
             <td colspan="4">{$vo['tel']}</td>
-            {/foreach}
-            {else}
+        </tr>
+        {/foreach}
+        {else}
+        <tr>
             <td colspan="3">&nbsp;</td>
             <td colspan="3">&nbsp;</td>
             <td colspan="4">&nbsp;</td>
-            {/if}
         </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        {/if}
         <tr>
             <td colspan="10" class="td-mid">健康状况</td>
         </tr>
