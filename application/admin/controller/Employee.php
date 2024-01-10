@@ -739,6 +739,7 @@ class Employee extends Backend
         if (empty($row)) {
             $this->error('暂无待确认基础资料，请核对后再试', $_SERVER['HTTP_REFERER']);
         }
+        if (empty($row['come_date'])) $row['come_date'] = date('Y-m-d');
 
         if ($this->request->isPost())
         {

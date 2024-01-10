@@ -231,6 +231,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         report: function () {
             Controller.api.bindevent();
         },
+        sign: function () {
+            Controller.api.bindevent();
+        },
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
