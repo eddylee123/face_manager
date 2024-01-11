@@ -50,6 +50,7 @@ class Employee extends Model
     public function getMarryList()
     {
         return [
+            '' => '',
             '未婚' => __('未婚'),
             '已婚' => __('已婚'),
             '离婚' => __('离婚'),
@@ -84,7 +85,6 @@ class Employee extends Model
             '夫妻' => '夫妻',
             '父母' => '父母',
             '子女' => '子女',
-            '兄弟' => '兄弟',
             '其他' => '其他',
         ];
     }
