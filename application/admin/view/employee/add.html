@@ -281,7 +281,7 @@
             }
         });
 
-        $("#c-intro_emp_id").change(function () {
+        $("#c-intro_emp_id").keyup(function () {
             var emp_id = $(this).val();
             if (emp_id.length == 10) {
                 $.get(base_file + "/employee/empName?emp_id=" + emp_id, function (ret) {
