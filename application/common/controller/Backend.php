@@ -218,32 +218,6 @@ class Backend extends Controller
         //加载当前控制器语言包
         $this->loadlang($controllername);
 
-
-
-        //单点登陆
-        $appsMap = json_decode(Env::get('sign.apps_map', "[]"), true);
-        $domain = $this->request->domain();
-        $username = Session::get('admin')['username'];
-
-        $param = [
-            'code' => encryptDecrypt('username', $username),
-        ];
-        $build = http_build_query($param);
-        $apps = [];
-        foreach ($appsMap as $val) {
-            if (strpos($val['url'], $domain) !== false) {
-                //当前域名不同步
-                continue;
-            }
-            $apps[] = [
-                'name' => $val['name'],
-                'url' => $val['url'] . 'login?' . $build
-            ];
-        }
-
-        $this->assign('apps', $apps);
-
-
         //渲染站点配置
         $this->assign('site', $site);
         //渲染配置信息
