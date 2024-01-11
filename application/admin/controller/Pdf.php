@@ -41,6 +41,10 @@ class Pdf extends Backend
         if(!empty($row['family_member'])) {
             $family_member_arr = json_decode($row['family_member'], true);
         }
+        //籍贯
+        if(empty($row['native_place'])) {
+            $row['native_place'] = substr($row['address'], 0, strpos($row['address'], '省'));
+        }
 
         $this->assign('row', $row);
         $this->assign('edu_exp_arr', $edu_exp_arr);

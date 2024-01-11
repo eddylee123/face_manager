@@ -37,7 +37,7 @@
         text-align: center;
         font-weight: bold;
     }
-    .radio {
+    .checkbox {
         margin: 0;
     }
     .content h2 {
@@ -54,7 +54,7 @@
             <td class="td-1">{$row['emp_name']}</td>
             <td>性别</td>
             <td class="td-1">{$row['sex']}</td>
-            <td>出生日期</td>
+            <td class="td-3">出生日期</td>
             <td colspan="2">{$row['birthday']}</td>
             <td>籍贯</td>
             <td colspan="2">{$row['native_place']}</td>
@@ -90,7 +90,7 @@
         <tr>
             <td>介绍人工号</td>
             <td colspan="2">{$row['intro_emp_id']}</td>
-            <td class="td-3">介绍人姓名</td>
+            <td class="td-">介绍人姓名</td>
             <td colspan="2">{$row['intro_name']}</td>
         </tr>
         <tr>
@@ -187,13 +187,13 @@
         <tr>
             <td colspan="5" class="td-2">是否有重大疾病/手术史:</td>
             <td colspan="5" class="td-2">
-                {:Form::radios('row[disease_serious]', $check_list, $row['disease_serious'],['disabled'=>"disabled"] )}
+                {:Form::checkboxs('row[disease_serious]', $check_list, null)}
             </td>
         </tr>
         <tr>
             <td colspan="5" class="td-2">是否曾经被认定为工伤或职业病或持有残疾人证明:</td>
             <td colspan="5" class="td-2">
-                {:Form::radios('row[disease]', $check_list, $row['disease'],['disabled'=>"disabled"] )}
+                {:Form::checkboxs('row[disease]', $check_list, null)}
             </td>
         </tr>
         <tr>
@@ -207,11 +207,11 @@
         </tr>
         <tr>
             <td colspan="2" class="td-2">接待人签名:</td>
-            <td colspan="3" class="td-2"></td>
+            <td colspan="2" class="td-2"></td>
             <td colspan="2" class="td-2">填表人签名:</td>
             <td colspan="1" class="td-2"></td>
             <td colspan="1" class="td-2">日期:</td>
-            <td colspan="1" class="td-2"></td>
+            <td colspan="2" class="td-2">{$row['kq_date']}</td>
         </tr>
         <tr>
             <td colspan="10" class="td-mid">以下由用人单位填写</td>
@@ -222,7 +222,7 @@
             <td colspan="1" class="td-2">职位:</td>
             <td colspan="1" class="td-2"></td>
             <td colspan="1" class="td-2">工号:</td>
-            <td colspan="1" class="td-2"></td>
+            <td colspan="1" class="td-2">{$row['emp_id']}</td>
             <td colspan="1" class="td-2">到职日期:</td>
             <td colspan="2" class="td-2">{$row['kq_date']}</td>
         </tr>
