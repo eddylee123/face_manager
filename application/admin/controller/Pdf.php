@@ -40,6 +40,13 @@ class Pdf extends Backend
         }
         if(!empty($row['family_member'])) {
             $family_member_arr = json_decode($row['family_member'], true);
+            if (count($family_member_arr) <= 1) {
+                array_push($family_member_arr, [
+                    'name' => '&nbsp;',
+                    'relation' => '&nbsp;',
+                    'tel' => '&nbsp;',
+                ]);
+            }
         }
         //籍贯
         if(empty($row['native_place'])) {
