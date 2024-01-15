@@ -21,6 +21,7 @@ class AuthGroup extends Model
     public function getOrgList()
     {
         return [
+            '-1' => '',
             '01' => '集团(万达)',
             '02' => '向家堤',
             '03' => '经开区',
