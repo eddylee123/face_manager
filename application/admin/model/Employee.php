@@ -216,6 +216,16 @@ class Employee extends Model
         return  ['msg'=>'查询失败'];
     }
 
+    public function getEmpImg($emp_id)
+    {
+        $url = "http://220.168.154.86:50522/EMPImage?MEMPID={$emp_id}";
+        $rs = Http::get($url);
+        if (!empty($rs)) {
+            return json_decode($rs, true);
+        }
+        return  ['msg'=>'查询失败'];
+    }
+
     public function getDept($org_id)
     {
         $url = "http://220.168.154.86:50522/GETViewDepartment?OrgID={$org_id}";

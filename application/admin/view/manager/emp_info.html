@@ -79,6 +79,13 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">人像照片</label>
+        <div class="img-list">
+            <img class="img-src1" src="">
+            <img class="img-src2" src="">
+        </div>
+    </div>
 </div>
 
 <script src="/assets/js/index/jquery.min.js"></script>
@@ -98,6 +105,8 @@
                 $(".c-belongDept").html(ret.data.belongDept);
                 $(".cs-list input[type='checkbox']").prop("checked", false);
                 $(".kq-list input[type='checkbox']").prop("checked", false);
+                $(".img-src1").attr('src', ret.data.img1);
+                $(".img-src2").attr('src', ret.data.img2);
                 var cs = ret.data.cs_level;
                 for(let key in cs) {
                     if (cs.hasOwnProperty(key)) {

@@ -718,6 +718,19 @@ class Employee extends Backend
                 split_param($emp['XFLevel'], $this->empRoleModel->csLevel) : [];
             $emp['kq_level'] = !empty($emp['MJLevel']) ?
                 split_param($emp['MJLevel'], $this->empRoleModel->kqLevel) : [];
+            //照片信息
+            $img = $this->model->getEmpImg($emp_id);
+            $emp['img1'] = $emp['img2'] = '/assets/img/face_default.png';
+            if (!empty($img['Data'])) {
+                if (!empty($img['Data']['PFILE1Name'])) {
+                    $emp['img1'] = str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                    'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE1Name']);
+                }
+                if (!empty($img['Data']['PFILE2Name'])) {
+                    $emp['img2'] = str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                        'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE2Name']);
+                }
+            }
             $this->success('查询成功', '', $emp);
         }
         $this->error();
