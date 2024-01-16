@@ -561,7 +561,7 @@ class Employee extends Backend
 
                     $url = $named = '';
                     //获取工号
-                    if (Env::get('app.debug') == true) {
+                    if (Env::get('app.master') == false) {
                         if ($row['emp_source'] == '合同工') {
                             $params['emp_id'] = $this->model->getEmpHtg($row['org_id']);
                         } else {
