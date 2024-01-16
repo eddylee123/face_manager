@@ -93,7 +93,10 @@ class Employee extends Backend
             {
                 return $this->selectpage();
             }
-            $op = [];
+
+            $ops = $this->request->request('op', '{}');
+            $op = json_decode($ops, true);
+
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
             $filter_arr['org_id'] = $this->admin['org_id'];
