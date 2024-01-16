@@ -140,7 +140,7 @@ class Employ extends Backend
             !empty($cert_validity) && $cert_validity = format_time($cert_validity);
             //判断去重
             $is = $this->empExamModel
-                ->where(['id_card'=>$id_card,'exam_date'=>$exam_date])->fetchSql(true)
+                ->where(['id_card'=>$id_card,'exam_date'=>$exam_date])
                 ->value('id');
             if (!empty($is)) continue;
 
