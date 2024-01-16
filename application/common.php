@@ -885,3 +885,9 @@ function format_time($timevalue)
     }
 }
 
+
+function is_id_number($idNumber) {
+    $pattern = '/^\d{15}$|^\d{17}[\dXx]$/';
+    return preg_match($pattern, $idNumber) === 1;
+}
+

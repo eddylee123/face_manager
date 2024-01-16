@@ -129,7 +129,7 @@ class Employ extends Backend
             $remark = trim($currentSheet->getCellByColumnAndRow(11, $currentRow)->getValue());
             $state = trim($currentSheet->getCellByColumnAndRow(12, $currentRow)->getValue());
 
-            if (!is_numeric($id_card) || empty($username) || empty($exam_date)) {
+            if (!is_id_number($id_card) || empty($username) || empty($exam_date)) {
                 continue;
             }
 
