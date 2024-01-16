@@ -126,9 +126,11 @@ class Employee extends Backend
             $this->request->get(['op'=>json_encode($op)]);
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $total = $this->model
+                ->where('status', 'egt' , 0)
                 ->where($where)
                 ->count();
             $list = $this->model
+                ->where('status', 'egt' , 0)
                 ->where($where)
                 ->order($sort, $order)
                 ->limit($offset, $limit)
@@ -523,7 +525,7 @@ class Employee extends Backend
             $this->error('请求参数异常', $_SERVER['HTTP_REFERER']);
         }
         //基础信息
-        $row = $this->model->where(['id_card'=>$id_card])->find();
+        $row = $this->model->where(['id_card'=>$id_card])->order('id', 'desc')->find();
 
         //人脸信息
         $img = $this->empImgModel->where(['emp_id_2'=>$row['emp_id_2']])->find();
