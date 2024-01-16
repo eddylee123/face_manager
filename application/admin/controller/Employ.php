@@ -129,20 +129,20 @@ class Employ extends Backend
             $remark = trim($currentSheet->getCellByColumnAndRow(11, $currentRow)->getValue());
             $state = trim($currentSheet->getCellByColumnAndRow(12, $currentRow)->getValue());
 
-            if (empty($id_card) || empty($username) || empty($exam_date)) {
+            if (!is_numeric($id_card) || empty($username) || empty($exam_date)) {
                 continue;
             }
-            //判断去重
-            $is = $this->empExamModel
-                ->where(['id_card'=>$id_card,'exam_date'=>$exam_date])
-                ->value('id');
-            if (!empty($is)) continue;
 
             !empty($re_exam) && $re_exam = str_replace(array("\\r\\n", "\\r", "\\n"), "", $re_exam);
             !empty($remark) && $remark = str_replace(array("\\r\\n", "\\r", "\\n"), "", $remark);
             !empty($exam_date) && $exam_date = format_time($exam_date);
             !empty($cert_date) && $cert_date = format_time($cert_date);
             !empty($cert_validity) && $cert_validity = format_time($cert_validity);
+            //判断去重
+            $is = $this->empExamModel
+                ->where(['id_card'=>$id_card,'exam_date'=>$exam_date])->fetchSql(true)
+                ->value('id');
+            if (!empty($is)) continue;
 
             $dataArr[] = compact('username','age','id_card','tel','sex','cert_number',
                 'exam_date','cert_date','cert_validity','remark','re_exam','state');
