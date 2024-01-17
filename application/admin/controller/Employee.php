@@ -50,6 +50,8 @@ class Employee extends Backend
     protected $ysl = null;
 
     protected $admin;
+    protected $cs_list = [];
+    protected $kq_list = [];
 
     public function _initialize()
     {
@@ -60,6 +62,9 @@ class Employee extends Backend
         $this->empImgModel = new EmpImg();
         $this->empRoleModel = new EmpRole();
         $this->empExamModel = new \app\admin\model\EmpExam();
+        $this->admin = Session::get('admin');
+        $this->cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
+        $this->kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
 
         $this->view->assign("sexList", $this->model->getSexList());
         $this->view->assign("empSourceList", $this->model->getEmpSourceList());
@@ -71,10 +76,9 @@ class Employee extends Backend
         $this->view->assign("statusList", $this->model->getStatusList());
         $this->view->assign("relation_list", $this->model->getRelationList());
         $this->view->assign("statusListExam", $this->empExamModel->getStatusList());
-        $this->view->assign("cs_level_list", $this->empRoleModel->csLevel);
-        $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel);
+        $this->view->assign("cs_level_list", $this->cs_list);
+        $this->view->assign("kq_level_list", $this->kq_list);
         $this->view->assign("radio_list", [0=>'否',1=>'是']);
-        $this->admin = Session::get('admin');
     }
 
     /**
@@ -368,8 +372,8 @@ class Employee extends Backend
         }
         $kq_arr = $cs_arr = [];
         if (!empty($row['kq_level'])) {
-            $kq_arr = split_param($row['kq_level'], $this->empRoleModel->kqLevel);
-            $cs_arr = split_param($row['cs_level'], $this->empRoleModel->csLevel);
+            $kq_arr = split_param($row['kq_level'], $this->kq_list);
+            $cs_arr = split_param($row['cs_level'], $this->cs_list);
         }
         //判断合同工
 //        $url = $named = '';
@@ -414,8 +418,8 @@ class Employee extends Backend
         $this->view->assign("row", $row);
         $this->view->assign("kq_arr", $kq_arr);
         $this->view->assign("cs_arr", $cs_arr);
-        $this->view->assign("cs_level_list", $this->empRoleModel->csLevel);
-        $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel);
+        $this->view->assign("cs_level_list", $this->cs_list);
+        $this->view->assign("kq_level_list", $this->kq_list);
         return $this->view->fetch();
     }
 
@@ -573,8 +577,8 @@ class Employee extends Backend
                         $params['emp_id'] = $this->model->getNewEmpId($row['org_id'], $row['emp_name'], $row['emp_source']);
                     }
                     //开启所有权限
-                    $params['cs_level'] = array_sum(array_keys($this->empRoleModel->csLevel));
-                    $params['kq_level'] = array_sum(array_keys($this->empRoleModel->kqLevel));
+                    $params['cs_level'] = array_sum(array_keys($this->cs_list));
+                    $params['kq_level'] = array_sum(array_keys($this->kq_list));
                     $params['is_new'] = 0;
 
                     $result = $row->allowField(true)->save($params);
@@ -616,8 +620,8 @@ class Employee extends Backend
         }
         $kq_arr = $cs_arr = [];
         if (!empty($row['kq_level'])) {
-            $kq_arr = split_param($row['kq_level'], $this->empRoleModel->kqLevel);
-            $cs_arr = split_param($row['cs_level'], $this->empRoleModel->csLevel);
+            $kq_arr = split_param($row['kq_level'], $this->kq_list);
+            $cs_arr = split_param($row['cs_level'], $this->cs_list);
         }
         //人脸信息
         $img = $this->empImgModel->where(['emp_id_2'=>$row['emp_id_2']])->find();
@@ -720,9 +724,9 @@ class Employee extends Backend
         if ($rs['msg'] == '查询成功') {
             $emp = $rs['emp'];
             $emp['cs_level'] = !empty($emp['XFLevel']) ?
-                split_param($emp['XFLevel'], $this->empRoleModel->csLevel) : [];
+                split_param($emp['XFLevel'], $this->cs_list) : [];
             $emp['kq_level'] = !empty($emp['MJLevel']) ?
-                split_param($emp['MJLevel'], $this->empRoleModel->kqLevel) : [];
+                split_param($emp['MJLevel'], $this->kq_list) : [];
             //照片信息
             $img = $this->model->getEmpImg($emp_id);
             $emp['img1'] = $emp['img2'] = '/assets/img/face_default.png';

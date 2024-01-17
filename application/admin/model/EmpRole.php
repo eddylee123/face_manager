@@ -5,6 +5,7 @@ namespace app\admin\model;
 
 
 
+use fast\Http;
 use think\Model;
 
 class EmpRole extends Model
@@ -47,8 +48,8 @@ class EmpRole extends Model
 
     // 追加属性
     protected $append = [
-        'cs_text',
-        'kq_text',
+//        'cs_text',
+//        'kq_text',
     ];
 
     public function addLog($emp_id_2, $cs_level, $kq_level, $remark)
@@ -57,6 +58,39 @@ class EmpRole extends Model
         $data['create_time'] = time();
 
         return self::insert($data);
+    }
+
+    public function csLevel($org_id)
+    {
+        $rs = $this->getRoleList($org_id, 'STLX');
+        $data = [];
+        foreach ($rs as $name=>$item) {
+            $k = str_pad(1, $item, "0", STR_PAD_RIGHT);
+            $data[$k] = $name;
+        }
+        return $data;
+    }
+
+    public function kqLevel($org_id)
+    {
+        $rs = $this->getRoleList($org_id, 'MJLX');
+        $data = [];
+        foreach ($rs as $name=>$item) {
+            $k = str_pad(1, $item, "0", STR_PAD_RIGHT);
+            $data[$k] = $name;
+        }
+        return $data;
+    }
+
+    public function getRoleList($org_id, $key='MJLX')
+    {
+        $url = "http://220.168.154.86:50522/GETViewMacTeam?ORGID={$org_id}";
+        $rs = Http::get($url);
+        if (!empty($rs)) {
+            $arr = json_decode($rs, true);
+            return $arr[$key] ?? [];
+        }
+        return  ['msg'=>'查询失败'];
     }
 
     public function getCreateTimeTextAttr($value, $data)
@@ -70,27 +104,27 @@ class EmpRole extends Model
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
-    protected function getCsTextAttr($value, $data)
-    {
-        $split_arr = split_param($data['cs_level'], $this->csLevel);
-        sort($split_arr);
-        $split_val = array_map(function ($item){
-            return $this->csLevel[$item] ?? '';
-        }, $split_arr);
-
-        return implode('|', $split_val);
-    }
-
-    protected function getKqTextAttr($value, $data)
-    {
-        $split_arr = split_param($data['kq_level'], $this->kqLevel);
-        sort($split_arr);
-        $split_val = array_map(function ($item){
-            return $this->kqLevel[$item] ?? '';
-        }, $split_arr);
-
-        return implode('|', $split_val);
-    }
+//    protected function getCsTextAttr($value, $data)
+//    {
+//        $split_arr = split_param($data['cs_level'], $this->csLevel);
+//        sort($split_arr);
+//        $split_val = array_map(function ($item){
+//            return $this->csLevel[$item] ?? '';
+//        }, $split_arr);
+//
+//        return implode('|', $split_val);
+//    }
+//
+//    protected function getKqTextAttr($value, $data)
+//    {
+//        $split_arr = split_param($data['kq_level'], $this->kqLevel);
+//        sort($split_arr);
+//        $split_val = array_map(function ($item){
+//            return $this->kqLevel[$item] ?? '';
+//        }, $split_arr);
+//
+//        return implode('|', $split_val);
+//    }
     
 
 
