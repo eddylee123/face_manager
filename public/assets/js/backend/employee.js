@@ -188,6 +188,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     });
                     //导出
                     $('#btn-export-table').unbind('click').click(function(){
+                        var source = $("select[name='emp_source']").val();
+                        if (source.length == 0) {
+                            Toastr.error('请选择员工类型');
+                            return false;
+                        }
+
                         var jsonData = JSON.stringify($('form').serializeArray());
                         // console.log();return;
 
