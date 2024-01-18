@@ -253,7 +253,7 @@
         $(".read").click(function () {
             var device = sessionStorage.getItem('device');
             if (device !== null) {
-                $.get(base_file+"/employee/readCard?device="+device, function (ret) {
+                $.get(base_file+"/employee/readCard?flag=add&device="+device, function (ret) {
                     if (ret.code === 1) {
                         var data = ret.data;
                         $('#c-emp_name').val(data.name);
