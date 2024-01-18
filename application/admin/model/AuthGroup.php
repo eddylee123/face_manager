@@ -2,6 +2,7 @@
 
 namespace app\admin\model;
 
+use think\Config;
 use think\Model;
 
 class AuthGroup extends Model
@@ -20,18 +21,6 @@ class AuthGroup extends Model
 
     public function getOrgList()
     {
-        return [
-            '-1' => '',
-            '01' => '集团(万达)',
-            '02' => '向家堤',
-            '03' => '经开区',
-            '04' => '黄家湖',
-            '05' => '桃江基地',
-            '06' => '邵阳基地',
-            '07' => '东澳基地',
-            '08' => '后安',
-            '09' => '沧水铺',
-            '13' => '槟榔城',
-        ];
+        return Config::get('site.org_list');
     }
 }

@@ -25,6 +25,7 @@ class RoleStatus extends Backend
         $this->model = new \app\admin\model\RoleStatus;
         $this->view->assign("empSourceList", Config::get('site.emp_source'));
         $this->view->assign("roleStatusList", Config::get('site.role_status'));
+        $this->view->assign("orgList", Config::get('site.org_list'));
     }
 
     public function import()
@@ -66,6 +67,7 @@ class RoleStatus extends Backend
 
         $this->assignconfig("source_list", Config::get('site.emp_source'));
         $this->assignconfig("status_list", Config::get('site.role_status'));
+        $this->assignconfig("org_list", Config::get('site.org_list'));
         return $this->view->fetch();
     }
     /**

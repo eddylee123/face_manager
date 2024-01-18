@@ -48,6 +48,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'text', title: __('Text'), operate: 'LIKE'},
                         {field: 'emp_source', title: __('Emp_source'), searchList: Config.source_list, formatter: Table.api.formatter.normal},
                         {field: 'status', title: __('Status'), searchList: Config.status_list, formatter: Table.api.formatter.normal, operate: false},
+                        {field: 'org_id', title: __('Org_id'), searchList: Config.org_list, formatter: Table.api.formatter.normal, operate: false},
                         {field: 'url', title: __('Url'), operate: false},
                         {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime}
                     ]
