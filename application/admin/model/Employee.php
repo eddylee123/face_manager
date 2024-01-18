@@ -3,6 +3,7 @@
 namespace app\admin\model;
 
 use fast\Http;
+use think\Config;
 use think\Db;
 use think\Model;
 use traits\model\SoftDelete;
@@ -44,7 +45,7 @@ class Employee extends Model
 
     public function getEmpSourceList()
     {
-        return ['合同工' => __('合同工'), '劳务工' => __('劳务工')];
+        return Config::get('site.emp_source');
     }
 
     public function getMarryList()

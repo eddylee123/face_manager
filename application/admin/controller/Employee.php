@@ -148,6 +148,7 @@ class Employee extends Backend
         $this->assignconfig("sex_list", $this->model->getSexList());
         $this->assignconfig("marry_list", $this->model->getMarryList());
         $this->assignconfig("status_list", $this->model->getStatusList());
+        $this->assignconfig("source_list", $this->model->getEmpSourceList());
         return $this->view->fetch();
     }
 

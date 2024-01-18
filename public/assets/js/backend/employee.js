@@ -77,7 +77,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'sex', title: __('Sex'), searchList: {"男":__('男'),"女":__('女')}, formatter: Table.api.formatter.normal},
                         {field: 'education', title: __('Education'), operate: false},
                         {field: 'id_card', title: __('Id_card')},
-                        {field: 'emp_source', title: __('Emp_source'), searchList: {"合同工":__('合同工'),"劳务工":__('劳务工')}, formatter: Table.api.formatter.normal},
+                        {field: 'emp_source', title: __('Emp_source'), searchList: Config.source_list, formatter: Table.api.formatter.normal},
                         {field: 'tel', title: __('Tel')},
                         {field: 'marry', title: __('Marry'), searchList: Config.marry_list, formatter: Table.api.formatter.normal},
                         {field: 'age', title: __('Age'), operate: false},

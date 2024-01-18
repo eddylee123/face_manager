@@ -132,15 +132,17 @@ class Config extends Backend
                         } else {
                             $value = is_array($value) ? implode(',', $value) : $value;
                         }
-                        $v['value'] = $value;
-                        $configList[] = $v->toArray();
+//                        $v['value'] = $value;
+//                        $configList[] = $v->toArray();
+                        //调整批量更新
+                        $this->model->allowField(true)->where(['id'=>$v['id']])->update(['value'=>$value]);
                     }
                 }
-                try {
-                    $this->model->allowField(true)->saveAll($configList);
-                } catch (Exception $e) {
-                    $this->error($e->getMessage());
-                }
+//                try {
+//                    $this->model->allowField(true)->saveAll($configList);
+//                } catch (Exception $e) {
+//                    $this->error($e->getMessage());
+//                }
                 try {
                     $this->refreshFile();
                 } catch (Exception $e) {
