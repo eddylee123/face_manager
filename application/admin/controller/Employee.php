@@ -192,6 +192,12 @@ class Employee extends Backend
                     $this->error($e->getMessage());
                 }
                 if ($result !== false) {
+                    //保存身份证照
+                    $zp = $this->request->param('zp', '');
+                    if (!empty($zp)) {
+                        $this->empImgModel->savezp($params['emp_id_2'], $zp);
+                    }
+
                     $url = $this->request->baseFile().'/employee/photo?emp2='.$params['emp_id_2'];
                     $this->success('', null, ['url'=>$url]);
                 } else {
@@ -232,6 +238,11 @@ class Employee extends Backend
 
                     $result = $row->where(['id'=>$ids])->update($params);
                     if ($result !== false) {
+                        //保存身份证照
+                        $zp = $this->request->param('zp', '');
+                        if (!empty($zp)) {
+                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
+                        }
                         $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
                         $this->success('', null, ['url'=>$url]);
                     } else {
@@ -332,7 +343,7 @@ class Employee extends Backend
             } else {
                 $data['emp_id_2'] = $emp2;
                 $data['create_id'] = $this->admin['id'];
-                $rs = $this->empImgModel->insert($data);
+                $rs = $this->empImgModel->save($data);
             }
 
             if ($rs === false) {
@@ -505,13 +516,16 @@ class Employee extends Backend
         $card['begin'] = date('Y-m-d', strtotime($card['begin']));
         $card['end'] = date('Y-m-d', strtotime($card['end']));
         $card['age'] = get_age($card['birth']);
+        $card['is'] = 1;
+        $card['err_msg'] = '';
         if ($flag == 'add') {
             //旧数据比对
-            $card['err_msg'] = '';
             $rs = $this->model->checkEmpStatus($card['id'], $card['begin'], $card['end']);
-            if ($rs['code'] != 200) {
-                $card['err_msg'] = $rs['msg'];
-            }
+            $rs['code'] != 200 && $card['err_msg'] = $rs['msg'];
+        }
+        if ($flag == 'sign') {
+            $rsE = $this->model->where(['id_card'=>$card['id']])->value('id');
+            !$rsE && $card['is'] = 0;
         }
 
         SocketCache::dels($device);
@@ -764,15 +778,24 @@ class Employee extends Backend
         if ($this->request->isPost())
         {
             $params = $this->request->post("row/a", [], 'trim');
-
             if ($params) {
                 try {
+                    //旧数据比对
+                    $rs = $this->model->checkEmpStatus($params['id_card'], $params['id_date'], $params['id_validity']);
+                    if (!in_array($rs['code'], [100, 200])) {
+                        $this->error($rs['msg']);
+                    }
                     if (!empty($this->admin['org_id'])) {
                         $params['org_id'] = $this->admin['org_id'];
                     }
                     $params['status'] = 1;
                     $result = $row->where(['id'=>$row['id']])->update($params);
                     if ($result !== false) {
+                        //保存身份证照
+                        $zp = $this->request->param('zp', '');
+                        if (!empty($zp)) {
+                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
+                        }
                         $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
                         $this->success('', null, ['url'=>$url]);
                     } else {

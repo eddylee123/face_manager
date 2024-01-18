@@ -200,10 +200,10 @@
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
+            <input type="hidden" id="zp" name="zp">
             <button type="submit" class="btn btn-info btn-embossed disabled">{:__('OK')}</button>
             <button type="button" class="btn btn-success btn-embossed push" value="nex">下一步</button>
             <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
-
         </div>
     </div>
 </form>
@@ -254,6 +254,7 @@
             var device = sessionStorage.getItem('device');
             if (device !== null) {
                 $.get(base_file+"/employee/readCard?flag=add&device="+device, function (ret) {
+                    // console.log(ret);
                     if (ret.code === 1) {
                         var data = ret.data;
                         $('#c-emp_name').val(data.name);
@@ -266,6 +267,7 @@
                         $('#c-id_date').val(data.begin);
                         $('#c-id_validity').val(data.end);
                         $('#c-age').val(data.age);
+                        $('#zp').val(data.bmppath);
                         if (data.err_msg.length > 0) {
                             $('#c-remark').val(ret.data.err_msg);
                             Toastr.error(ret.data.err_msg);

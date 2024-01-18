@@ -169,13 +169,22 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     $('.btn_sign').click(function(){
                         var device = sessionStorage.getItem('device');
                         if (device !== null) {
-                            $.get(base_file+"/employee/readCard?device="+device, function (ret) {
+                            $.get(base_file+"/employee/readCard?flag=sign&device="+device, function (ret) {
                                 if (ret.code === 1) {
-                                    Fast.api.open(
-                                        'employee/sign?id_card='+ret.data.id,
-                                        '报名确认',
-                                        {area:["100%", "100%"]
-                                        });
+                                    if (ret.data.is == 0) {
+                                        //新增
+                                        Fast.api.open(
+                                            'employee/add',
+                                            '添加',
+                                            {area:["100%", "100%"]
+                                            });
+                                    } else {
+                                        Fast.api.open(
+                                            'employee/sign?id_card='+ret.data.id,
+                                            '报名确认',
+                                            {area:["100%", "100%"]
+                                            });
+                                    }
                                 } else {
                                     Toastr.error(ret.msg);
                                 }
