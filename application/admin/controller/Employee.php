@@ -45,6 +45,11 @@ class Employee extends Backend
     protected $empExamModel = null;
 
     /**
+     * @var \app\admin\model\RoleStatus
+     */
+    protected $roleStatusModel = null;
+
+    /**
      * @var Ysl
      */
     protected $ysl = null;
@@ -62,6 +67,7 @@ class Employee extends Backend
         $this->empImgModel = new EmpImg();
         $this->empRoleModel = new EmpRole();
         $this->empExamModel = new \app\admin\model\EmpExam();
+        $this->roleStatusModel = new \app\admin\model\RoleStatus();
         $this->admin = Session::get('admin');
         $this->cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
         $this->kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
@@ -197,9 +203,17 @@ class Employee extends Backend
                     if (!empty($zp)) {
                         $this->empImgModel->savezp($params['emp_id_2'], $zp);
                     }
-
-                    $url = $this->request->baseFile().'/employee/photo?emp2='.$params['emp_id_2'];
-                    $this->success('', null, ['url'=>$url]);
+                    //
+//                    $url = $this->request->baseFile().'/employee/photo?emp2='.$params['emp_id_2'];
+                    $arg = $this->roleStatusModel
+                        ->getOperate($this->admin['org_id'],
+                            'add',
+                            1,
+                            'photo',
+                            $params['emp_source'],
+                            ['emp_id_2'=>$params['emp_id_2']]
+                        );
+                    $this->success('', null, ['url'=>$arg['urls'], 'named'=>$arg['named']]);
                 } else {
                     $this->error($this->model->getError());
                 }
@@ -243,8 +257,16 @@ class Employee extends Backend
                         if (!empty($zp)) {
                             $this->empImgModel->savezp($row['emp_id_2'], $zp);
                         }
-                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
-                        $this->success('', null, ['url'=>$url]);
+//                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
+                        $arg = $this->roleStatusModel
+                            ->getOperate($this->admin['org_id'],
+                                'edit',
+                                1,
+                                'photo',
+                                $row['emp_source'],
+                                $row
+                        );
+                        $this->success('', null, ['url'=>$arg['urls'], 'named'=>$arg['named']]);
                     } else {
                         $this->error($row->getError());
                     }
@@ -296,8 +318,16 @@ class Employee extends Backend
         if ($emp_info['status'] == 1){
             //判断劳务工
             if ($emp_info['emp_source'] == '劳务工') {
-                $named = '权限';
-                $url = $this->request->baseFile().'/employee/roles?emp2='.$emp2;
+                $arg = $this->roleStatusModel
+                    ->getOperate($this->admin['org_id'],
+                        'photo',
+                        2,
+                        'roles',
+                        $emp_info['emp_source'],
+                        $emp_info
+                    );
+                $named = $arg['named'];
+                $url = $arg['urls'];
             }
         }
 
@@ -388,11 +418,9 @@ class Employee extends Backend
             $cs_arr = split_param($row['cs_level'], $this->cs_list);
         }
         //判断合同工
-//        $url = $named = '';
-        if ($row['emp_source'] == '劳务工' && $row['status'] == 2) {
-//            $named = '体检信息';
-//            $url = $this->request->baseFile().'/employee/exam?emp2='.$emp2;
-            empty($row['auth_date']) && $row['auth_date'] = date("Y-m-d", strtotime("+7 day"));
+
+        if ($row['emp_source'] == '劳务工' && empty($row['auth_date'])) {
+             $row['auth_date'] = date("Y-m-d", strtotime("+7 day"));
         }
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a", [], 'strip_tags');
@@ -796,8 +824,16 @@ class Employee extends Backend
                         if (!empty($zp)) {
                             $this->empImgModel->savezp($row['emp_id_2'], $zp);
                         }
-                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
-                        $this->success('', null, ['url'=>$url]);
+//                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
+                        $arg = $this->roleStatusModel
+                            ->getOperate($this->admin['org_id'],
+                                'sign',
+                                1,
+                                'photo',
+                                $row['emp_source'],
+                                $row
+                            );
+                        $this->success('', null, ['url'=>$arg['urls'], 'named'=>$arg['named']]);
                     } else {
                         $this->error($row->getError());
                     }

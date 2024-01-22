@@ -44,12 +44,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {checkbox: true},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate},
                         {field: 'id', title: __('Id'), operate: false},
-                        {field: 'operate', title: __('Operate'), operate: 'LIKE'},
-                        {field: 'text', title: __('Text'), operate: 'LIKE'},
+                        {field: 'operate', title: __('Operate'), operate: 'LIKE', searchList: Config.view_list, formatter: Table.api.formatter.normal},
                         {field: 'emp_source', title: __('Emp_source'), searchList: Config.source_list, formatter: Table.api.formatter.normal},
                         {field: 'status', title: __('Status'), searchList: Config.status_list, formatter: Table.api.formatter.normal, operate: false},
                         {field: 'org_id', title: __('Org_id'), searchList: Config.org_list, formatter: Table.api.formatter.normal, operate: false},
+                        {field: 'to_page', title: __('To_page'), searchList: Config.page_list, formatter: Table.api.formatter.normal, operate: false},
                         {field: 'url', title: __('Url'), operate: false},
+                        {field: 'params', title: __('Params'), operate: false},
                         {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime}
                     ]
                 ]

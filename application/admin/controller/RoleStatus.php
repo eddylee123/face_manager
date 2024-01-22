@@ -23,9 +23,11 @@ class RoleStatus extends Backend
     {
         parent::_initialize();
         $this->model = new \app\admin\model\RoleStatus;
-        $this->view->assign("empSourceList", Config::get('site.emp_source'));
-        $this->view->assign("roleStatusList", Config::get('site.role_status'));
-        $this->view->assign("orgList", Config::get('site.org_list'));
+        $this->view->assign("empSourceList", $this->model->empSource());
+        $this->view->assign("roleStatusList", $this->model->roleStatus());
+        $this->view->assign("roleViewList", $this->model->roleView());
+        $this->view->assign("orgList", $this->model->orgList());
+        $this->view->assign("toPageList", $this->model->toPage());
     }
 
     public function import()
@@ -65,9 +67,11 @@ class RoleStatus extends Backend
             return json($result);
         }
 
-        $this->assignconfig("source_list", Config::get('site.emp_source'));
-        $this->assignconfig("status_list", Config::get('site.role_status'));
-        $this->assignconfig("org_list", Config::get('site.org_list'));
+        $this->assignconfig("source_list", $this->model->empSource());
+        $this->assignconfig("status_list", $this->model->roleStatus());
+        $this->assignconfig("view_list", $this->model->roleView());
+        $this->assignconfig("org_list", $this->model->orgList());
+        $this->assignconfig("page_list", $this->model->toPage());
         return $this->view->fetch();
     }
     /**

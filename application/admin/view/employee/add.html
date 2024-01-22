@@ -234,7 +234,7 @@
                             Toastr.success('操作成功，正在跳转……');
                             setTimeout(function () {
                                 Fast.api.close();
-                                parent.Fast.api.open(ret.data.url, '人脸拍照', {area: ["100%", "100%"]});
+                                parent.Fast.api.open(ret.data.url, ret.data.named, {area: ["100%", "100%"]});
                             }, 2000);
                         } else {
                             Toastr.success('操作成功');
