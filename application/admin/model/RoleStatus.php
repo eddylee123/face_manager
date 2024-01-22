@@ -25,11 +25,6 @@ class RoleStatus extends Model
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
 
-    // 追加属性
-    protected $append = [
-        'create_time_text',
-        'update_time_text'
-    ];
 
     public function roleView()
     {
@@ -134,19 +129,6 @@ class RoleStatus extends Model
     public function setParamsAttr($value, $data)
     {
         return $this->roleParams()[$data['to_page']] ?? '';
-    }
-
-    public function getCreateTimeTextAttr($value, $data)
-    {
-        $value = $value ? $value : (isset($data['create_time']) ? $data['create_time'] : '');
-        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
-    }
-
-
-    public function getUpdateTimeTextAttr($value, $data)
-    {
-        $value = $value ? $value : (isset($data['update_time']) ? $data['update_time'] : '');
-        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
     }
 
     protected function setCreateTimeAttr($value)

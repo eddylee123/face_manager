@@ -61,7 +61,6 @@
             <div class="sm-st clearfix">
                 <span class="sm-st-icon st-green"><i class="fa fa-align-justify"></i></span>
                 <div class="sm-st-info">
-                    <span>{$category}</span>
                     分类数
                 </div>
             </div>
@@ -70,7 +69,6 @@
             <div class="sm-st clearfix">
                 <span class="sm-st-icon st-violet"><i class="fa fa-book"></i></span>
                 <div class="sm-st-info">
-                    <span>{$total}</span>
                     总资产数
                 </div>
             </div>
@@ -79,7 +77,6 @@
             <div class="sm-st clearfix">
                 <span class="sm-st-icon st-red"><i class="fa fa-jpy"></i></span>
                 <div class="sm-st-info">
-                    <span>{$cost}</span>
                     总费用（元）
                 </div>
             </div>
@@ -136,9 +133,7 @@
             <tr><th></th><th>分类名：数量</th></tr>
         </thead>
         <tbody>
-            {foreach name="lists" item="vo"}
-            <tr><th>{$vo.catname}</th><td>{$vo.tot}</td></tr>
-            {/foreach}
+
         </tbody>
     </table>
 

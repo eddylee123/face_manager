@@ -4,7 +4,6 @@
 namespace app\admin\library;
 
 use fast\Http;
-use think\Cookie;
 
 /**
  * 依时丽接口
