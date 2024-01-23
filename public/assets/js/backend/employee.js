@@ -17,17 +17,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
             var table = $("#table");
 
-            //  e.preventDefault();
-            //var ids = Table.api.selectedids(table);
-            /*
-            Config.columns
-            Config.moduleurl
-            Config.controllername
-               , formatter: function(val, row){
-               var html = url_class_val(row.id+'" datas="status=1' , "btn btn-xs btn-success btn-editone" , '<i class="fa fa-pencil"></i>');
-               return html;
-               }}
-               */
             // 初始化表格
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,

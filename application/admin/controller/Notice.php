@@ -61,12 +61,8 @@ class Notice extends Backend
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
-        /*$arr1 = [
-            ['checkbox'=>true],
-            ['field'=> 'spread_item', 'title'=> '推荐人' ,'placeholder'=> 'id或手机号' ,  'operate'=> "LIKE %...%" ],
-            ['field'=> 'add_time', 'title'=> __('add_time'), 'operate'=> 'RANGE', 'addclass'=> 'datetimerange', 'autocomplete'=> false],//封装的方法带不过去
-            ];
-        $this->assignconfig('columns' ,json_encode($arr1));*/
+
+        $this->assignconfig('readList' ,$this->model->readList);
         return $this->view->fetch();
     }
     /**

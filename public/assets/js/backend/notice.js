@@ -6,33 +6,23 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.init({
                 extend: {
                     index_url: 'notice/index' + location.search,
-                    add_url: 'notice/add',
-                    edit_url: 'notice/edit',
-                    del_url: 'notice/del',
+                    // add_url: 'notice/add',
+                    // // edit_url: 'notice/edit',
+                    // // del_url: 'notice/del',
                     multi_url: 'notice/multi',
-                    import_url: 'notice/import',
+                    // import_url: 'notice/import',
                     table: 'notice',
                 }
             });
 
             var table = $("#table");
 
-            //  e.preventDefault();
-            //var ids = Table.api.selectedids(table);
-            /*
-            Config.columns
-            Config.moduleurl
-            Config.controllername
-               , formatter: function(val, row){
-               var html = url_class_val(row.id+'" datas="status=1' , "btn btn-xs btn-success btn-editone" , '<i class="fa fa-pencil"></i>');
-               return html;
-               }}
-               */
             // 初始化表格
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'id',
-                sortName: 'id',
+                sortName: 'is_read',
+                sortOrder: 'asc',
                 searchFormVisible:true,
                 exportOptions: {
                     fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
@@ -42,15 +32,30 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate},
-                        {field: 'id', title: __('Id')},
-                        {field: 'type', title: __('Type'), operate: 'LIKE'},
-                        {field: 'link_id', title: __('Link_id')},
+                        {field: 'operate', title: __('Operate'), table: table,
+                            buttons:
+                                [
+                                    {
+                                        name: 'read',
+                                        text:__('查看'),
+                                        title: __('查看'),
+                                        //图标
+                                        icon: 'fa fa-external-link',
+                                        //btn-dialog表示为弹窗
+                                        classname: 'btn btn-xs btn-info',
+                                        //弹窗大小
+                                        extend:' target="_blank"',
+                                        url: function (row){
+                                            return "employee/detail?from=notice&ids="+row.link_id;
+                                        }
+                                    },
+                                ], operate:false, formatter: Table.api.formatter.buttons
+                        },
                         {field: 'title', title: __('Title'), operate: 'LIKE'},
-                        {field: 'content', title: __('Content'), operate: 'LIKE'},
-                        {field: 'is_read', title: __('Is_read')},
-                        {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'update_time', title: __('Update_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime}
+                        {field: 'content', title: __('Content'), operate: false},
+                        {field: 'is_read', title: __('Is_read'),searchList: Config.readList, formatter: Table.api.formatter.status},
+                        {field: 'create_time', title: __('Create_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
+                        {field: 'update_time', title: __('Update_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime}
                     ]
                 ]
                 ,onLoadSuccess: function(){

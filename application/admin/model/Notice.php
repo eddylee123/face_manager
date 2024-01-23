@@ -24,6 +24,12 @@ class Notice extends Model
 
     public $type_auth = 'auth_date';
 
+    public $readList = [
+        '1' => '已读',
+        '0' => '未读',
+    ];
+
+
     public function typeMap()
     {
         return [
@@ -41,6 +47,12 @@ class Notice extends Model
             'create_time' => time()
         ];
         return $this->insert($data);
+    }
+
+    public function read($link_id)
+    {
+        $row = $this->where(['link_id'=>$link_id])->find();
+        return $row->save(['is_read'=>1]);
     }
 
 

@@ -50,6 +50,11 @@ class Employee extends Backend
     protected $roleStatusModel = null;
 
     /**
+     * @var \app\admin\model\Notice
+     */
+    protected $noticeModel = null;
+
+    /**
      * @var Ysl
      */
     protected $ysl = null;
@@ -68,6 +73,7 @@ class Employee extends Backend
         $this->empRoleModel = new EmpRole();
         $this->empExamModel = new \app\admin\model\EmpExam();
         $this->roleStatusModel = new \app\admin\model\RoleStatus();
+        $this->noticeModel = new \app\admin\model\Notice();
         $this->admin = Session::get('admin');
         $this->cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
         $this->kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
@@ -278,7 +284,7 @@ class Employee extends Backend
         }
         //部门编码
         $dept = $this->model->getDept($this->admin['org_id']);
-        $deptList = $dept['Data'] ?? '';
+        $deptList = $dept['Data'] ?? [];
 
         $this->view->assign("deptList", $deptList);
         $this->view->assign("row", $row);
@@ -638,7 +644,7 @@ class Employee extends Backend
         }
         //部门编码
         $dept = $this->model->getDept($this->admin['org_id']);
-        $deptList = $dept['Data'] ?: '';
+        $deptList = $dept['Data'] ?? [];
 
         $this->view->assign("deptList", $deptList);
         $this->view->assign("row", $row);
@@ -661,7 +667,14 @@ class Employee extends Backend
         if (!$row){
             $this->error(__('No Results were found'));
         }
+
+        $from = $this->request->param('from', '');
+        if ($from == 'notice') {
+            //消息标记已读
+            $this->noticeModel->read($ids);
+        }
         $kq_arr = $cs_arr = [];
+
         if (!empty($row['kq_level'])) {
             $kq_arr = split_param($row['kq_level'], $this->kq_list);
             $cs_arr = split_param($row['cs_level'], $this->cs_list);
@@ -713,7 +726,7 @@ class Employee extends Backend
         $index = $this->request->baseFile().'/employee?ref=addtabs';
         //部门编码
         $dept = $this->model->getDept($this->admin['org_id']);
-        $deptList = $dept['Data'] ?: '';
+        $deptList = $dept['Data'] ?? [];
 
         $this->view->assign("deptList", $deptList);
         $this->view->assign("stepList", $stepList);

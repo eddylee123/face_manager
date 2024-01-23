@@ -6,6 +6,6 @@ return [
     'Title'       => '标题',
     'Content'     => '详情',
     'Is_read'     => '是否已读',
-    'Create_time' => '新增时间',
+    'Create_time' => '通知时间',
     'Update_time' => '阅读时间'
 ];
