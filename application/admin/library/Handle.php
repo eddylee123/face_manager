@@ -43,6 +43,7 @@ class Handle
                 $content = $v['emp_name']."({$v['emp_source']})";
                 $this->noticeModel->addNotice($this->noticeModel->type_auth, $v['id'],$content);
             }
+
         } catch (Exception $e) {
             logs_write($e->getMessage());
         }

@@ -22,7 +22,7 @@ class Notice extends Model
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
 
-    public $type_auth = 'auth';
+    public $type_auth = 'auth_date';
 
     public function typeMap()
     {
@@ -34,12 +34,13 @@ class Notice extends Model
     public function addNotice($type_auth, $link_id, $content='')
     {
         $data = [
-            'type_auth' => $type_auth,
+            'type' => $type_auth,
             'link_id' => $link_id,
             'title' => $this->typeMap()[$type_auth] ?? '',
-            'content' => $content
+            'content' => $content,
+            'create_time' => time()
         ];
-        return $this->save($data);
+        return $this->insert($data);
     }
 
 
