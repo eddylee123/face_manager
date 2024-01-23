@@ -11,6 +11,7 @@ return array(
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
     'think\\' => array($vendorDir . '/karsonzhang/fastadmin-addons/src', $baseDir . '/thinkphp/library/think'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
+    'Workerman\\Crontab\\' => array($vendorDir . '/workerman/crontab/src'),
     'Workerman\\' => array($vendorDir . '/workerman/workerman'),
     'Tx\\' => array($vendorDir . '/txthinking/mailer/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),

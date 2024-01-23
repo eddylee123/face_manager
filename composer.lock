@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c311a78cd1078668e2b1932edfa3695f",
+    "content-hash": "ace966b82f6b337114e7240ebcabfc73",
     "packages": [
         {
             "name": "easywechat-composer/easywechat-composer",
@@ -3181,21 +3181,53 @@
             "time": "2018-10-09T10:47:23+00:00"
         },
         {
-            "name": "workerman/gateway-worker",
-            "version": "v3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/walkor/GatewayWorker.git",
-                "reference": "54f36ebe07f58c0ec18deb02fbaaf1a4893910d5"
-            },
+            "name": "workerman/crontab",
+            "version": "v1.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/GatewayWorker/zipball/54f36ebe07f58c0ec18deb02fbaaf1a4893910d5",
-                "reference": "54f36ebe07f58c0ec18deb02fbaaf1a4893910d5",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/workerman/crontab/v1.0.2/workerman-crontab-v1.0.2.zip",
+                "reference": "28106241415049ee340a8a7cd9b640165240a2fa",
                 "shasum": ""
             },
             "require": {
-                "workerman/workerman": ">=3.1.8"
+                "php": ">=7.0",
+                "workerman/workerman": ">=3.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Workerman\\Crontab\\": "./src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A crontab written in PHP based on workerman",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "crontab"
+            ],
+            "time": "2021-10-06T14:18:14+00:00"
+        },
+        {
+            "name": "workerman/gateway-worker",
+            "version": "v3.0.22",
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/workerman/gateway-worker/v3.0.22/workerman-gateway-worker-v3.0.22.zip",
+                "reference": "a615036c482d11f68b693998575e804752ef9068",
+                "shasum": ""
+            },
+            "require": {
+                "workerman/workerman": ">=3.5.0"
             },
             "type": "library",
             "autoload": {
@@ -3203,7 +3235,6 @@
                     "GatewayWorker\\": "./src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3212,11 +3243,7 @@
                 "communication",
                 "distributed"
             ],
-            "support": {
-                "issues": "https://github.com/walkor/GatewayWorker/issues",
-                "source": "https://github.com/walkor/GatewayWorker/tree/v3.0.0"
-            },
-            "time": "2016-11-13T13:01:54+00:00"
+            "time": "2021-12-23T13:13:09+00:00"
         },
         {
             "name": "workerman/workerman",

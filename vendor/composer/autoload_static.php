@@ -39,6 +39,7 @@ class ComposerStaticInit47906e222cb93d02a6c441f4d59ebb24
         ),
         'W' => 
         array (
+            'Workerman\\Crontab\\' => 18,
             'Workerman\\' => 10,
         ),
         'T' => 
@@ -124,6 +125,10 @@ class ComposerStaticInit47906e222cb93d02a6c441f4d59ebb24
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Workerman\\Crontab\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/crontab/src',
         ),
         'Workerman\\' => 
         array (

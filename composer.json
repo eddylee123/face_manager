@@ -28,12 +28,14 @@
         "ext-pdo": "*",
         "txthinking/mailer": "^2.0",
         "topthink/think-worker": "1.0.1",
-        "workerman/gateway-worker": "3"
+        "workerman/gateway-worker": "^3.0.8",
+        "workerman/crontab": "^1.0.2"
     },
     "config": {
         "preferred-install": "dist",
         "allow-plugins": {
-            "topthink/think-installer": true
+            "topthink/think-installer": true,
+            "easywechat-composer/easywechat-composer": false
         }
     }
 }
