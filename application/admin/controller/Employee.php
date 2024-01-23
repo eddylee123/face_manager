@@ -182,7 +182,7 @@ class Employee extends Backend
                     $this->error($rs['msg']);
                 }
                 //生成临时工号
-                $params['emp_id_2'] = 'T'.date('y').$this->admin['org_id'].Random::numeric(5);
+                $params['emp_id_2'] = $this->model->getTempId($this->admin['org_id']);
                 $params['create_id'] = $this->admin['id'];
                 //更新操作步骤
                 $params['status'] = 1;

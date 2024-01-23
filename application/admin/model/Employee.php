@@ -187,6 +187,16 @@ class Employee extends Model
         ];
     }
 
+    public function getTempId($org_id)
+    {
+        $tempId = 'T'.date('y').$org_id.Random::numeric(5);
+        $exist = $this->where(['emp_id_2'=>$tempId])->value('id');
+        if ($exist) {
+            return $this->getTempId($org_id);
+        }
+        return $tempId;
+    }
+
     public function getNewEmpId($org_id, $uid, $source)
     {
         $str = "http://220.168.154.86:50522/GETNewEmpno?ORGID=%s&MEMPID=%s&EMPType=%s";

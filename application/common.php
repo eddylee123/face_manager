@@ -891,3 +891,28 @@ function is_id_number($idNumber) {
     return preg_match($pattern, $idNumber) === 1;
 }
 
+function curl_request($url, $method = '', $data = '', $header = [])
+{
+    $data_string = json_encode($data);
+
+    $action = curl_init();
+    curl_setopt($action, CURLOPT_URL, $url);
+    curl_setopt($action, CURLOPT_CONNECTTIMEOUT, 60);
+    curl_setopt($action, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($action, CURLOPT_HEADER, 0);
+    curl_setopt($action, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($action, CURLOPT_SSL_VERIFYHOST, 0);
+    if (strtoupper($method) == 'POST') {
+        curl_setopt($action, CURLOPT_POST, 1);
+        curl_setopt($action, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($action, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+        );
+    }
+    $result = curl_exec($action);
+    curl_close($action);
+
+    return $result;
+}
+
