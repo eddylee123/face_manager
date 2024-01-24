@@ -10,7 +10,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     edit_url: 'role_status/edit',
                     del_url: 'role_status/del',
                     multi_url: 'role_status/multi',
-                    import_url: 'role_status/import',
+                    // import_url: 'role_status/import',
                     table: 'role_status',
                 }
             });
@@ -41,7 +41,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                 columns: [
                     [
-                        {checkbox: true},
+                        // {checkbox: true},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate},
                         {field: 'id', title: __('Id'), operate: false},
                         {field: 'operate', title: __('Operate'), operate: 'LIKE', searchList: Config.view_list, formatter: Table.api.formatter.normal},
