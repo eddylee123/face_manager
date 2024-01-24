@@ -19,7 +19,12 @@
     <div class="col-xs-12 col-sm-3">
         <input id="c-emp_id" data-rule="required" class="form-control" name="emp_id" type="text">
     </div>
-    <button type="button" class="btn btn-info search">搜索</button>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-success search">搜索</button>
+    </div>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-info update" style="display: none;">修改权限</button>
+    </div>
 </div>
 </form>
 <div class="form-horizontal info-show">
@@ -60,7 +65,7 @@
         <span class="control-label col-sm-3 c-belongDept"></span>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2">消费权限:</label>
+        <label class="control-label col-sm-2">食堂权限:</label>
         <div class="col-xs-12 col-sm-8">
             <div class="checkbox cs-list">
                 {foreach name="cs_level_list" item="vo"}
@@ -90,6 +95,8 @@
 
 <script src="/assets/js/index/jquery.min.js"></script>
 <script type="text/javascript">
+    var xf = -1;
+    var mj = -1;
     $(".search").click(function () {
         var emp_id = $('#c-emp_id').val();
         $.get(base_file + "/employee/empInfo?emp_id=" + emp_id, function (ret) {
@@ -119,12 +126,23 @@
                         $("#kq_level-"+kq[key]).prop("checked",true);
                     }
                 }
+                xf = ret.data.XFLevel;
+                mj = ret.data.MJLevel;
 
                 $(".info-show").css("display", "block");
+                $(".update").css("display", "block");
             } else {
                 $(".info-show").css("display", "none");
                 Toastr.error('员工查询信息异常')
             }
         });
     })
+    $(".update").click(function () {
+        var emp_id = $('#c-emp_id').val();
+        if (emp_id.length == 0) {
+            Toastr.error('工号不能为空');
+            return false;
+        }
+        parent.Fast.api.open('manager/update?emp_id='+emp_id+'&xf='+xf+'&mj='+mj, '修改', {area:["100%", "100%"]});
+    });
 </script>

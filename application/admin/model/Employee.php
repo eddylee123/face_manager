@@ -3,6 +3,7 @@
 namespace app\admin\model;
 
 use fast\Http;
+use fast\Random;
 use think\Config;
 use think\Db;
 use think\Model;

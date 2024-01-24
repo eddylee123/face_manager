@@ -10,7 +10,6 @@ use app\admin\model\SocketCache;
 use app\common\controller\Backend;
 use app\gateway\controller\Events;
 use fast\Arr;
-use fast\Random;
 use think\Env;
 use think\Exception;
 use think\Session;
