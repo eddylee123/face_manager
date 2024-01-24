@@ -315,4 +315,13 @@ return [
         'password'     =>   'Abc@123456',
         'hostport'    =>   '10212 ',
     ],
+    //42消费机SqlServer
+    'srv_kwwcwa' => [
+        'type'    =>   'sqlsrv',
+        'hostname'    =>   '10.254.30.42',
+        'database'    =>   'KwwCWA',
+        'username'    =>   'KwwSeach',
+        'password'     =>   'Auto@123456',
+        'hostport'    =>   '10212 ',
+    ],
     ];

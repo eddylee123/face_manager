@@ -71,7 +71,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'marry', title: __('Marry'), searchList: Config.marry_list, formatter: Table.api.formatter.normal},
                         {field: 'age', title: __('Age'), operate: false},
                         // {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'come_date', title: __('Come_date'), operate:'RANGE_da', addclass:'datetimerange', autocomplete:false},
+                        {field: 'come_date', title: __('Come_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'kq_date', title: __('Kq_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'exam_time', title: '体检时间', operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime,visible:false},
                         {field: 'address', title: '身份证地址'},
