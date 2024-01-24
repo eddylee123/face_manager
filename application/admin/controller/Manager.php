@@ -16,6 +16,10 @@ class Manager extends Backend
      * @var EmpRole
      */
     protected $empRoleModel = null;
+    /**
+     * @var \app\admin\model\Employee
+     */
+    protected $empModel = null;
 
     protected $org;
     protected $admin;
@@ -26,6 +30,7 @@ class Manager extends Backend
     {
         parent::_initialize();
         $this->empRoleModel = new EmpRole();
+        $this->empModel = new \app\admin\model\Employee();
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
         $this->cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
@@ -78,6 +83,21 @@ class Manager extends Backend
             $rs = json_decode($rs, true);
             if (!$rs) $this->error('数据请求失败');
             if ($rs['result'] == 1) {
+                //权限同步
+                $empInfo = $this->empModel->where(['emp_id'=>$emp_id])->find();
+                if ($empInfo) {
+                    $empInfo->save([
+                        'cs_level'=>$params['cs_level'],
+                        'kq_level'=>$params['kq_level'],
+                    ]);
+                }
+                //操作记录
+                $this->empRoleModel->addLogEmp($emp_id,
+                    $params['cs_level'],
+                    $params['kq_level'],
+                    '确认修改',
+                    1);
+
                 $this->success('修改成功');
             }
             $this->error('修改失败');

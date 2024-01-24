@@ -388,7 +388,7 @@
             parent.Fast.api.open("emp_exam/index?emp2={$row.emp_id_2}", '体检记录', {area:["100%", "100%"]});
         });
         $(".role-list").click(function () {
-            parent.Fast.api.open("emp_role/index?emp2={$row.emp_id_2}", '权限变更记录', {area:["100%", "100%"]});
+            parent.Fast.api.open("emp_role/index?emp2={$row.emp_id_2}&emp_id={$row.emp_id}", '权限变更记录', {area:["100%", "100%"]});
             return false;
         });
 

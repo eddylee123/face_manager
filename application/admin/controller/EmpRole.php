@@ -38,6 +38,7 @@ class EmpRole extends Backend
         //设置过滤方法
         $this->request->filter(['strip_tags','trim']);
         $emp2 = $this->request->param('emp2', '');
+        $emp_id = $this->request->param('emp_id', '');
         if ($this->request->isAjax())
         {
             //如果发送的来源是Selectpage，则转发到Selectpage
@@ -47,7 +48,12 @@ class EmpRole extends Backend
             }
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
-            $filter_arr['emp_id_2'] = $emp2;
+            if (!empty($emp_id)) {
+                $filter_arr['emp_id'] = $emp_id;
+            } else {
+                $filter_arr['emp_id_2'] = $emp2;
+            }
+
             //echo '<pre>';print_r($filter_arr);exit;
             $this->request->get(['filter'=>json_encode($filter_arr)]);
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();

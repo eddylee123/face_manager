@@ -60,6 +60,14 @@ class EmpRole extends Model
         return self::insert($data);
     }
 
+    public function addLogEmp($emp_id, $cs_level, $kq_level, $remark,$is_emp=0)
+    {
+        $data = compact('emp_id', 'cs_level', 'kq_level', 'remark','is_emp');
+        $data['create_time'] = time();
+
+        return self::insert($data);
+    }
+
     public function csLevel($org_id)
     {
         $rs = $this->getRoleList($org_id, 'STLX');
