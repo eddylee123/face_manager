@@ -101,7 +101,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 searchFormVisible:true,
                 exportOptions: {
                     fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
-                    ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
+                    // ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
                 },
 
                 columns: [
