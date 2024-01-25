@@ -37,12 +37,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         //图标
                                         icon: 'fa fa-external-link',
                                         //btn-dialog表示为弹窗
-                                        classname: 'btn btn-xs btn-info',
+                                        classname: 'btn btn-xs btn-info btn-dialog',
                                         //弹窗大小
-                                        extend:' target="_blank"',
-                                        url: function (row){
-                                            return "detail?from=notice&ids="+row.link_id;
-                                        }
+                                        extend: 'data-area=\'["100%","100%"]\'',
+                                        url: 'cwa/cater_b/detail?date={row.日期}',
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
@@ -108,7 +106,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                 columns: [
                     [
-                        {field: '打卡日期', title: __('打卡日期'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
+                        {field: '打卡日期', title: __('打卡日期'), operate: false, addclass:'datetimerange', autocomplete:false},
                         {field: '打卡时间', title: __('打卡时间'), operate: false},
                         {field: '工号', title: __('工号'), operate: 'like'},
                         {field: '姓名', title: __('姓名'), operate: 'like'},

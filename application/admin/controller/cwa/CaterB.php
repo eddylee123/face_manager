@@ -32,31 +32,20 @@ class CaterB extends Backend
             {
                 return $this->selectpage();
             }
-            $ops = $this->request->request('op', '{}');
-            $op = json_decode($ops, true);
 
+            $offset = $this->request->get("offset/d", 0);
+            $limit = $this->request->get("limit/d", 10);
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
-            $filter_arr['org_ID'] = $this->admin['org_id'];
+            $start = $end = '';
             if (!empty($filter_arr['日期'])) {
                 [$start, $end] = explode(' - ', $filter_arr['日期']);
-                $filter_arr['日期'] = join(',', [$start, $end]);
-                $op['日期'] = 'between';
+                $start = date('Y-m-d', strtotime($start));
+                $end = date('Y-m-d', strtotime($end));
             }
-            $this->request->get(['filter'=>json_encode($filter_arr)]);
-            $this->request->get(['op'=>json_encode($op)]);
-            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
-            $total = $this->model
-                ->where($where)
-                ->count();
+            $total = $this->model->countList($start,$end,$this->admin['org_id'],$filter_arr);
 
-            $list = $this->model
-                ->where($where)
-                ->order("{$sort} {$order}")
-                ->limit($offset, $limit)
-                ->select();
-
-            $list = collection($list)->toArray();
+            $list = $this->model->getList($start,$end,$this->admin['org_id'],$filter_arr,$offset,$limit);
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
