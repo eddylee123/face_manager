@@ -72,5 +72,15 @@ class Notice extends Backend
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
     
+    public function read()
+    {
+        $nid = $this->request->param('nid', '');
+        if (empty($nid)) $this->error('操作记录不能为空');
 
+        $rs = $this->model->whereIn('id', $nid)->update(['is_read'=>1,'update_time'=>time()]);
+        if ($rs !== false) {
+            $this->success('操作成功');
+        }
+        $this->error('操作成功');
+    }
 }

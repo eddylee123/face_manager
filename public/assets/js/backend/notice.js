@@ -67,7 +67,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     $('#ctime').attr('autocomplete','off');
                 }
             });
-
+            $(document).on("click", ".btn-read", function () {
+                var ids = Table.api.selectedids(table);//获取选中列的id
+                if(ids.length==0){
+                    Toastr.error("最少选择一条记录操作");
+                    return false;
+                }
+                $.post(base_file+"/notice/read", {nid:ids.join(',')}, function (ret) {
+                    if (ret.code === 1) {
+                        Toastr.success(ret.msg);
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                    parent.location.reload();
+                });
+            });
             // 为表格绑定事件
             Table.api.bindevent(table);
         },
