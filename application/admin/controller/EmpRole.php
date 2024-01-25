@@ -77,14 +77,14 @@ class EmpRole extends Backend
                 $split_val = array_map(function ($item) use ($cs_level){
                     return $cs_level[$item] ?? '';
                 }, $split_arr);
-                $v['cs_text'] = implode('|', $split_val);
+                $v['cs_text'] = implode(',', $split_val);
 
                 $split_arr = split_param($v['kq_level'], $kq_level);
                 sort($split_arr);
                 $split_val = array_map(function ($item) use ($kq_level){
                     return $kq_level[$item] ?? '';
                 }, $split_arr);
-                $v['kq_text'] = implode('|', $split_val);
+                $v['kq_text'] = implode(',', $split_val);
             }
             $result = array("total" => $total, "rows" => $list);
             return json($result);
@@ -132,14 +132,14 @@ class EmpRole extends Backend
                 $split_val = array_map(function ($item) use ($cs_level){
                     return $cs_level[$item] ?? '';
                 }, $split_arr);
-                $v['cs_text'] = implode('|', $split_val);
+                $v['cs_text'] = implode(',', $split_val);
 
                 $split_arr = split_param($v['kq_level'], $kq_level);
                 sort($split_arr);
                 $split_val = array_map(function ($item) use ($kq_level){
                     return $kq_level[$item] ?? '';
                 }, $split_arr);
-                $v['kq_text'] = implode('|', $split_val);
+                $v['kq_text'] = implode(',', $split_val);
             }
             $result = array("total" => $total, "rows" => $list);
             return json($result);

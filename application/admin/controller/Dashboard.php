@@ -21,7 +21,7 @@ class Dashboard extends Backend
 
     public function index()
     {
-        return $this->view->fetch();
+//        return $this->view->fetch();
     }
 
 }

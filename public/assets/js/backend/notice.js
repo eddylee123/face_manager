@@ -46,12 +46,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         //弹窗大小
                                         extend:' target="_blank"',
                                         url: function (row){
-                                            return "employee/detail?from=notice&ids="+row.link_id;
+                                            return "/admin123.php/employee/detail?from=notice&ids="+row.link_id;
                                         }
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
-                        {field: 'title', title: __('Title'), operate: 'LIKE'},
+                        {field: 'type', title: __('Type'),visible:false,searchList: Config.typeList, formatter: Table.api.formatter.status},
+                        {field: 'title', title: __('Title'), operate: false},
                         {field: 'content', title: __('Content'), operate: false},
                         {field: 'is_read', title: __('Is_read'),searchList: Config.readList, formatter: Table.api.formatter.status},
                         {field: 'create_time', title: __('Create_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},

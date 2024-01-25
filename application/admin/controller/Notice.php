@@ -63,6 +63,7 @@ class Notice extends Backend
         }
 
         $this->assignconfig('readList' ,$this->model->readList);
+        $this->assignconfig('typeList' ,$this->model->typeMap());
         return $this->view->fetch();
     }
     /**
