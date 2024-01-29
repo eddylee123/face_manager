@@ -452,7 +452,7 @@ class Employee extends Backend
                     $this->error($row->getError());
                 }
                 //操作记录
-                $this->empRoleModel->addLog($emp2, $params['cs_level'], $params['kq_level'], $role_remark);
+                $this->empRoleModel->addLog($emp2,$this->admin['id'], $params['cs_level'], $params['kq_level'], $role_remark);
 
                 $this->success('');
             }

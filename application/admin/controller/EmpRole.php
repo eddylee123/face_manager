@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\Admin;
 use app\common\controller\Backend;
 use think\Session;
 
@@ -22,6 +23,10 @@ class EmpRole extends Backend
      * @var \app\admin\model\Employee
      */
     protected $employeeModel = null;
+    /**
+     * @var Admin
+     */
+    protected $adminModel = null;
 
     protected $org;
 
@@ -30,6 +35,7 @@ class EmpRole extends Backend
         parent::_initialize();
         $this->model = new \app\admin\model\EmpRole();
         $this->employeeModel = new \app\admin\model\Employee();
+        $this->adminModel = new Admin();
         $this->org = Session::get('admin')['org_id'] ?? 0;
     }
 
@@ -70,8 +76,11 @@ class EmpRole extends Backend
             $list = collection($list)->toArray();
             $cs_level = $this->model->csLevel($this->org);
             $kq_level = $this->model->kqLevel($this->org);
+            $admins = array_column($list, 'create_id');
+            $adminArr = $this->adminModel->whereIn('id', $admins)->column('nickname', 'id');
             foreach ($list as &$v) {
                 //拼接参数
+                $v['nickname'] = $adminArr[$v['create_id']]['nickname'] ?? '';
                 $split_arr = split_param($v['cs_level'], $cs_level);
                 sort($split_arr);
                 $split_val = array_map(function ($item) use ($cs_level){
@@ -125,8 +134,12 @@ class EmpRole extends Backend
             $list = collection($list)->toArray();
             $cs_level = $this->model->csLevel($this->org);
             $kq_level = $this->model->kqLevel($this->org);
+            $admins = array_column($list, 'create_id');
+            $adminArr = $this->adminModel->whereIn('id', $admins)->column('nickname', 'id');
+
             foreach ($list as &$v) {
                 //拼接参数
+                $v['nickname'] = $adminArr[$v['create_id']]['nickname'] ?? '';
                 $split_arr = split_param($v['cs_level'], $cs_level);
                 sort($split_arr);
                 $split_val = array_map(function ($item) use ($cs_level){

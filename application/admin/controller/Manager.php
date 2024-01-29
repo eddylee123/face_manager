@@ -93,6 +93,7 @@ class Manager extends Backend
                 }
                 //操作记录
                 $this->empRoleModel->addLogEmp($emp_id,
+                    $this->admin['id'],
                     $params['cs_level'],
                     $params['kq_level'],
                     '确认修改',

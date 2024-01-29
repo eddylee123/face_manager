@@ -27,7 +27,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {field: 'id', title: __('序号'), operate: false},
-                        // {field: 'emp_id_2', title: __('Emp_id_2'), operate: false},
+                        {field: 'nickname', title: __('操作人'), operate: false},
                         {field: 'create_time', title: __('操作时间'), addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, operate: false},
                         {field: 'remark', title: __('描述'), operate: false},
                         {field: 'cs_text', title: __('食堂权限'), operate: false},
@@ -67,7 +67,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {field: 'id', title: __('序号'), operate: false},
-                        // {field: 'emp_id_2', title: __('Emp_id_2'), operate: false},
+                        {field: 'nickname', title: __('操作人'), operate: false},
                         {field: 'create_time', title: __('操作时间'), addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, operate: 'range'},
                         {field: 'remark', title: __('描述'), operate: false},
                         {field: 'cs_text', title: __('食堂权限'), operate: false},
