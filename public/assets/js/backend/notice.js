@@ -56,7 +56,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'content', title: __('Content'), operate: false},
                         {field: 'is_read', title: __('Is_read'),searchList: Config.readList, formatter: Table.api.formatter.status},
                         {field: 'create_time', title: __('Create_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'update_time', title: __('Update_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime}
+                        {field: 'update_time', title: __('Update_time'), operate:false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
+                        {field: 'nickname', title: __('操作人'), operate: false},
                     ]
                 ]
                 ,onLoadSuccess: function(){

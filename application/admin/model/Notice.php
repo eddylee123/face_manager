@@ -49,10 +49,10 @@ class Notice extends Model
         return $this->insert($data);
     }
 
-    public function read($link_id)
+    public function read($link_id, $admin_id)
     {
         $row = $this->where(['link_id'=>$link_id])->find();
-        return $row->save(['is_read'=>1]);
+        return $row->save(['is_read'=>1,'admin_id'=>$admin_id]);
     }
 
 

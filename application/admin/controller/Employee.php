@@ -670,7 +670,7 @@ class Employee extends Backend
         $from = $this->request->param('from', '');
         if ($from == 'notice') {
             //消息标记已读
-            $this->noticeModel->read($ids);
+            $this->noticeModel->read($ids, $this->admin['id']);
         }
         $kq_arr = $cs_arr = [];
 

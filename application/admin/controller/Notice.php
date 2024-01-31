@@ -2,7 +2,9 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\Admin;
 use app\common\controller\Backend;
+use think\Session;
 
 /**
  * 消息通知
@@ -17,12 +19,19 @@ class Notice extends Backend
      * @var \app\admin\model\Notice
      */
     protected $model = null;
+    /**
+     * @var Admin
+     */
+    protected $adminModel = null;
+
+    protected $admin;
 
     public function _initialize()
     {
         parent::_initialize();
         $this->model = new \app\admin\model\Notice;
-
+        $this->adminModel = new Admin();
+        $this->admin = Session::get('admin');
     }
 
     public function import()
@@ -43,8 +52,6 @@ class Notice extends Backend
             }
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
-            //$filter_arr['is_del'] = '0';
-            //echo '<pre>';print_r($filter_arr);exit;
             $this->request->get(['filter'=>json_encode($filter_arr)]);
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $total = $this->model
@@ -58,6 +65,12 @@ class Notice extends Backend
                 ->select();
 
             $list = collection($list)->toArray();
+            $admins = array_column($list, 'admin_id');
+            $adminArr = $this->adminModel->whereIn('id', $admins)->column('nickname', 'id');
+            foreach ($list as &$v) {
+                //拼接参数
+                $v['nickname'] = $adminArr[$v['admin_id']]['nickname'] ?? '';
+            }
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
@@ -71,13 +84,21 @@ class Notice extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
-    
+
+    /**
+     * 批量已读
+     * DateTime: 2024-01-31 9:24
+     */
     public function read()
     {
         $nid = $this->request->param('nid', '');
         if (empty($nid)) $this->error('操作记录不能为空');
 
-        $rs = $this->model->whereIn('id', $nid)->update(['is_read'=>1,'update_time'=>time()]);
+        $rs = $this->model->whereIn('id', $nid)->update([
+            'is_read'=>1,
+            'admin_id'=>$this->admin['id'],
+            'update_time'=>time()
+        ]);
         if ($rs !== false) {
             $this->success('操作成功');
         }
