@@ -34,7 +34,7 @@ class CaterB extends Backend
             }
 
             $offset = $this->request->get("offset/d", 0);
-            $limit = $this->request->get("limit/d", 10);
+            $limit = $this->request->get("limit/d", 999);
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
             $start = $end = '';
@@ -70,7 +70,7 @@ class CaterB extends Backend
                 return $this->selectpage();
             }
             $offset = $this->request->get("offset/d", 0);
-            $limit = $this->request->get("limit/d", 10);
+            $limit = $this->request->get("limit/d", 999);
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
             $filter_arr['area'] = $area;

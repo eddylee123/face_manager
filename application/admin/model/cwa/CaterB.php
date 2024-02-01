@@ -22,7 +22,7 @@ class CaterB extends Model
         '星期天' => '星期天',
     ];
 
-    public function getList($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=10)
+    public function getList($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=999)
     {
         $query = "SELECT * FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}'";
         if (!empty($start_date)) {
@@ -58,7 +58,7 @@ class CaterB extends Model
         return reset($rs)['total'];
     }
 
-    public function getDetail($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=10)
+    public function getDetail($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=999)
     {
 
         $query = "SELECT CONVERT(varchar(10) , CkDateTime,23) 打卡日期,CONVERT(varchar(10) , CkDateTime,8) 打卡时间
