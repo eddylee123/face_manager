@@ -40,12 +40,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         classname: 'btn btn-xs btn-info btn-dialog',
                                         //弹窗大小
                                         extend: 'data-area=\'["100%","100%"]\'',
-                                        url: 'cwa/cater_b/detail?date={row.日期}',
+                                        url: 'cwa/cater_b/detail?date={row.日期}&area={row.食堂}',
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
                         {field: '日期', title: __('日期'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: '星期', title: __('星期'), searchList: Config.weekList, formatter: Table.api.formatter.normal},
+                        {field: '食堂', title: __('食堂'), operate: false},
                         {field: '消费总数', title: __('消费总数'), operate: false},
                         {field: '总数早餐', title: __('总数早餐'), operate: false},
                         {field: '总数午餐', title: __('总数午餐'), operate: false},

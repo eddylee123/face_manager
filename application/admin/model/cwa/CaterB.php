@@ -79,6 +79,9 @@ class CaterB extends Model
         if (!empty($params['姓名'])) {
             $query .= " and B.Emp_Name LIKE '{$params['姓名']}%'";
         }
+        if (!empty($params['area'])) {
+            $query .= " and SC026='{$params['area']}'";
+        }
         $query .= " order by 打卡日期,[打卡时间]  
         offset {$offset} rows fetch next {$limit} rows only";
 
@@ -101,6 +104,9 @@ class CaterB extends Model
         }
         if (!empty($params['姓名'])) {
             $query .= " and B.Emp_Name LIKE '{$params['姓名']}%'";
+        }
+        if (!empty($params['area'])) {
+            $query .= " and SC026='{$params['area']}'";
         }
 
         $rs = $this->query($query);

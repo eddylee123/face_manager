@@ -58,6 +58,7 @@ class CaterB extends Backend
     {
 
         $date = $this->request->param('date', '');
+        $area = $this->request->param('area', '');
         if (empty($date)) $this->error('日期不能为空');
 
         $this->request->filter(['strip_tags','trim']);
@@ -72,6 +73,7 @@ class CaterB extends Backend
             $limit = $this->request->get("limit/d", 10);
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
+            $filter_arr['area'] = $area;
 
             $total = $this->model->countDetail($date,$date,$this->admin['org_id'],$filter_arr);
 
