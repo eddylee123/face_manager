@@ -1,0 +1,36 @@
+<style type="text/css">
+    .info-show {
+        border:1px solid #e5e5e5;
+        padding-top: 15px;
+        margin-bottom: 10px;
+    }
+    .info-show .form-group span {
+        text-align: left;
+    }
+    .kq-list {
+        width: 180px;
+    }
+</style>
+
+<div class="form-horizontal info-show">
+    {foreach name="fields" item="vo"}
+    <div class="form-group">
+        <label class="control-label col-sm-2">{$vo}:</label>
+        <span class="control-label col-sm-3">{$row[$key]}</span>
+    </div>
+    {/foreach}
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('关闭')}</button>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/index/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".btn-embossed").click(function () {
+        Fast.api.close();
+    })
+</script>
