@@ -3,17 +3,19 @@
 namespace app\admin\model;
 
 use fast\Http;
+use fast\Random;
+use think\Config;
 use think\Db;
 use think\Model;
+use traits\model\SoftDelete;
 
 
 class Employee extends Model
 {
 
+    use SoftDelete;
 
-
-
-
+    protected $pk = 'id';
     // 表名
     protected $name = 'employee';
     
@@ -44,12 +46,13 @@ class Employee extends Model
 
     public function getEmpSourceList()
     {
-        return ['合同工' => __('合同工'), '劳务工' => __('劳务工')];
+        return Config::get('site.emp_source');
     }
 
     public function getMarryList()
     {
         return [
+            '' => '',
             '未婚' => __('未婚'),
             '已婚' => __('已婚'),
             '离婚' => __('离婚'),
@@ -84,7 +87,6 @@ class Employee extends Model
             '夫妻' => '夫妻',
             '父母' => '父母',
             '子女' => '子女',
-            '兄弟' => '兄弟',
             '其他' => '其他',
         ];
     }
@@ -92,6 +94,7 @@ class Employee extends Model
     public function getStatusList()
     {
         return [
+            '0' => '基础资料待确认',
             '1' => '待拍照',
             '2' => '待体检',
             '3' => '待报道',
@@ -185,6 +188,16 @@ class Employee extends Model
         ];
     }
 
+    public function getTempId($org_id)
+    {
+        $tempId = 'T'.date('y').$org_id.Random::numeric(5);
+        $exist = $this->where(['emp_id_2'=>$tempId])->value('id');
+        if ($exist) {
+            return $this->getTempId($org_id);
+        }
+        return $tempId;
+    }
+
     public function getNewEmpId($org_id, $uid, $source)
     {
         $str = "http://220.168.154.86:50522/GETNewEmpno?ORGID=%s&MEMPID=%s&EMPType=%s";
@@ -207,8 +220,27 @@ class Employee extends Model
 
     public function getEmpInfo($emp_id)
     {
-        $str = "http://220.168.154.86:50522/EMPInfo?MEMPID=%s";
-        $url = sprintf($str, $emp_id);
+        $url = "http://220.168.154.86:50522/EMPInfo?MEMPID={$emp_id}";
+        $rs = Http::get($url);
+        if (!empty($rs)) {
+            return json_decode($rs, true);
+        }
+        return  ['msg'=>'查询失败'];
+    }
+
+    public function getEmpImg($emp_id)
+    {
+        $url = "http://220.168.154.86:50522/EMPImage?MEMPID={$emp_id}";
+        $rs = Http::get($url);
+        if (!empty($rs)) {
+            return json_decode($rs, true);
+        }
+        return  ['msg'=>'查询失败'];
+    }
+
+    public function getDept($org_id)
+    {
+        $url = "http://220.168.154.86:50522/GETViewDepartment?OrgID={$org_id}";
         $rs = Http::get($url);
         if (!empty($rs)) {
             return json_decode($rs, true);

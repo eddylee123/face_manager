@@ -2,10 +2,12 @@
 
 namespace app\gateway\controller;
 
+use app\admin\library\Handle;
 use app\admin\model\SocketCache;
 use GatewayWorker\Lib\Gateway;
 use think\Env;
 use think\Exception;
+use Workerman\Crontab\Crontab;
 
 class Events
 {
@@ -15,7 +17,9 @@ class Events
      */
     public static function onWorkerStart($worker)
     {
-
+        new Crontab('0 1 0 * * *', function (){
+            (new Handle())->notice();
+        });
     }
 
     /**

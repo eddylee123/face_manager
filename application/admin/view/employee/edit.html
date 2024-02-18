@@ -156,6 +156,7 @@
             <input id="c-remark" class="form-control" name="row[remark]" type="text" value="{$row.remark|htmlentities}" >
         </div>
     </div>
+
     {if $row['status'] == '4'}
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Contract_date')}:</label>
@@ -165,6 +166,16 @@
         <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('Contract_validate')}:</label>
         <div class="col-xs-12 col-sm-3">
             <input id="c-contract_validate" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[contract_validate]" type="text" value="{$row.contract_validate}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Dept_id')}:</label>
+        <div class="col-xs-12 col-sm-3">
+            <select  id="c-dept_id" data-rule="required" class="form-control" name="row[dept_id]">
+                {foreach name="deptList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.dept_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
         </div>
     </div>
     {/if}
@@ -219,9 +230,14 @@
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
+            <input type="hidden" id="zp" name="zp">
+            {if $act == 'sign'}
+            <button type="button" class="btn btn-success btn-embossed push" value="sign">确认报名</button>
+            {else}
             <button type="button" class="btn btn-info btn-embossed push" value="sub">{:__('OK')}</button>
             <button type="button" class="btn btn-success btn-embossed push" value="nex">下一步</button>
             <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+            {/if}
         </div>
     </div>
 </form>
@@ -235,32 +251,26 @@
         $(".read").click(function () {
             var device = sessionStorage.getItem('device');
             if (device !== null) {
-                $.ajax({
-                    url: base_file+"/employee/readCard?device="+device,
-                    type: 'POST',
-                    data: {},
-                    dataType: 'json',
-                    success: function (ret) {
-                        if (ret.code === 1) {
-                            var data = ret.data;
-                            $('#c-emp_name').val(data.name);
-                            $('#c-id_card').val(data.id);
-                            $('#c-address').val(data.address);
-                            $("input[name='row[sex]'][value='"+data.sex+"']").prop("checked",true);
-                            $('#c-folk').val(data.folk); //民族
-                            $('#c-id_department').val(data.dep);
-                            $('#c-birthday').val(data.birth);
-                            $('#c-id_date').val(data.begin);
-                            $('#c-id_validity').val(data.end);
-                            $('#c-age').val(data.age);
-                            if (data.err_msg.length > 0) {
-                                Toastr.error(ret.data.err_msg);
-                            }
-                        } else {
-                            Toastr.error(ret.msg);
+                $.get(base_file+"/employee/readCard?flag=add&device="+device, function (ret) {
+                    if (ret.code === 1) {
+                        var data = ret.data;
+                        $('#c-emp_name').val(data.name);
+                        $('#c-id_card').val(data.id);
+                        $('#c-address').val(data.address);
+                        $("input[name='row[sex]'][value='"+data.sex+"']").prop("checked",true);
+                        $('#c-folk').val(data.folk); //民族
+                        $('#c-id_department').val(data.dep);
+                        $('#c-birthday').val(data.birth);
+                        $('#c-id_date').val(data.begin);
+                        $('#c-id_validity').val(data.end);
+                        $('#c-age').val(data.age);
+                        $('#zp').val(data.bmppath);
+                        if (data.err_msg.length > 0) {
+                            $('#c-remark').val(ret.data.err_msg);
+                            Toastr.error(ret.data.err_msg);
                         }
-                    }, error: function () {
-                        Toastr.error(__('系统异常，请稍后再试'));
+                    } else {
+                        Toastr.error(ret.msg);
                     }
                 });
             } else {
@@ -270,6 +280,7 @@
             }
         });
 
+        //编辑|报名
         $('.push').click(function () {
             var flag = $(this).val();
             var state = $('form').isValid();
@@ -280,8 +291,12 @@
 
         function ajaxSub(flag) {
             var form = $('form').serializeArray();
+            var url = base_file+"/employee/edit?ids={$row.id}";
+            if (flag == 'sign') {
+                url = base_file+"/employee/sign?id_card={$row.id_card}"
+            }
             $.ajax({
-                url: base_file+"/employee/edit?ids={$row.id}",
+                url: url,
                 type: 'POST',
                 data: form,
                 dataType: 'json',
@@ -292,7 +307,7 @@
                             Toastr.success('操作成功，正在跳转……');
                             setTimeout(function(){
                                 Fast.api.close();
-                                parent.Fast.api.open(ret.data.url, '人脸拍照', {area:["100%", "100%"]});
+                                parent.Fast.api.open(ret.data.url, ret.data.named, {area:["100%", "100%"]});
                             }, 2000);
                         } else {
                             Toastr.success('操作成功');
@@ -307,6 +322,16 @@
                 }
             });
         }
+        $("#c-intro_emp_id").keyup(function () {
+            var emp_id = $(this).val();
+            if (emp_id.length == 10) {
+                $.get(base_file + "/employee/empName?emp_id=" + emp_id, function (ret) {
+                    if (ret.code == 1) {
+                        $("#c-intro_name").val(ret.msg);
+                    }
+                });
+            }
+        })
 
         $('form').validator({
             fields: {

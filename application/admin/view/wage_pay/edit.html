@@ -1,0 +1,232 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Wage_month')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-wage_month" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[wage_month]" type="text" value="{$row.wage_month}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Org_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-org_id" data-rule="required" data-source="org/index" class="form-control selectpage" name="row[org_id]" type="text" value="{$row.org_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Emp_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-emp_id" data-rule="required" data-source="emp/index" class="form-control selectpage" name="row[emp_id]" type="text" value="{$row.emp_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Emp_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-emp_name" data-rule="required" class="form-control" name="row[emp_name]" type="text" value="{$row.emp_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Come_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-come_date" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[come_date]" type="text" value="{$row.come_date}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Workshop')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-workshop" data-rule="required" class="form-control" name="row[workshop]" type="text" value="{$row.workshop|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Process')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-process" data-rule="required" class="form-control" name="row[process]" type="text" value="{$row.process|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Total_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-total_day" data-rule="required" class="form-control" name="row[total_day]" type="number" value="{$row.total_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Weekend_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-weekend_day" data-rule="required" class="form-control" name="row[weekend_day]" type="number" value="{$row.weekend_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Official_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-official_day" data-rule="required" class="form-control" name="row[official_day]" type="number" value="{$row.official_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Need_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-need_day" data-rule="required" class="form-control" step="0.01" name="row[need_day]" type="number" value="{$row.need_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Work_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-work_date" data-rule="required" class="form-control" step="0.01" name="row[work_date]" type="number" value="{$row.work_date|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Work_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-work_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[work_time]" type="text" value="{:$row.work_time?datetime($row.work_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Over_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-over_day" data-rule="required" class="form-control" step="0.01" name="row[over_day]" type="number" value="{$row.over_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Turn_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-turn_day" data-rule="required" class="form-control" step="0.01" name="row[turn_day]" type="number" value="{$row.turn_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Paid_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-paid_day" data-rule="required" class="form-control" step="0.01" name="row[paid_day]" type="number" value="{$row.paid_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Leave_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-leave_day" data-rule="required" class="form-control" step="0.01" name="row[leave_day]" type="number" value="{$row.leave_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Night_day')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-night_day" data-rule="required" class="form-control" step="0.01" name="row[night_day]" type="number" value="{$row.night_day|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Mass_score')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mass_score" data-rule="required" class="form-control" step="0.01" name="row[mass_score]" type="number" value="{$row.mass_score|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_piece')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_piece" class="form-control" step="0.01" name="row[pay_piece]" type="number" value="{$row.pay_piece|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_piece_sub')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_piece_sub" class="form-control" step="0.01" name="row[pay_piece_sub]" type="number" value="{$row.pay_piece_sub|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Work_piece')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-work_piece" class="form-control" step="0.01" name="row[work_piece]" type="number" value="{$row.work_piece|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[pay_time]" type="text" value="{:$row.pay_time?datetime($row.pay_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_practice')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_practice" class="form-control" step="0.01" name="row[pay_practice]" type="number" value="{$row.pay_practice|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_over_1')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_over_1" class="form-control" step="0.01" name="row[pay_over_1]" type="number" value="{$row.pay_over_1|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_over_2')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_over_2" class="form-control" step="0.01" name="row[pay_over_2]" type="number" value="{$row.pay_over_2|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_weekend')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_weekend" class="form-control" step="0.01" name="row[pay_weekend]" type="number" value="{$row.pay_weekend|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_official')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_official" class="form-control" step="0.01" name="row[pay_official]" type="number" value="{$row.pay_official|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_fixed')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_fixed" class="form-control" step="0.01" name="row[pay_fixed]" type="number" value="{$row.pay_fixed|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Quality')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-quality" class="form-control" step="0.01" name="row[quality]" type="number" value="{$row.quality|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_clean')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_clean" class="form-control" step="0.01" name="row[pay_clean]" type="number" value="{$row.pay_clean|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_return')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_return" class="form-control" step="0.01" name="row[pay_return]" type="number" value="{$row.pay_return|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_disc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_disc" class="form-control" step="0.01" name="row[pay_disc]" type="number" value="{$row.pay_disc|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_all')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_all" class="form-control" step="0.01" name="row[pay_all]" type="number" value="{$row.pay_all|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Wage_adjust')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-wage_adjust" class="form-control" step="0.01" name="row[wage_adjust]" type="number" value="{$row.wage_adjust|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_able')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_able" data-rule="required" class="form-control" step="0.01" name="row[pay_able]" type="number" value="{$row.pay_able|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay_actual')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay_actual" data-rule="required" class="form-control" step="0.01" name="row[pay_actual]" type="number" value="{$row.pay_actual|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

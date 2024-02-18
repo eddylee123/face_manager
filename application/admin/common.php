@@ -226,3 +226,25 @@ EOT;
 }
 
 
+function save_file($dir, $filename, $filePath)
+{
+    if (!is_dir($dir)) {
+        mkdir($dir,0777,true);
+    }
+
+    $fileNew = $dir.'/'.$filename;
+    if (is_file($fileNew)) {
+        return false;
+    }
+
+    $file = file_get_contents($filePath);
+
+    $save = file_put_contents($fileNew, $file);
+    if (!$save) {
+        return false;
+    }
+
+    return $fileNew;
+}
+
+

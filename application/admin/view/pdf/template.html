@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+    .table-index {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+    .table-index th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+    .table-index th {
+        text-align: center;
+        font-weight: normal;
+    }
+    .td-1 {
+        width: 9%;
+    }
+    .td-2 {
+        border: none;
+    }
+    .td-3 {
+        width: 11%;
+    }
+    .td-4 {
+        width: 8%;
+    }
+    .td-mid {
+        text-align: center;
+        font-weight: bold;
+    }
+    .checkbox {
+        margin: 0;
+    }
+    .content h2 {
+        text-align: center;
+        margin-bottom: 2%;
+    }
+</style>
+<body>
+<div class="content">
+    <h2>入职申请表(一线)</h2>
+    <table class="table-index">
+        <tr>
+            <th>姓名</th>
+            <td class="td-1">{$row['emp_name']}</td>
+            <th class="td-1">性别</th>
+            <td class="td-4">{$row['sex']}</td>
+            <th class="td-3">出生日期</th>
+            <td colspan="2">{$row['birthday']}</td>
+            <th>籍贯</th>
+            <td colspan="2">{$row['native_place']}</td>
+        </tr>
+        <tr>
+            <th>学历</th>
+            <td class="td-1">{$row['education']}</td>
+            <th>政治面貌</th>
+            <td class="td-1">{$row['stand']}</td>
+            <th>民族</th>
+            <td class="td-1">{$row['folk']}</td>
+            <th class="td-1">身体状况</th>
+            <td>{$row['body']}</td>
+            <th>婚姻状况</th>
+            <td>{$row['marry']}</td>
+        </tr>
+        <tr>
+            <th class="td-3">身份证号码</th>
+            <td colspan="10">{$row['id_card']}</td>
+        </tr>
+        <tr>
+            <th>户口所在地</th>
+            <td colspan="5">{$row['address']}</td>
+            <th>邮编</th>
+            <td colspan="3">{$row['postcode']}</td>
+        </tr>
+        <tr>
+            <th>现通讯地址</th>
+            <td colspan="5">{$row['address']}</td>
+            <th>联系电话</th>
+            <td colspan="3">{$row['tel']}</td>
+        </tr>
+        <tr>
+            <th>介绍人工号</th>
+            <td colspan="2">{$row['intro_emp_id']}</td>
+            <th class="td-3">介绍人姓名</th>
+            <td colspan="2">{$row['intro_name']}</td>
+        </tr>
+        <tr>
+            <td colspan="10" class="td-mid">教育与培训情况</td>
+        </tr>
+        <tr>
+            <th colspan="4">起止日期</th>
+            <th colspan="6">毕业(培训)学校</th>
+        </tr>
+        {if !empty($edu_exp_arr)}
+        {foreach name="edu_exp_arr" item="vo"}
+            <tr>
+                <td colspan="4">{$vo['startDate']}——{$vo['endDate']}</td>
+                <td colspan="6">{$vo['school']}</td>
+            </tr>
+        {/foreach}
+        {else}
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+        {/if}
+        <tr>
+            <td colspan="10" class="td-mid">工作经历与经验</td>
+        </tr>
+        <tr>
+            <th colspan="3">任职日期</th>
+            <th colspan="5">单位名称及联系电话</th>
+            <th colspan="2">离职原因</th>
+        </tr>
+        {if !empty($work_exp_arr)}
+        {foreach name="work_exp_arr" item="vo"}
+        <tr>
+            <td colspan="3">{$vo['startDate']}——{$vo['endDate']}</td>
+            <td colspan="5">{$vo['name']}/{$vo['tel']}</td>
+            <td colspan="2">个人原因</td>
+        </tr>
+        {/foreach}
+        {else}
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="5">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        {/if}
+        <tr>
+            <td colspan="10" class="td-mid">紧急联系人</td>
+        </tr>
+        <tr>
+            <th colspan="3">姓名</th>
+            <th colspan="3">关系</th>
+            <th colspan="4">联系方式</th>
+        </tr>
+        <tr>
+            {if !empty($row['urgency_man'])}
+            <td colspan="3">{$row['urgency_man']}</td>
+            {else}
+            <td colspan="3">&nbsp;</td>
+            {/if}
+            <td colspan="3">{$row['urgency_relation']}</td>
+            <td colspan="4">{$row['urgency_tel']}</td>
+        </tr>
+        <tr>
+            <td colspan="10" class="td-mid">家庭及社会主要成员</td>
+        </tr>
+        <tr>
+            <th colspan="3">姓名</th>
+            <th colspan="3">关系</th>
+            <th colspan="4">联系方式</th>
+        </tr>
+        {if !empty($family_member_arr)}
+        {foreach name="family_member_arr" item="vo"}
+        <tr>
+            <td colspan="3">{$vo['name']}</td>
+            <td colspan="3">{$vo['relation']}</td>
+            <td colspan="4">{$vo['tel']}</td>
+        </tr>
+        {/foreach}
+        {else}
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        {/if}
+        <tr>
+            <td colspan="10" class="td-mid">健康状况</td>
+        </tr>
+        <tr>
+            <td colspan="6" class="td-2">是否有重大疾病/手术史:</td>
+            <td colspan="4" class="td-2">
+                {:Form::checkboxs('row[disease_serious]', $check_list, null)}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" class="td-2">是否曾经被认定为工伤或职业病或持有残疾人证明:</td>
+            <td colspan="4" class="td-2">
+                {:Form::checkboxs('row[disease]', $check_list, null)}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10">
+                本人郑重声明:<br/>
+                1、入职时已如实告知身体健康情况，没有传染病、职业病及其它任何严重疾病，并已无有效的劳动合同关系存在。否则，一切经济及法律责任中本人承相。<br/>
+                2、以上所填信息均属真实信息，包括身份信息及工作经历与经验。因虚假信息导致不能享受工伤保险在内的社会保险及意外保险而造成的损失由本人自行承担，并放弃要求口味王公司承担责任的权利。<br/>
+                3、紧急联络人或家庭成员收到公司有关本人的任何通知，均视同本人已知悉。<br/>
+                4、如出现因身体健康原因、突发事件等导致本人5日内无法亲自前往公司的情形，授权由本人家庭成员或其他近亲作为法定代理人，全权处理本人与公司的劳动关系相关事宜，法定代理人的行为本人均予以认可。<br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-2">接待人签名:</td>
+            <td colspan="2" class="td-2"></td>
+            <td colspan="2" class="td-2">填表人签名:</td>
+            <td colspan="1" class="td-2"></td>
+            <td colspan="1" class="td-2">日期:</td>
+            <td colspan="2" class="td-2">{$row['kq_date']}</td>
+        </tr>
+        <tr>
+            <td colspan="10" class="td-mid">以下由用人单位填写</td>
+        </tr>
+        <tr>
+            <td colspan="1" class="td-2">工作部门:</td>
+            <td colspan="2" class="td-2"></td>
+            <td colspan="1" class="td-2">职位:</td>
+            <td colspan="1" class="td-2"></td>
+            <td colspan="1" class="td-2">工号:</td>
+            <td colspan="1" class="td-2">{$row['emp_id']}</td>
+            <td colspan="1" class="td-2 td-1">到职日期:</td>
+            <td colspan="2" class="td-2">{$row['kq_date']}</td>
+        </tr>
+    </table>
+</div>
+    <div class="form-group" id="make" style="margin-top: 20px;text-align: center">
+        <button type="button" class="btn btn-danger" onclick="generatePDF()">打印</button>
+    </div>
+</body>
+<script type="text/javascript">
+    // javascript
+    function generatePDF() {
+        window.print();
+        return false;
+    }
+    window.onbeforeprint = function() {
+        document.getElementById("make").style.display = "none";
+        document.getElementsByTagName("header")[0].style.display = "none";
+        document.getElementsByTagName("footer")[0].style.display = "none";
+    }
+
+    window.onafterprint = function() {
+        document.getElementById("make").style.display = "block";
+        document.getElementsByTagName("header")[0].style.display = "block";
+        document.getElementsByTagName("footer")[0].style.display = "block";
+    }
+</script>
+</html>

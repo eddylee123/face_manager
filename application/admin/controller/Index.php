@@ -50,12 +50,17 @@ class Index extends Backend
             $this->error($msg, $url , '' , 8);
         }
         //左侧菜单
-        list($menulist, $navlist, $fixedmenu, $referermenu) = $this->auth->getSidebar([
-            'dashboard' => 'hot',
+        $map = [
+//            'dashboard' => 'hot',
             'addon'     => ['new', 'red', 'badge'],
             'auth/rule' => __('Menu'),
             'general'   => ['new', 'purple'],
-        ], $this->view->site['fixedpage']);
+        ];
+        $notice = (new \app\admin\model\Notice())->where(['is_read'=>0])->count();
+        if ($notice > 0) {
+            $map['notice/index'] = [$notice, 'red', 'badge'];
+        }
+        list($menulist, $navlist, $fixedmenu, $referermenu) = $this->auth->getSidebar($map, $this->view->site['fixedpage']);
         $action = $this->request->request('action');
         if ($this->request->isPost()) {
             if ($action == 'refreshmenu') {
@@ -110,7 +115,7 @@ class Index extends Backend
                 Hook::listen("admin_login_after", $this->request);
                 $s_admin = Session::get('admin');
                 if(empty($s_admin['secret'])){
-                    $url = 'employee?ref=addtabs';
+                    $url = 'dashboard?ref=addtabs';
                 }
 
                 $this->success(__('Login successful'), $url, ['url' => $url, 'id' => $this->auth->id, 'username' => $username, 'avatar' => $this->auth->avatar]);
