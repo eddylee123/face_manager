@@ -38,9 +38,12 @@ class EmpImg extends Model
 
     public function savezp($emp2, $filePath)
     {
-        $dir = '/www/idPhotos';
+        $dir = '/www/winshare2/idPhotos';
         if (empty($filePath)) {
             return false;
+        }
+        if (!is_dir($dir)) {
+            mkdir($dir,0777,true);
         }
         $rs = save_file($dir, $emp2.'.jpg', $filePath);
         if (!$rs) {
