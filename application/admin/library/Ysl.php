@@ -4,7 +4,6 @@
 namespace app\admin\library;
 
 use fast\Http;
-use think\Cookie;
 
 /**
  * 依时丽接口
@@ -85,8 +84,8 @@ class Ysl
 
         //保存图片
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $photo, $result)){
-//            $dir = ROOT_PATH.'/public/photo';
             $dir = "/www/winshare2";
+            $dir_ysl = "/www/winshare2/YSL";
             if (!is_dir($dir)) {
                 mkdir($dir,0777,true);
             }
@@ -124,6 +123,10 @@ class Ysl
                 if (!$save) {
                     return output(0);
                 }
+                //临时照片
+                $cut_file = file_get_contents($rs['data']['photourl']);
+                file_put_contents($dir_ysl."/{$pid}.{$ext}", $cut_file);
+
             }
 
             return output($rs['code'], $rs['msg'], ['new_file'=>$new_file]);
