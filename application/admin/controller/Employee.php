@@ -208,7 +208,6 @@ class Employee extends Backend
 //                    if (!empty($zp)) {
 //                        $this->empImgModel->savezp($params['emp_id_2'], $zp);
 //                    }
-                    //
 //                    $url = $this->request->baseFile().'/employee/photo?emp2='.$params['emp_id_2'];
                     $arg = $this->roleStatusModel
                         ->getOperate($this->admin['org_id'],
@@ -833,10 +832,10 @@ class Employee extends Backend
                     $result = $row->where(['id'=>$row['id']])->update($params);
                     if ($result !== false) {
                         //保存身份证照
-                        $zp = $this->request->param('zp', '');
-                        if (!empty($zp)) {
-                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
-                        }
+//                        $zp = $this->request->param('zp', '');
+//                        if (!empty($zp)) {
+//                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
+//                        }
 //                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
                         $arg = $this->roleStatusModel
                             ->getOperate($this->admin['org_id'],
