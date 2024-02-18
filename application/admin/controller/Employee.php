@@ -204,10 +204,10 @@ class Employee extends Backend
                 }
                 if ($result !== false) {
                     //保存身份证照
-                    $zp = $this->request->param('zp', '');
-                    if (!empty($zp)) {
-                        $this->empImgModel->savezp($params['emp_id_2'], $zp);
-                    }
+//                    $zp = $this->request->param('zp', '');
+//                    if (!empty($zp)) {
+//                        $this->empImgModel->savezp($params['emp_id_2'], $zp);
+//                    }
                     //
 //                    $url = $this->request->baseFile().'/employee/photo?emp2='.$params['emp_id_2'];
                     $arg = $this->roleStatusModel
@@ -258,10 +258,10 @@ class Employee extends Backend
                     $result = $row->where(['id'=>$ids])->update($params);
                     if ($result !== false) {
                         //保存身份证照
-                        $zp = $this->request->param('zp', '');
-                        if (!empty($zp)) {
-                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
-                        }
+//                        $zp = $this->request->param('zp', '');
+//                        if (!empty($zp)) {
+//                            $this->empImgModel->savezp($row['emp_id_2'], $zp);
+//                        }
 //                        $url = $this->request->baseFile().'/employee/photo?emp2='.$row['emp_id_2'];
                         $arg = $this->roleStatusModel
                             ->getOperate($this->admin['org_id'],
@@ -401,7 +401,8 @@ class Employee extends Backend
             //同步更新
             $this->model->where(['emp_id_2'=>$emp2])->update(['is_new'=>0]);
 
-            return outJson(output(200));
+            $this->result([], 200);
+//            return outJson(output(200));
         }
     }
 
