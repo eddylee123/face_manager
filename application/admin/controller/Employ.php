@@ -154,7 +154,7 @@ class Employ extends Backend
             //工号
             $emp_info = $this->model
                 ->where(['id_card' => $data['id_card']])
-                ->whereIn('status', [2,21,4])
+                ->whereIn('status', [1,2,21,4])
                 ->field('emp_id_2,status')
                 ->find();
             if (!empty($emp_info)) {
