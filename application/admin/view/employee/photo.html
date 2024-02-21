@@ -27,13 +27,13 @@
     <!--描绘video截图-->
     <div class="canvas-group">
         <div class="canvas-group1">
-            <canvas id="canvas" class="canvas-cs" width="300" height="400">
+            <canvas id="canvas" class="canvas-cs" width="300" height="460">
                 <img id="img1" src="{$info['img1']}">
             </canvas>
             <input type="radio" name="flag" value="img_url" checked /> 照片1
         </div>
         <div class="canvas-group1">
-            <canvas id="canvas2" class="canvas-cs" width="300" height="400">
+            <canvas id="canvas2" class="canvas-cs" width="300" height="460">
                 <img id="img2" src="{$info['img2']}">
             </canvas>
             <input type="radio" name="flag" value="dis_img_url" /> 照片2
@@ -74,7 +74,7 @@
         let context = canvas.getContext('2d');
         let context2 = canvas2.getContext('2d');
         let imgWidth = 640;
-        let imgHeight = 400;
+        let imgHeight = 460;
 
         function success(stream) {
             //兼容webkit核心浏览器
