@@ -33,20 +33,31 @@ class Pdf extends Backend
 
         $edu_exp_arr = $work_exp_arr = $family_member_arr = [];
         if(!empty($row['edu_exp'])) {
-            $edu_exp_arr = json_decode($row['edu_exp'], true);
+            $edu_arr = json_decode($row['edu_exp'], true);
+            if (!empty(reset($edu_arr))) {
+                $edu_exp_arr = $edu_arr;
+            }
         }
         if(!empty($row['work_exp'])) {
-            $work_exp_arr = json_decode($row['work_exp'], true);
+            $work_arr = json_decode($row['work_exp'], true);
+            if (!empty(reset($work_arr))) {
+                $work_exp_arr = $work_arr;
+            }
         }
         if(!empty($row['family_member'])) {
-            $family_member_arr = json_decode($row['family_member'], true);
-            if (count($family_member_arr) <= 1) {
+            $family_arr = json_decode($row['family_member'], true);
+            if (!empty(reset($family_arr))) {
+                $family_member_arr = $family_arr;
+            }
+            $family_num = count($family_member_arr);
+            for ($i=0; $i<(3-$family_num); $i++) {
                 array_push($family_member_arr, [
                     'name' => '&nbsp;',
                     'relation' => '&nbsp;',
                     'tel' => '&nbsp;',
                 ]);
             }
+
         }
         //籍贯
         if(empty($row['native_place'])) {
