@@ -7,7 +7,7 @@ namespace app\admin\library;
 class Kww
 {
 //    const kww = "https://kwwhrp.kwwict.com:10213";
-    const kww = "https://10.254.30.36:8800";
+    const kww = "https://10.254.30.36:8801";
 
     public function login()
     {
@@ -18,7 +18,7 @@ class Kww
         ];
 
         $rs = curl_request($url, 'POST', $body);
-//        var_dump($rs);exit;
+        var_dump($rs);exit;
         header("Location: ".$rs);
         return;
     }
