@@ -109,7 +109,7 @@ class Index extends Backend
                 Hook::listen("admin_login_after", $this->request);
                 $s_admin = Session::get('admin');
                 if(empty($s_admin['secret'])){
-                    $url = 'admin123.php/notice?ref=addtabs';
+                    $url = '/notice?ref=addtabs';
                 }
 
                 $this->success(__('Login successful'), $url, ['url' => $url, 'id' => $this->auth->id, 'username' => $username, 'avatar' => $this->auth->avatar]);
