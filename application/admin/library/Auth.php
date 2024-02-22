@@ -87,6 +87,7 @@ class Auth extends \fast\Auth
         $this->logined = false; //重置登录状态
         Session::delete("admin");
         Cookie::delete("keeplogin");
+        Cookie::delete("apache_");
         return true;
     }
 

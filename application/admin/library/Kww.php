@@ -4,13 +4,16 @@
 namespace app\admin\library;
 
 
+use think\Cookie;
+
 class Kww
 {
-//    const kww = "https://kwwhrp.kwwict.com:10213";
-        const kww = "https://10.254.30.36:8800";
+//    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
+        const kww = "https://10.254.30.36:8800";    //测试
 
     public function login()
     {
+        Cookie::delete("apache_");
         $url = self::kww."/api/noauth/login";
         $body = [
             "url" =>  self::kww."/api",
