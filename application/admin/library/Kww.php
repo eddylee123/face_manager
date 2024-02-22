@@ -17,6 +17,7 @@ class Kww
             Cookie::delete("apache_");
             Cookie::delete("BMAP_SECKEY");
             Cookie::delete("SECKEY_ABVK");
+            Cookie::delete("_uc.sso");
             self::logout();
         }
 
