@@ -88,7 +88,8 @@ class Auth extends \fast\Auth
         Session::delete("admin");
         Cookie::delete("keeplogin");
         Cookie::delete("apache_");
-        return true;
+
+        return $admin['username'] == 'hr_admin';
     }
 
     /**

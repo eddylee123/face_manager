@@ -32,7 +32,7 @@ class Kww
         $rs = curl_request($url, 'POST', $body);
 //        var_dump($rs);exit;
         header("Location: ".$rs);
-        return;
+        return true;
     }
 
     public static function getUser($tokenId)
@@ -66,6 +66,6 @@ class Kww
 
         header("Location: ".$url);
 
-        return;
+        return true;
     }
 }
