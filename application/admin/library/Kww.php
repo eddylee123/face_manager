@@ -7,7 +7,7 @@ namespace app\admin\library;
 class Kww
 {
 //    const kww = "https://kwwhrp.kwwict.com:10213";
-    const kww = "https://10.254.30.36:8801";
+        const kww = "https://10.254.30.36:8800";
 
     public function login()
     {
