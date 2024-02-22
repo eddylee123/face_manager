@@ -122,7 +122,7 @@ class Index extends Backend
         }
     }
 
-    public function loginAdmin()
+    public function login_admin()
     {
         $url = $this->request->get('url', 'index/index');
         if ($this->auth->isLogin()) {
@@ -179,7 +179,7 @@ class Index extends Backend
         $this->view->assign('background', $background);
         $this->view->assign('title', __('Login'));
         Hook::listen("admin_login_init", $this->request);
-        return $this->view->fetch();
+        return $this->view->fetch('login');
     }
 
     /**
@@ -189,7 +189,9 @@ class Index extends Backend
     {
         $this->auth->logout();
         Hook::listen("admin_logout_after", $this->request);
-        $this->success(__('Logout successful'), 'index/login');
+        Kww::logout('index/login');
+        return;
+//        $this->success(__('Logout successful'), 'index/login');
     }
 
     public function clear_url(){

@@ -13,13 +13,10 @@ class Kww
 
     public static function login()
     {
-        if (Cookie::has("apache_")) {
-            Cookie::delete("apache_");
-            Cookie::delete("BMAP_SECKEY");
-            Cookie::delete("SECKEY_ABVK");
-            Cookie::delete("_uc.sso");
-            self::logout();
-        }
+//        if (Cookie::has("apache_")) {
+//            Cookie::delete("apache_");
+//            self::logout();
+//        }
 
         $url = self::kww."/api/noauth/login";
         $body = [
@@ -58,9 +55,9 @@ class Kww
         return $data;
     }
 
-    public static function logout()
+    public static function logout($go)
     {
-        $url = self::kww."/api/logout";
+        $url = self::kww."/api/logout?go=".self::kww."/admin123.php/$go";
 
         $rs = curl_request($url, 'GET');
 
