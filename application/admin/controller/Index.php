@@ -84,7 +84,7 @@ class Index extends Backend
      */
     public function login()
     {
-        (new Kww())->login();
+        Kww::login();
         return;
     }
 
@@ -97,7 +97,7 @@ class Index extends Backend
         }
         //token缓存
         Cookie::set(BaseCache::kww_token, $tokenId);
-        $userInfo = (new Kww())->getUser($tokenId);
+        $userInfo = Kww::getUser($tokenId);
 //        var_dump($userInfo);exit;
         if (!empty($userInfo['data']['user']['userEname'])) {
 

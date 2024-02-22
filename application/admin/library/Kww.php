@@ -11,9 +11,13 @@ class Kww
 //    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
         const kww = "https://10.254.30.36:8800";    //测试
 
-    public function login()
+    public static function login()
     {
-        Cookie::delete("apache_");
+        if (Cookie::has("apache_")) {
+            Cookie::delete("apache_");
+            self::logout();
+        }
+
         $url = self::kww."/api/noauth/login";
         $body = [
             "url" =>  self::kww."/api",
@@ -26,7 +30,7 @@ class Kww
         return;
     }
 
-    public function getUser($tokenId)
+    public static function getUser($tokenId)
     {
         $url = self::kww."/api/w/dispatch";
         $body = [
@@ -49,5 +53,14 @@ class Kww
         }
 
         return $data;
+    }
+
+    public static function logout()
+    {
+        $url = self::kww."/api/logout";
+
+        $rs = curl_request($url, 'GET');
+
+        return;
     }
 }
