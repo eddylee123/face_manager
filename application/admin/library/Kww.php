@@ -15,6 +15,8 @@ class Kww
     {
         if (Cookie::has("apache_")) {
             Cookie::delete("apache_");
+            Cookie::delete("BMAP_SECKEY");
+            Cookie::delete("SECKEY_ABVK");
             self::logout();
         }
 

@@ -88,6 +88,8 @@ class Auth extends \fast\Auth
         Session::delete("admin");
         Cookie::delete("keeplogin");
         Cookie::delete("apache_");
+        Cookie::delete("BMAP_SECKEY");
+        Cookie::delete("SECKEY_ABVK");
         Kww::logout();
         return true;
     }
