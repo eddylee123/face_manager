@@ -902,13 +902,18 @@ function curl_request($url, $method = '', $data = '', $header = [])
     curl_setopt($action, CURLOPT_HEADER, 0);
     curl_setopt($action, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($action, CURLOPT_SSL_VERIFYHOST, 0);
+
+    $httpHeader = [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($data_string)
+    ];
+    if ($header) {
+        $httpHeader = array_merge($httpHeader, $header);
+    }
     if (strtoupper($method) == 'POST') {
         curl_setopt($action, CURLOPT_POST, 1);
         curl_setopt($action, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($action, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string))
-        );
+        curl_setopt($action, CURLOPT_HTTPHEADER, $httpHeader);
     }
     $result = curl_exec($action);
     curl_close($action);

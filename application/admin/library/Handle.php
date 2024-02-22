@@ -18,12 +18,12 @@ class Handle
     public function __construct()
     {
         $this->redis = alone_redis();
-        $this->empModel = new Employee();
-        $this->noticeModel = new Notice();
     }
 
     public function notice()
     {
+        $this->empModel = new Employee();
+        $this->noticeModel = new Notice();
         $point = $this->redis->get(BaseCache::notice_point);
         $statTime = $point ?? '2023-10-01';
         $endTime = date('Y-m-d');
@@ -49,4 +49,5 @@ class Handle
         }
         $this->redis->set(BaseCache::notice_point, $endTime);
     }
+
 }
