@@ -2,7 +2,6 @@
 
 namespace app\admin\controller;
 
-use app\admin\library\Handle;
 use app\admin\library\Kww;
 use app\admin\model\AdminLog;
 use app\cache\BaseCache;
@@ -110,7 +109,7 @@ class Index extends Backend
                 Hook::listen("admin_login_after", $this->request);
                 $s_admin = Session::get('admin');
                 if(empty($s_admin['secret'])){
-                    $url = 'employee?ref=addtabs';
+                    $url = 'admin123.php/notice?ref=addtabs';
                 }
 
                 $this->success(__('Login successful'), $url, ['url' => $url, 'id' => $this->auth->id, 'username' => $username, 'avatar' => $this->auth->avatar]);
@@ -159,7 +158,7 @@ class Index extends Backend
                 Hook::listen("admin_login_after", $this->request);
                 $s_admin = Session::get('admin');
                 if(empty($s_admin['secret'])){
-                    $url = 'dashboard?ref=addtabs';
+                    $url = 'admin123.php/notice?ref=addtabs';
                 }
 
                 $this->success(__('Login successful'), $url, ['url' => $url, 'id' => $this->auth->id, 'username' => $username, 'avatar' => $this->auth->avatar]);
