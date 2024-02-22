@@ -59,7 +59,7 @@ class Kww
     {
         $url = self::kww."/api/logout?go=".self::kww."/admin123.php/$go";
 
-        $rs = curl_request($url, 'GET');
+        header("Location: ".$url);
 
         return;
     }
