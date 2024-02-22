@@ -5,11 +5,16 @@ namespace app\admin\library;
 
 
 use think\Cookie;
+use think\Request;
 
 class Kww
 {
 //    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
-        const kww = "https://10.254.30.36:8800";    //测试
+//    const kww = "https://10.254.30.36:8800";    //测试
+    public static function kww()
+    {
+        return Request::instance()->domain();
+    }
 
     public static function login()
     {
@@ -18,10 +23,10 @@ class Kww
 //            self::logout();
 //        }
 
-        $url = self::kww."/api/noauth/login";
+        $url = self::kww()."/api/noauth/login";
         $body = [
-            "url" =>  self::kww."/api",
-            "go" => self::kww."/admin123.php/index/login2",
+            "url" =>  self::kww()."/api",
+            "go" => self::kww()."/admin123.php/index/login2",
         ];
 
         $rs = curl_request($url, 'POST', $body);
@@ -32,7 +37,7 @@ class Kww
 
     public static function getUser($tokenId)
     {
-        $url = self::kww."/api/w/dispatch";
+        $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "user.self.info",
             "version" => "1.0.0",
@@ -57,7 +62,7 @@ class Kww
 
     public static function logout($go)
     {
-        $url = self::kww."/api/logout?go=".self::kww."/admin123.php/$go";
+        $url = self::kww()."/api/logout?go=".self::kww()."/admin123.php/$go";
 
         header("Location: ".$url);
 
