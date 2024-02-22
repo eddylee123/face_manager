@@ -100,7 +100,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
-                        {field: 'id', title: __('权限'), table: table,
+                        {field: 'id', title: __('打印'), table: table,
                             buttons:
                                 [
                                     {
