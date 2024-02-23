@@ -9,7 +9,7 @@
                         <span><button type="button" id="plupload-files" class="btn btn-out plupload {:$auth->check('employ/import')?'':'hide'}" data-input-id="c-files" data-mimetype="csv,xls,xlsx" data-url="ajax/upload" data-multiple="false" data-preview-id="p-files"><i class="fa fa-download"></i> 体检导入</button></span>
 <!--                        <a href="javascript:;" class="btn btn-primary-light btn-import {:$auth->check('employ/import')?'':'hide'}" title="{:__('Import')}" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> 体检导入</a>-->
                         <a href="javascript:;" class="btn btn-out-light btn-export " id="btn-export-table" ><i class="fa fa-upload"></i> {:__('Export')}</a>
-                        <a href="javascript:;" class="btn btn-sign btn_sign" title="报名" ><i class="fa fa-caret-square-o-down"></i> 报名</a>
+                        <a href="javascript:;" class="btn btn-sign btn_sign" title="报名" ><i class="fa fa-pencil-square-o"></i> 报名</a>
                         <a href="javascript:;" class="btn btn-sign-light btn_report" title="报道" ><i class="fa fa-check-square-o"></i> 报道</a>
                         <a href="javascript:;" class="btn btn-success btn-add {:$auth->check('employee/add')?'':'hide'}" title="{:__('Add')}" data-area=["100%","100%"]><i class="fa fa-plus"></i> {:__('Add')}</a>
 
