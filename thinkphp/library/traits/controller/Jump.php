@@ -40,6 +40,8 @@ trait Jump
             $url = Request::instance()->server('HTTP_REFERER');
         } elseif ('' !== $url && !strpos($url, '://') && 0 !== strpos($url, '/')) {
             $url = Url::build($url);
+        } else {
+            $url = '/admin123.php/index/index';
         }
 
         $type = $this->getResponseType();

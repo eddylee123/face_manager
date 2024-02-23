@@ -8,6 +8,7 @@ use app\cache\BaseCache;
 use app\common\controller\Backend;
 use think\Config;
 use think\Cookie;
+use think\Env;
 use think\Hook;
 use think\Validate;
 use think\Db;
@@ -83,8 +84,13 @@ class Index extends Backend
      */
     public function login()
     {
-        Kww::login();
-        return;
+        if (Env::get('app.master')) {
+            Kww::login();
+            return true;
+        } else {
+            $this->redirect('index/login_admin');
+            return true;
+        }
     }
 
     public function login2()
@@ -188,7 +194,7 @@ class Index extends Backend
     {
         $isAdmin = $this->auth->logout();
         Hook::listen("admin_logout_after", $this->request);
-        if ($isAdmin) {
+        if ($isAdmin || !Env::get('app.master')) {
             $this->success(__('Logout successful'), 'index/login_admin');
         } else {
             Kww::logout('index/login');
