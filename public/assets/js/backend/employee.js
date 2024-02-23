@@ -24,15 +24,20 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 sortName: 'status',
                 sortOrder: 'asc',
                 searchFormVisible:true,
+                showToggle:false,
+                showColumns:false,
+                showExport:false,
+                search:false,
+                showSearch: false,
                 exportOptions: {
                     fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
-                    ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
+                    ignoreColumn: [0, 'operate','detail'] //默认不导出第一列(checkbox)与操作(operate)列
                 },
 
                 columns: [
                     [
                         // {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
+                        {field: 'detail', title: __('详情'), table: table,
                             buttons: [
                                 {
                                     name: 'base',
@@ -48,16 +53,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     extend: 'data-area=\'["100%","100%"]\', target="_blank"',
 
                                 }
-                            ],
-                            formatter: function(value, row, index){
-                                var that = $.extend({}, this);
-                                var table = $(that.table).clone(true);
-                                if (row.status == 3 || row.status == 4) {
-                                    $(table).data("operate-del", null);
-                                }
-                                that.table = table;
-                                return Table.api.formatter.operate.call(that, value, row, index);
-                            },
+                            ], operate:false, formatter: Table.api.formatter.buttons
                         },
                         {field: 'emp_id', title: __('Emp_id'), operate: 'LIKE'},
                         {field: 'emp_id_2', title: __('Emp_id_2'), operate: 'LIKE'},
@@ -75,54 +71,56 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'kq_date', title: __('Kq_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'exam_time', title: '体检时间', operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime,visible:false},
                         {field: 'address', title: '身份证地址'},
-                        //设置权限
-                        {field: 'id', title: __('权限'), table: table,
-                            buttons:
-                                [
-                                    {
-                                        name: 'roles',
-                                        text:__('权限'),
-                                        title: __('权限'),
-                                        //图标
-                                        icon: 'fa fa-user-plus',
-                                        //btn-dialog表示为弹窗
-                                        classname: 'btn btn-xs btn-primary btn-dialog',
-                                        //弹窗位置，//自带参数ids
-                                        url: 'employee/roles?emp2={row.emp_id_2}',
-                                        //弹窗大小
-                                        extend: 'data-area=\'["100%","100%"]\'',
-                                        visible: function (row) {
-                                            if (row.status > 0){
-                                                return true;
-                                            }
-                                            return false;
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
+                            buttons: [
+                                {
+                                    name: 'roles',
+                                    text:__('权限'),
+                                    title: __('权限'),
+                                    //图标
+                                    icon: 'fa fa-user-plus',
+                                    //btn-dialog表示为弹窗
+                                    classname: 'btn btn-xs btn-success btn-dialog',
+                                    //弹窗位置，//自带参数ids
+                                    url: 'employee/roles?emp2={row.emp_id_2}',
+                                    //弹窗大小
+                                    extend: 'data-area=\'["100%","100%"]\'',
+                                    visible: function (row) {
+                                        if (row.status > 0){
+                                            return true;
                                         }
-                                    },
-                                ], operate:false, formatter: Table.api.formatter.buttons
-                        },
-                        {field: 'id', title: __('打印'), table: table,
-                            buttons:
-                                [
-                                    {
-                                        name: 'roles',
-                                        text:__('打印'),
-                                        title: __('打印'),
-                                        //图标
-                                        icon: 'fa fa-file',
-                                        //btn-dialog表示为弹窗
-                                        classname: 'btn btn-xs btn-danger btn-dialog',
-                                        //弹窗位置，//自带参数ids
-                                        url: 'pdf/make?emp2={row.emp_id_2}',
-                                        //弹窗大小
-                                        extend: 'data-area=\'["100%","100%"]\'',
-                                        visible: function (row) {
-                                            if (row.status > 0){
-                                                return true;
-                                            }
-                                            return false;
+                                        return false;
+                                    }
+                                },
+                                {
+                                    name: 'roles',
+                                    text:__('打印'),
+                                    title: __('打印'),
+                                    //图标
+                                    icon: 'fa fa-file',
+                                    //btn-dialog表示为弹窗
+                                    classname: 'btn btn-xs btn-out btn-dialog',
+                                    //弹窗位置，//自带参数ids
+                                    url: 'pdf/make?emp2={row.emp_id_2}',
+                                    //弹窗大小
+                                    extend: 'data-area=\'["100%","100%"]\'',
+                                    visible: function (row) {
+                                        if (row.status > 0){
+                                            return true;
                                         }
-                                    },
-                                ], operate:false, formatter: Table.api.formatter.buttons
+                                        return false;
+                                    }
+                                },
+                            ],
+                            formatter: function(value, row, index){
+                                var that = $.extend({}, this);
+                                var table = $(that.table).clone(true);
+                                if (row.status == 3 || row.status == 4) {
+                                    $(table).data("operate-del", null);
+                                }
+                                that.table = table;
+                                return Table.api.formatter.operate.call(that, value, row, index);
+                            },
                         },
                     ]
                 ]

@@ -801,10 +801,10 @@
  * -----------
  */
 .skin-green .main-header {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green .main-header .navbar {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green .main-header .navbar .nav > li > a {
   color: #fff;
@@ -856,7 +856,7 @@
 }
 @media (max-width: 767px) {
   .skin-green .main-header .logo {
-    background-color: #18bc9c;
+    background-color: #C0242F;
     color: #fff;
     border-bottom: 0 solid transparent;
     border-right: none;
@@ -866,7 +866,7 @@
   }
 }
 .skin-green .main-header li.user-header {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green .content-header {
   background: transparent;
@@ -894,7 +894,7 @@
 .skin-green .sidebar-menu > li.active > a {
   color: #fff;
   background: #5b57a3;
-  border-left-color: #18bc9c;
+  border-left-color: #C0242F;
 }
 .skin-green .sidebar-menu > li > .treeview-menu {
   background: #555299;
@@ -960,7 +960,7 @@
     color: #fff;
   }
   .skin-green.multiplenav .sidebar .mobilenav a.btn-app.active {
-    background: #18bc9c;
+    background: #C0242F;
     color: #fff;
   }
 }
@@ -969,10 +969,10 @@
  * -----------
  */
 .skin-green-light .main-header {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green-light .main-header .navbar {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green-light .main-header .navbar .nav > li > a {
   color: #fff;
@@ -1015,7 +1015,7 @@
   }
 }
 .skin-green-light .main-header .logo {
-  background-color: #18bc9c;
+  background-color: #C0242F;
   color: #fff;
   border-bottom: 0 solid transparent;
 }
@@ -1023,7 +1023,7 @@
   background-color: #17b798;
 }
 .skin-green-light .main-header li.user-header {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .skin-green-light .content-header {
   background: transparent;
@@ -1057,10 +1057,10 @@
 .skin-green-light .sidebar-menu > li.active > a {
   color: #000;
   background: #f4f4f5;
-  border-left-color: #18bc9c;
+  border-left-color: #C0242F;
 }
 .skin-green-light .sidebar-menu > li.active {
-  border-left-color: #18bc9c;
+  border-left-color: #C0242F;
 }
 .skin-green-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
@@ -1134,7 +1134,7 @@
     color: #757575;
   }
   .skin-green-light.multiplenav .sidebar .mobilenav a.btn-app.active {
-    background: #18bc9c;
+    background: #C0242F;
     color: #fff;
   }
 }

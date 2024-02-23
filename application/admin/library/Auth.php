@@ -69,6 +69,8 @@ class Auth extends \fast\Auth
         $admin->loginip = request()->ip();
         $admin->token = Random::uuid();
         $admin->save();
+        $orgList = Config::get('site.org_list');
+        $admin->org = $orgList[$admin->org_id] ?? '';
         Session::set("admin", $admin->toArray());
         $this->keeplogin($keeptime);
         return true;

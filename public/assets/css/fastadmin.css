@@ -1353,15 +1353,15 @@ select.form-control {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
 }
 .form-group.has-success label {
-  color: #18bc9c;
+  color: #C0242F;
 }
 .form-group.has-success .form-control,
 .form-group.has-success .input-group-addon {
-  border-color: #18bc9c;
+  border-color: #C0242F;
   box-shadow: none;
 }
 .form-group.has-success .help-block {
-  color: #18bc9c;
+  color: #C0242F;
 }
 .form-group.has-warning label {
   color: #f39c12;
@@ -1506,7 +1506,7 @@ select.form-control {
 }
 .progress-bar-green,
 .progress-bar-success {
-  background-color: #18bc9c;
+  background-color: #C0242F;
 }
 .progress-striped .progress-bar-green,
 .progress-striped .progress-bar-success {
@@ -1648,7 +1648,7 @@ select.form-control {
   border-top-color: #f39c12;
 }
 .box.box-success {
-  border-top-color: #18bc9c;
+  border-top-color: #C0242F;
 }
 .box.box-default {
   border-top-color: #d2d6de;
@@ -1745,12 +1745,12 @@ select.form-control {
   color: #fff;
 }
 .box.box-solid.box-success {
-  border: 1px solid #18bc9c;
+  border: 1px solid #C0242F;
 }
 .box.box-solid.box-success > .box-header {
   color: #fff;
-  background: #18bc9c;
-  background-color: #18bc9c;
+  background: #C0242F;
+  background-color: #C0242F;
 }
 .box.box-solid.box-success > .box-header a,
 .box.box-solid.box-success > .box-header .btn {
@@ -2044,7 +2044,7 @@ select.form-control {
   border-left-color: #3498db;
 }
 .todo-list .success {
-  border-left-color: #18bc9c;
+  border-left-color: #C0242F;
 }
 .todo-list .primary {
   border-left-color: #3c8dbc;
@@ -2084,7 +2084,7 @@ select.form-control {
   border-radius: 50%;
 }
 .chat .item > .online {
-  border: 2px solid #18bc9c;
+  border: 2px solid #C0242F;
 }
 .chat .item > .offline {
   border: 2px solid #e74c3c;
@@ -2383,6 +2383,55 @@ select.form-control {
   background-color: #d4d8dd;
   border-color: #c6ccd1;
   color: #85878A;
+}
+.btn-out {
+  background-color: #4EC692;
+  border-color: #4EC692;
+  color: #fff;
+}
+.btn-out:hover,
+.btn-out:active,
+.btn-out.hover {
+  background-color: #527F76;
+  border-color: #527F76;
+  color: #fff;;
+}
+.btn-out-light {
+  background-color: #EDF9F5;
+  border-color: #4EC692;
+  color: #4EC692;
+}
+.btn-out-light:hover,
+.btn-out-light:active,
+.btn-out-light.hover {
+  background-color: #E6E8FA;
+  border-color: #4EC692;
+  color: #4EC692;
+}
+
+.btn-sign {
+  background-color: #FF7F42;
+  border-color: #FF7F42;
+  color: #fff;
+}
+.btn-sign:hover,
+.btn-sign:active,
+.btn-sign.hover {
+  background-color: #D98719;
+  border-color: #D98719;
+  color: #fff;
+}
+.btn-sign-light {
+  background-color: #FEF4EA;
+  border-color: #FF7F42;
+  color: #FF7F42;
+}
+.btn-sign-light:hover,
+.btn-sign-light:active,
+.btn-sign-light.hover {
+  background-color: #E6E8FA;
+  border-color: #FF7F42;
+  color: #FF7F42;
 }
 .btn-success-light {
   background-color: #dff0d8;
@@ -2771,7 +2820,7 @@ select.form-control {
   border-top-color: #f39c12;
 }
 .nav-tabs-custom.tab-success > .nav-tabs > li.active {
-  border-top-color: #18bc9c;
+  border-top-color: #C0242F;
 }
 .nav-tabs-custom.tab-default > .nav-tabs > li.active {
   border-top-color: #d2d6de;
@@ -3118,13 +3167,13 @@ table.text-center th {
   border-left-color: #3498db;
 }
 .direct-chat-success .right > .direct-chat-text {
-  background: #18bc9c;
-  border-color: #18bc9c;
+  background: #C0242F;
+  border-color: #C0242F;
   color: #fff;
 }
 .direct-chat-success .right > .direct-chat-text:after,
 .direct-chat-success .right > .direct-chat-text:before {
-  border-left-color: #18bc9c;
+  border-left-color: #C0242F;
 }
 /*
  * Component: Users List
@@ -5387,7 +5436,7 @@ fieldset[disabled] .btn-yahoo.active {
 .callout.callout-success,
 .alert-success,
 .modal-success .modal-body {
-  background-color: #18bc9c !important;
+  background-color: #C0242F !important;
 }
 .bg-navy {
   background-color: #001F3F !important;
@@ -5495,7 +5544,7 @@ fieldset[disabled] .btn-yahoo.active {
   color: #3c8dbc !important;
 }
 .text-green {
-  color: #18bc9c !important;
+  color: #C0242F !important;
 }
 .text-gray {
   color: #d2d6de !important;
@@ -5640,12 +5689,12 @@ fieldset[disabled] .btn-yahoo.active {
   color: #fff;
 }
 .bg-green-gradient {
-  background: #18bc9c !important;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #18bc9c), color-stop(1, #1cdcb6)) !important;
-  background: -ms-linear-gradient(bottom, #18bc9c, #1cdcb6) !important;
-  background: -moz-linear-gradient(center bottom, #18bc9c 0%, #1cdcb6 100%) !important;
-  background: -o-linear-gradient(#1cdcb6, #18bc9c) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1cdcb6', endColorstr='#18bc9c', GradientType=0) !important;
+  background: #C0242F !important;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #C0242F), color-stop(1, #1cdcb6)) !important;
+  background: -ms-linear-gradient(bottom, #C0242F, #1cdcb6) !important;
+  background: -moz-linear-gradient(center bottom, #C0242F 0%, #1cdcb6 100%) !important;
+  background: -o-linear-gradient(#1cdcb6, #C0242F) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1cdcb6', endColorstr='#C0242F', GradientType=0) !important;
   color: #fff;
 }
 .bg-red-gradient {

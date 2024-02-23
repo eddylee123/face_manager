@@ -833,7 +833,7 @@ table.table-nowrap thead > tr > th {
   background-color: #48c9b0 !important;
 }
 .toast-success {
-  background-color: #18bc9c !important;
+  background-color: #C0242F !important;
 }
 .toast-error {
   background-color: #e74c3c !important;
@@ -900,8 +900,8 @@ table.table-nowrap thead > tr > th {
   border: 1px solid transparent;
 }
 .layui-layer-fast .layui-layer-btn .layui-layer-btn0 {
-  background-color: #18bc9c;
-  border-color: #18bc9c;
+  background-color: #C0242F;
+  border-color: #C0242F;
 }
 .layui-layer-fast .layui-layer-footer {
   padding: 8px 20px;
