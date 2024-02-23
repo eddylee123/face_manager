@@ -90,7 +90,7 @@ html.ios-fix body .tab-pane {
   }
   .main-header .navbar-custom-menu a.btn-primary {
     color: #fff;
-    background-color: #2c3e50;
+    background-color: #C0242F;
   }
 }
 .common-search-table {
@@ -362,7 +362,7 @@ form.form-horizontal .control-label {
 .nav-addtabs > li > a:hover,
 .nav-addtabs > li > a:focus {
   border: none;
-  color: #2c3e50;
+  color: #C0242F;
   border-right: 1px solid rgba(0, 0, 0, 0.02);
 }
 .nav-addtabs > li.active > a {
@@ -373,13 +373,13 @@ form.form-horizontal .control-label {
   border: none;
   border-right: 1px solid rgba(0, 0, 0, 0.02);
   background: #f1f4f6;
-  color: #2c3e50;
+  color: #C0242F;
   overflow: hidden;
 }
 .nav-addtabs > li.active > a:hover,
 .nav-addtabs > li.active > a:focus {
   border: none;
-  color: #2c3e50;
+  color: #C0242F;
   background: #f1f4f6;
   border-right: 1px solid rgba(0, 0, 0, 0.02);
 }
@@ -860,7 +860,7 @@ table.table-nowrap thead > tr > th {
   /*自定义底部灰色操作区*/
 }
 .layui-layer-fast .layui-layer-title {
-  background: #2c3e50 !important;
+  background: #C0242F !important;
   color: #fff !important;
   border-bottom: none;
 }
