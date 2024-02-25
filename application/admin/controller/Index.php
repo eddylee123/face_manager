@@ -4,10 +4,8 @@ namespace app\admin\controller;
 
 use app\admin\library\Kww;
 use app\admin\model\AdminLog;
-use app\cache\BaseCache;
 use app\common\controller\Backend;
 use think\Config;
-use think\Cookie;
 use think\Env;
 use think\Hook;
 use think\Validate;
@@ -100,8 +98,7 @@ class Index extends Backend
         if(empty($tokenId)) {
             $this->error('登录失败，请咨询管理员');
         }
-        //token缓存
-        Cookie::set(BaseCache::kww_token, $tokenId);
+
         $userInfo = Kww::getUser($tokenId);
 //        var_dump($userInfo);exit;
         if (!empty($userInfo['data']['user']['userEname'])) {

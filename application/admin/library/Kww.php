@@ -4,6 +4,7 @@
 namespace app\admin\library;
 
 
+use app\cache\BaseCache;
 use think\Cookie;
 use think\Request;
 
@@ -37,6 +38,9 @@ class Kww
 
     public static function getUser($tokenId)
     {
+        //token缓存
+        Cookie::set(BaseCache::kww_token, $tokenId);
+
         $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "user.self.info",
