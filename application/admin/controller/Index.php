@@ -82,13 +82,13 @@ class Index extends Backend
      */
     public function login()
     {
-//        if (Env::get('app.master')) {
+        if (Env::get('app.master')) {
             Kww::login();
             return;
-//        } else {
-//            $this->redirect('index/login_admin');
-//            return;
-//        }
+        } else {
+            $this->redirect('index/login_admin');
+            return;
+        }
     }
 
     public function login2()

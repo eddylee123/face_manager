@@ -4,10 +4,12 @@
 namespace app\admin\controller;
 
 
+use app\admin\library\Kww;
 use app\admin\model\EmpRole;
 use app\common\controller\Backend;
 use fast\Http;
 use think\Session;
+use think\Validate;
 
 class Manager extends Backend
 {
@@ -110,5 +112,20 @@ class Manager extends Backend
         $this->view->assign("cs_level_list", $this->cs_list);
         $this->view->assign("kq_level_list", $this->kq_list);
         return $this->view->fetch();
+    }
+
+    public function lists()
+    {
+        $list = Kww::userList('06');
+        var_dump($list);exit();
+    }
+
+    public function modify()
+    {
+        $validate = new Validate($rule, [], ['username' => __('Username'), 'password' => __('Password'), 'captcha' => __('Captcha')]);
+        $result = $validate->check($data);
+        if (!$result) {
+            $this->error($validate->getError(), $url, ['token' => $this->request->token()]);
+        }
     }
 }
