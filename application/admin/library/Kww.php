@@ -30,7 +30,7 @@ class Kww
         ];
 
         $rs = curl_request($url, 'POST', $body);
-        var_dump($rs);exit;
+//        var_dump($rs);exit;
         header("Location: ".$rs);
         return true;
     }
