@@ -363,7 +363,7 @@ class Employee extends Backend
             }
             $res = $this->ysl->photoHandle($pid, $base64);;
             if ($res['code'] != 200) {
-                return outJson($res);
+                $this->error($res['msg']);
             }
 
             //更新数据
@@ -381,7 +381,7 @@ class Employee extends Backend
             }
 
             if ($rs === false) {
-                return outJson(output(0));
+                $this->error();
             }
 
             if (!empty($info[$other_field])) {
@@ -390,7 +390,7 @@ class Employee extends Backend
                 if ($emp_info) {
                     $rs1 = $emp_info->save(['status'=>2]);
                     if ($rs1 === false) {
-                        return outJson(output(0));
+                        $this->error();
                     }
                 }
                 //写入记录
@@ -401,7 +401,6 @@ class Employee extends Backend
             $this->model->where(['emp_id_2'=>$emp2])->update(['is_new'=>0]);
 
             $this->result([], 200);
-//            return outJson(output(200));
         }
     }
 
@@ -821,10 +820,10 @@ class Employee extends Backend
             if ($params) {
                 try {
                     //旧数据比对
-                    $rs = $this->model->checkEmpStatus($params['id_card'], $params['id_date'], $params['id_validity']);
-                    if (!in_array($rs['code'], [100, 200])) {
-                        $this->error($rs['msg']);
-                    }
+//                    $rs = $this->model->checkEmpStatus($params['id_card'], $params['id_date'], $params['id_validity']);
+//                    if (!in_array($rs['code'], [100, 200])) {
+//                        $this->error($rs['msg']);
+//                    }
                     if (!empty($this->admin['org_id'])) {
                         $params['org_id'] = $this->admin['org_id'];
                     }

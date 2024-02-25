@@ -51,7 +51,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
                         },
-                        {field: 'type', title: __('Type'),visible:false,searchList: Config.typeList, formatter: Table.api.formatter.status},
+                        // {field: 'type', title: __('Type'),visible:false,searchList: Config.typeList, formatter: Table.api.formatter.status},
                         {field: 'title', title: __('Title'), operate: false},
                         {field: 'content', title: __('Content'), operate: false},
                         {field: 'is_read', title: __('Is_read'),searchList: Config.readList, formatter: Table.api.formatter.status},
