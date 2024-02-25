@@ -39,7 +39,7 @@ class Kww
     public static function getUser($tokenId)
     {
         //token缓存
-        Cookie::set(BaseCache::kww_token, $tokenId);
+        Cookie::forever(BaseCache::kww_token, $tokenId);
 
         $url = self::kww()."/api/w/dispatch";
         $body = [
