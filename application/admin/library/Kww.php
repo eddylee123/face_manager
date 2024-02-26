@@ -14,6 +14,17 @@ class Kww
 //    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
     const hrNewApi = "https://10.254.30.36:8801";    //测试
 
+    const marryList = [
+        'MARRIED'=>'已婚',
+        'UNMARRIED'=>'未婚',
+        'DIVORCE'=>'离异'
+    ];
+
+    const statusList = [
+        'NORMAL'=>'正常',
+        'LEAVE'=>'离职'
+    ];
+
     public static function kww()
     {
         return Request::instance()->domain();
@@ -26,7 +37,8 @@ class Kww
 
     public static function header()
     {
-        $tokenId = self::token();
+//        $tokenId = self::token();
+        $tokenId = "67804D5DE704B330609BBCBB48E4F345C64217F5288DC592323B28E5D4C85429B5D2";
 
         return ["Tokenid: $tokenId"];
     }
@@ -237,10 +249,7 @@ class Kww
 
         $data = [];
         if ($rs) {
-            $datas = json_decode($rs, true);
-            if (isset($datas['data'])) {
-                $data = json_decode($datas['data'], true);
-            }
+            $data = json_decode($rs, true);
         }
 
         return $data;

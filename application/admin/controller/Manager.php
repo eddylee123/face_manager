@@ -8,6 +8,7 @@ use app\admin\library\Kww;
 use app\admin\model\EmpRole;
 use app\common\controller\Backend;
 use fast\Http;
+use think\Config;
 use think\Session;
 use think\Validate;
 
@@ -36,6 +37,8 @@ class Manager extends Backend
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
 
+        $this->view->assign('statusList', Kww::statusList);
+        $this->view->assign('marryList', Kww::marryList);
         $this->view->assign('eduList', $this->empModel->getEduList());
         $this->view->assign('folkList', $this->empModel->getFolkList());
         $this->view->assign("cs_level_list", $this->empRoleModel->csLevel($this->org));
@@ -115,23 +118,37 @@ class Manager extends Backend
 
     public function lists()
     {
-        $empNum = $this->request->get("empNum/s", '');
-        $name = $this->request->get("name/s", '');
-        $idCard = $this->request->get("idCard/s", '');
-        $contactPhone = $this->request->get("contactPhone/s", '');
-        $status = $this->request->get("status/s", '');
-        $offset = $this->request->get("offset/d", 0);
-        $pageSize = $this->request->get("limit/d", 999999);
-        if ($offset > 0) {
-            $currentPage = ($offset / $pageSize) + 1;
-        } else {
-            $currentPage = 1;
+        $this->request->filter(['strip_tags','trim']);
+        if ($this->request->isAjax()) {
+            $empNum = $this->request->get("empNum/s", '');
+            $name = $this->request->get("name/s", '');
+            $idCard = $this->request->get("idCard/s", '');
+            $contactPhone = $this->request->get("contactPhone/s", '');
+            $status = $this->request->get("status/s", '');
+            $offset = $this->request->get("offset/d", 0);
+            $pageSize = $this->request->get("limit/d", 999999);
+            if ($offset > 0) {
+                $currentPage = ($offset / $pageSize) + 1;
+            } else {
+                $currentPage = 1;
+            }
+            $filter = $this->request->request('filter');
+            $filter_arr = json_decode($filter , true);
+
+            $param = array_merge($filter_arr, compact('currentPage', 'pageSize'));
+            $list = Kww::userList('06', $param);
+            foreach ($list['records'] as &$v) {
+                if ($v['hireDate']) {
+                    $v['hireDate'] = date('Y-m-d', ($v['hireDate'] / 1000));
+                }
+            }
+
+            $result = array("total" => $list['total'], "rows" => $list['records']);
+            return json($result);
         }
 
-        $param = compact('empNum','name','idCard','contactPhone','status','currentPage','pageSize');
-        $list = Kww::userList('06', $param);
-//        var_dump($list);exit();
-
+        $this->assignconfig('statusList', Kww::statusList);
+        $this->assignconfig('marryList', Kww::marryList);
         return $this->view->fetch('lists');
     }
 
@@ -145,24 +162,30 @@ class Manager extends Backend
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a", [], 'trim');
             if ($params) {
-                $empModel = new \app\admin\model\Employee();
 
                 $validate = new \app\admin\validate\Manager();
                 $result = $validate->scene('edit')->check($params);
                 if (!$result) {
                     $this->error($validate->getError());
                 }
-
+                $params = array_merge($params, [
+                    'id' => $row['id'],
+                    'other' => [],
+                ]);
                 $rs = Kww::modify($params);
-                if ($rs['code'] == 200) {
+                if ($rs['success'] == true) {
                     $this->success();
                 }
                 $this->error('操作失败');
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        $orgConf = array_values(Config::get('site.org_list'));
+        $orgList = array_combine($orgConf, $orgConf);
+//        var_dump($orgList);exit;
 
         $this->assign('row', $row);
+        $this->assign('orgList', $orgList);
 
         return $this->view->fetch();
     }

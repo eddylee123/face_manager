@@ -12,4 +12,5 @@ return [
     'MarriageStatus' => '婚姻状况',
     'Org' => '部门',
     'Post' => '岗位',
+    'MorningLocation' => '晨会地点',
 ];

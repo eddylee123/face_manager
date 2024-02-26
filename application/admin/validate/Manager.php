@@ -17,7 +17,7 @@ class Manager extends Validate
      */
     protected $rule = [
         'name'  => 'require|max:20',
-        'contactPhone' => 'require|number',
+        'contactPhone' => 'require|number|max:11',
         'status' => 'require',
     ];
 
@@ -29,6 +29,7 @@ class Manager extends Validate
         'name.max'     => '名称最多不能超过20个字符',
         'contactPhone.require' => '联系电话必须',
         'contactPhone.number'     => '联系电话格式错误',
+        'contactPhone.max'     => '联系电话最多不能超过11个字符',
         'status.require' => '状态必须',
     ];
 
@@ -42,17 +43,8 @@ class Manager extends Validate
      * 验证场景
      */
     protected $scene = [
-        'modify' => ['name', 'contactPhone','status']
+        'edit' => ['name', 'contactPhone']
     ];
 
-//    public function __construct(array $rules = [], $message = [], $field = [])
-//    {
-//        $this->field = [
-//            'name'  => __('Name'),
-//            'title' => __('Title'),
-//        ];
-//        $this->message['name.format'] = __('Name only supports letters, numbers, underscore and slash');
-//        parent::__construct($rules, $message, $field);
-//    }
 
 }
