@@ -21,29 +21,29 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 searchFormVisible:true,
                 exportOptions: {
                     fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
-                    ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
+                    // ignoreColumn: [0, 'operate'] //默认不导出第一列(checkbox)与操作(operate)列
                 },
 
                 columns: [
                     [
                         // {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table,
-                            buttons:
-                                [
-                                    {
-                                        name: 'read',
-                                        text:__('查看'),
-                                        title: __('查看'),
-                                        //图标
-                                        icon: 'fa fa-external-link',
-                                        //btn-dialog表示为弹窗
-                                        classname: 'btn btn-xs btn-info btn-dialog',
-                                        //弹窗大小
-                                        extend: 'data-area=\'["100%","100%"]\'',
-                                        url: 'cwa/cater_b/detail?date={row.日期}&area={row.食堂}',
-                                    },
-                                ], operate:false, formatter: Table.api.formatter.buttons
-                        },
+                        // {field: 'operate', title: __('Operate'), table: table,
+                        //     buttons:
+                        //         [
+                        //             {
+                        //                 name: 'read',
+                        //                 text:__('查看'),
+                        //                 title: __('查看'),
+                        //                 //图标
+                        //                 icon: 'fa fa-external-link',
+                        //                 //btn-dialog表示为弹窗
+                        //                 classname: 'btn btn-xs btn-info btn-dialog',
+                        //                 //弹窗大小
+                        //                 extend: 'data-area=\'["100%","100%"]\'',
+                        //                 url: 'cwa/cater_b/detail?date={row.日期}&area={row.食堂}',
+                        //             },
+                        //         ], operate:false, formatter: Table.api.formatter.buttons
+                        // },
                         {field: '日期', title: __('日期'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: '星期', title: __('星期'), searchList: Config.weekList, formatter: Table.api.formatter.normal},
                         {field: '食堂', title: __('食堂'), operate: false},
@@ -96,9 +96,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             // 初始化表格
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
-                // pk: '日期',
-                // sortName: '日期',
-                // sortOrder: 'desc',
+                pk: '打卡时间',
+                sortName: '打卡时间',
+                sortOrder: 'desc',
                 searchFormVisible:true,
                 exportOptions: {
                     fileName: $.fn.bootstrapTable.defaults.extend.table + Math.round(Math.random()*100) + '_' + Moment().format("YYYY-MM-DD"),
@@ -107,17 +107,16 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                 columns: [
                     [
-                        {field: '打卡日期', title: __('打卡日期'), operate: false, addclass:'datetimerange', autocomplete:false},
-                        {field: '打卡时间', title: __('打卡时间'), operate: false},
                         {field: '工号', title: __('工号'), operate: 'like'},
                         {field: '姓名', title: __('姓名'), operate: 'like'},
+                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
+                        {field: '食堂', title: __('食堂'), searchList: Config.csLevel, formatter: Table.api.formatter.normal},
                         {field: '部门', title: __('部门'), operate: false},
                         {field: '餐别', title: __('餐别'), operate: false},
                         {field: '机器号', title: __('机器号'), operate: false},
                         {field: '卡号', title: __('卡号'), operate: false},
                         {field: '消费级别', title: __('消费级别'), operate: false},
                         {field: '门禁级别', title: __('门禁级别'), operate: false},
-                        {field: '食堂', title: __('食堂'), operate: false},
                         {field: '消费模式', title: __('消费模式'), operate: false},
                     ]
                 ]

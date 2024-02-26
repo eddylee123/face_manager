@@ -57,10 +57,6 @@ class CaterB extends Backend
     public function detail()
     {
 
-        $date = $this->request->param('date', '');
-        $area = $this->request->param('area', '');
-        if (empty($date)) $this->error('日期不能为空');
-
         $this->request->filter(['strip_tags','trim']);
         if ($this->request->isAjax())
         {
@@ -71,19 +67,29 @@ class CaterB extends Backend
             }
             $offset = $this->request->get("offset/d", 0);
             $limit = $this->request->get("limit/d", 999);
+            $sort = $this->request->get("sort/s", '打卡时间');
+            $order = $this->request->get("order/s", 'DESC');
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
-            $filter_arr['area'] = $area;
 
-            $total = $this->model->countDetail($date,$date,$this->admin['org_id'],$filter_arr);
+            if (!empty($filter_arr['打卡时间'])) {
+                [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
+                $filter_arr['start'] = date('Y-m-d', strtotime($start));
+                $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
+            } else {
+                $filter_arr['start'] = date('Y-m-d', strtotime("-30 day"));
+                $filter_arr['end'] = date('Y-m-d 23:59:59');
+            }
 
-            $list = $this->model->getDetail($date,$date,$this->admin['org_id'],$filter_arr,$offset,$limit);
+            $total = $this->model->countDetail($this->admin['org_id'],$filter_arr);
+
+            $list = $this->model->getDetail($this->admin['org_id'],$filter_arr,$offset,$limit,$sort,$order);
 //            echo "<pre/>";print_r($list);exit;
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
 
-        $this->assignconfig('weekList' ,$this->model->weekList);
+        $this->assignconfig('csLevel', ['A'=>'A食堂','B'=>'B食堂']);
         return $this->view->fetch();
     }
 }

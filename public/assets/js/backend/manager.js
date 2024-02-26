@@ -31,7 +31,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'empNum', title: __('EmpNum'), operate: 'LIKE'},
                         {field: 'name', title: __('Name'), operate: 'LIKE'},
                         {field: 'idCard', title: __('IdCard'), operate: 'LIKE'},
-                        {field: 'contactPhone', title: __('ContactPhone'), operate: false},
+                        {field: 'contactPhone', title: __('ContactPhone'), operate: 'LIKE'},
                         {field: 'status', title: __('Status'), searchList: Config.statusList, formatter: Table.api.formatter.status},
                         {field: 'education', title: __('Education'), operate: false},
                         {field: 'ethnicity', title: __('Ethnicity'), operate: false},

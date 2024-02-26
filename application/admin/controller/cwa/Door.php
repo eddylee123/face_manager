@@ -36,20 +36,22 @@ class Door extends Backend
 
             $offset = $this->request->get("offset/d", 0);
             $limit = $this->request->get("limit/d", 999);
+            $sort = $this->request->get("sort/s", '打卡时间');
+            $order = $this->request->get("order/s", 'DESC');
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
 
-            if (!empty($filter_arr['打卡日期'])) {
-                [$start, $end] = explode(' - ', $filter_arr['打卡日期']);
+            if (!empty($filter_arr['打卡时间'])) {
+                [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
                 $filter_arr['start'] = date('Y-m-d', strtotime($start));
-                $filter_arr['end'] = date('Y-m-d', strtotime($end));
+                $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
             } else {
                 $filter_arr['start'] = date('Y-m-d', strtotime("-30 day"));
-                $filter_arr['end'] = date('Y-m-d');
+                $filter_arr['end'] = date('Y-m-d 23:59:59');
             }
             $total = $this->model->countList($this->admin['org_id'],$filter_arr);
 
-            $list = $this->model->getList($this->admin['org_id'],$filter_arr,$offset,$limit);
+            $list = $this->model->getList($this->admin['org_id'],$filter_arr,$offset,$limit,$sort,$order);
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
