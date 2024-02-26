@@ -194,8 +194,10 @@ class Index extends Backend
 //        if ($isAdmin || !Env::get('app.master')) {
 //            $this->success(__('Logout successful'), 'index/login_admin');
 //        } else {
-            Kww::logout('index/login');
-            return;
+            $url = Kww::logout('index/login');
+            $this->assign('url',$url);
+        return $this->view->fetch();
+//            return;
 //        }
     }
 
