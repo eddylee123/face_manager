@@ -100,7 +100,8 @@ class Kww
         //删缓存
         Cookie::delete(BaseCache::kww_token);
 
-        $url = self::kww()."/api/logout?go=".self::kww()."/admin123.php/$go";
+        $goStr = urlencode(self::kww()."/admin123.php/$go");
+        $url = self::kww()."/api/logout?go=".$goStr;
 
         header("Location: ".$url);
 
