@@ -191,12 +191,12 @@ class Index extends Backend
     {
         $isAdmin = $this->auth->logout();
         Hook::listen("admin_logout_after", $this->request);
-        if ($isAdmin || !Env::get('app.master')) {
-            $this->success(__('Logout successful'), 'index/login_admin');
-        } else {
+//        if ($isAdmin || !Env::get('app.master')) {
+//            $this->success(__('Logout successful'), 'index/login_admin');
+//        } else {
             Kww::logout('index/login');
             return;
-        }
+//        }
     }
 
     public function clear_url(){
