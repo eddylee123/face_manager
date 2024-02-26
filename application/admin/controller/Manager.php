@@ -177,7 +177,23 @@ class Manager extends Backend
         }
         $orgConf = array_values(Config::get('site.org_list'));
         $orgList = array_combine($orgConf, $orgConf);
-//        var_dump($orgList);exit;
+
+        $this->assign('row', $row);
+        $this->assign('orgList', $orgList);
+
+        return $this->view->fetch();
+    }
+
+    public function detail($ids = NULL)
+    {
+        $empNum = $this->request->get("empNum/s", '');
+        $row = Kww::userInfo($empNum);
+        if (!$row){
+            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
+        }
+
+        $orgConf = array_values(Config::get('site.org_list'));
+        $orgList = array_combine($orgConf, $orgConf);
 
         $this->assign('row', $row);
         $this->assign('orgList', $orgList);

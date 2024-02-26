@@ -6,7 +6,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.init({
                 extend: {
                     index_url: 'manager/lists' + location.search,
-                    edit_url: 'manager/edit?empNum={row.empNum}',
+                    // edit_url: 'manager/edit?empNum={row.empNum}',
                     table: 'manager_lists',
                 }
             });
@@ -27,8 +27,24 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         // {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate},
-                        {field: 'empNum', title: __('EmpNum'), operate: 'LIKE'},
+                        {field: 'detail', title: __('详情'), table: table,
+                            buttons: [
+                                {
+                                    name: 'base',
+                                    text:__('员工信息'),
+                                    title: __('员工信息'),
+                                    //图标
+                                    icon: 'fa fa-user-circle',
+                                    //btn-dialog表示为弹窗
+                                    classname: 'btn btn-xs btn-success btn-dialog',
+                                    //弹窗位置，//自带参数ids
+                                    url: 'manager/detail?empNum={row.empNum}',
+                                    //弹窗大小
+                                    extend: 'data-area=\'["100%","100%"]\'',
+
+                                }
+                            ], operate:false, formatter: Table.api.formatter.buttons
+                        },                        {field: 'empNum', title: __('EmpNum'), operate: 'LIKE'},
                         {field: 'name', title: __('Name'), operate: 'LIKE'},
                         {field: 'idCard', title: __('IdCard'), operate: 'LIKE'},
                         {field: 'contactPhone', title: __('ContactPhone'), operate: 'LIKE'},

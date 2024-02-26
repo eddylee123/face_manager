@@ -70,7 +70,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'come_date', title: __('Come_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'kq_date', title: __('Kq_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'exam_time', title: '体检时间', operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime,visible:false},
-                        {field: 'address', title: '身份证地址'},
+                        {field: 'address', title: '身份证地址',operate: false},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
                             buttons: [
                                 {

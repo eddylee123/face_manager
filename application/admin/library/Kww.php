@@ -273,4 +273,35 @@ class Kww
 
         return $data;
     }
+
+    /**
+     * 单位列表
+     * @param int $pid
+     * @return array|mixed
+     * DateTime: 2024-02-26 21:54
+     */
+    public static function orgList($pid=0)
+    {
+        $header = self::header();
+        $url = self::hrNewApi."/api/w/dispatch";
+        $body = [
+            "service" => "employee.org.list",
+            "version" => "1.0.0",
+            "data" => [
+                "pid" => $pid
+            ]
+        ];
+
+        $rs = curl_request($url, 'POST', $body, $header);;
+
+        $data = [];
+        if ($rs) {
+            $datas = json_decode($rs, true);
+            if (isset($datas['data'])) {
+                $data = json_decode($datas['data'], true);
+            }
+        }
+
+        return $data;
+    }
 }
