@@ -12,7 +12,7 @@ use traits\controller\Jump;
 class Kww
 {
 //    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
-    const hr_api = "https://10.254.30.36:8801";    //测试
+    const hrNewApi = "https://10.254.30.36:8801";    //测试
 
     public static function kww()
     {
@@ -22,6 +22,13 @@ class Kww
     public static function token()
     {
         return Cookie::get(BaseCache::kww_token);
+    }
+
+    public static function header()
+    {
+        $tokenId = self::token();
+
+        return ["Tokenid: $tokenId"];
     }
 
     /**
@@ -109,13 +116,11 @@ class Kww
      */
     public static function uploadFile($appId, $file)
     {
-        $tokenId = self::token();
-
+        $header = self::header();
         $url = self::kww()."/m/buckets/app/{$appId}/objects";
         $body = [
             "file" => $file,
         ];
-        $header = ["Tokenid: $tokenId"];
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
@@ -140,8 +145,7 @@ class Kww
      */
     public static function uploadFace($empId, $name, $photo1, $photo1Type, $photo2='', $photo2Type='jpg')
     {
-        $tokenId = self::token();
-
+        $header = self::header();
         $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "face.face.upload",
@@ -155,7 +159,6 @@ class Kww
                 "photo2Type" => $photo2Type,
             ],
         ];
-        $header = ["Tokenid: $tokenId"];
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
@@ -173,16 +176,38 @@ class Kww
 
     public static function userList($orgId, $param=[])
     {
-//        $tokenId = self::token();
-        $tokenId = "470882CF758C53D58EB9FAFD61D81015BD7017F5288DC592323B28E5D4C85429B5D2";
-
-        $url = self::hr_api."/api/w/dispatch";
+        $header = self::header();
+        $url = self::hrNewApi."/api/w/dispatch";
         $body = [
             "service" => "employee.info.page",
             "version" => "1.0.0",
             "data" => $param
         ];
-        $header = ["Tokenid: $tokenId"];
+
+        $rs = curl_request($url, 'POST', $body, $header);;
+
+        $data = [];
+        if ($rs) {
+            $datas = json_decode($rs, true);
+            if (isset($datas['data'])) {
+                $data = json_decode($datas['data'], true);
+            }
+        }
+
+        return $data;
+    }
+
+    public static function userInfo($empNum)
+    {
+        $header = self::header();
+        $url = self::hrNewApi."/api/w/dispatch";
+        $body = [
+            "service" => "employee.info.get",
+            "version" => "1.0.0",
+            "data" => [
+                "empNum" => $empNum
+            ]
+        ];
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
@@ -199,16 +224,13 @@ class Kww
 
     public static function modify($param)
     {
-        $tokenId = self::token();
-        $tokenId = "470882CF758C53D58EB9FAFD61D81015BD7017F5288DC592323B28E5D4C85429B5D2";
-
-        $url = self::hr_api."/api/w/dispatch";
+        $header = self::header();
+        $url = self::hrNewApi."/api/w/dispatch";
         $body = [
-            "service" => "employee.info.page",
+            "service" => "employee.info.save",
             "version" => "1.0.0",
             "data" => $param
         ];
-        $header = ["Tokenid: $tokenId"];
 
         $rs = curl_request($url, 'POST', $body, $header);;
 

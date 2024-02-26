@@ -35,14 +35,15 @@ class Manager extends Backend
         $this->empModel = new \app\admin\model\Employee();
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
-        $this->cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
-        $this->kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
+
+        $this->view->assign('eduList', $this->empModel->getEduList());
+        $this->view->assign('folkList', $this->empModel->getFolkList());
+        $this->view->assign("cs_level_list", $this->empRoleModel->csLevel($this->org));
+        $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel($this->org));
     }
 
     public function index()
     {
-        $this->view->assign("cs_level_list", $this->empRoleModel->csLevel($this->org));
-        $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel($this->org));
         return $this->view->fetch('emp_info');
     }
 
@@ -109,23 +110,60 @@ class Manager extends Backend
         $this->view->assign("row", compact('emp_id'));
         $this->view->assign("kq_arr", $kq_arr);
         $this->view->assign("cs_arr", $cs_arr);
-        $this->view->assign("cs_level_list", $this->cs_list);
-        $this->view->assign("kq_level_list", $this->kq_list);
         return $this->view->fetch();
     }
 
     public function lists()
     {
-        $list = Kww::userList('06');
-        var_dump($list);exit();
+        $empNum = $this->request->get("empNum/s", '');
+        $name = $this->request->get("name/s", '');
+        $idCard = $this->request->get("idCard/s", '');
+        $contactPhone = $this->request->get("contactPhone/s", '');
+        $status = $this->request->get("status/s", '');
+        $offset = $this->request->get("offset/d", 0);
+        $pageSize = $this->request->get("limit/d", 999999);
+        if ($offset > 0) {
+            $currentPage = ($offset / $pageSize) + 1;
+        } else {
+            $currentPage = 1;
+        }
+
+        $param = compact('empNum','name','idCard','contactPhone','status','currentPage','pageSize');
+        $list = Kww::userList('06', $param);
+//        var_dump($list);exit();
+
+        return $this->view->fetch('lists');
     }
 
-    public function modify()
+    public function edit($ids = NULL)
     {
-        $validate = new Validate($rule, [], ['username' => __('Username'), 'password' => __('Password'), 'captcha' => __('Captcha')]);
-        $result = $validate->check($data);
-        if (!$result) {
-            $this->error($validate->getError(), $url, ['token' => $this->request->token()]);
+        $empNum = $this->request->get("empNum/s", '');
+        $row = Kww::userInfo($empNum);
+        if (!$row){
+            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a", [], 'trim');
+            if ($params) {
+                $empModel = new \app\admin\model\Employee();
+
+                $validate = new \app\admin\validate\Manager();
+                $result = $validate->scene('edit')->check($params);
+                if (!$result) {
+                    $this->error($validate->getError());
+                }
+
+                $rs = Kww::modify($params);
+                if ($rs['code'] == 200) {
+                    $this->success();
+                }
+                $this->error('操作失败');
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+
+        $this->assign('row', $row);
+
+        return $this->view->fetch();
     }
 }
