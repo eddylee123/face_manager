@@ -37,11 +37,11 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('marriageStatus')}:</label>
         <div class="col-xs-12 col-sm-3">
-            {:Form::radios('row[marriageStatus]', $marryList, $row['marriageStatus'])}
+            {:Form::select('row[marriageStatus]', $marryList, $row.marriageStatus,['data-rule'=>'required'])}
         </div>
         <label class="control-label col-xs-12 col-sm-2"><span>*</span>{:__('MorningLocation')}:</label>
         <div class="col-xs-12 col-sm-3">
-            {:Form::select('row[morningLocation]', $orgList, $row.morningLocation,['data-rule'=>'required'])}
+            <input id="c-morningLocation" data-rule="required" class="form-control" name="row[morningLocation]" type="text" value="{$row.morningLocation|htmlentities}">
         </div>
     </div>
     <div class="form-group layer-footer">

@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller\cwa;
 
+use app\admin\model\EmpRole;
 use app\common\controller\Backend;
 use think\Session;
 
@@ -53,6 +54,8 @@ class Door extends Backend
             return json($result);
         }
 
+        $kqLevel = (new EmpRole())->getRoleList($this->admin['org_id']);
+        $this->assignconfig('kqLevel', array_flip($kqLevel));
         return $this->view->fetch();
     }
 

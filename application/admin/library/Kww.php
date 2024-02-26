@@ -187,6 +187,13 @@ class Kww
     }
 
 
+    /**
+     * 员工列表
+     * @param $orgId
+     * @param array $param
+     * @return array|mixed
+     * DateTime: 2024-02-26 16:08
+     */
     public static function userList($orgId, $param=[])
     {
         $header = self::header();
@@ -210,6 +217,12 @@ class Kww
         return $data;
     }
 
+    /**
+     * 员工详情
+     * @param $empNum
+     * @return array|mixed
+     * DateTime: 2024-02-26 16:08
+     */
     public static function userInfo($empNum)
     {
         $header = self::header();
@@ -235,6 +248,12 @@ class Kww
         return $data;
     }
 
+    /**
+     * 员工编辑
+     * @param $param
+     * @return array|mixed
+     * DateTime: 2024-02-26 16:08
+     */
     public static function modify($param)
     {
         $header = self::header();

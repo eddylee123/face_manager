@@ -24,6 +24,9 @@ class DoorInOut extends Model
         if (!empty($params['姓名'])) {
             $query .= " AND [姓名] = '{$params['姓名']}'";
         }
+        if (!empty($params['位置ID'])) {
+            $query .= " AND [位置ID] = '{$params['位置ID']}'";
+        }
         if (!empty($params['start'])) {
             $query .= " AND [打卡日期] >= '{$params['start']}'";
         }
@@ -46,6 +49,9 @@ class DoorInOut extends Model
         }
         if (!empty($params['姓名'])) {
             $query .= " AND [姓名] = '{$params['姓名']}'";
+        }
+        if (!empty($params['位置ID'])) {
+            $query .= " AND [位置ID] = '{$params['位置ID']}'";
         }
         if (!empty($params['start'])) {
             $query .= " AND [打卡日期] >= '{$params['start']}'";

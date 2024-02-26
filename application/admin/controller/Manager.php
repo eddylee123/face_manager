@@ -120,11 +120,6 @@ class Manager extends Backend
     {
         $this->request->filter(['strip_tags','trim']);
         if ($this->request->isAjax()) {
-            $empNum = $this->request->get("empNum/s", '');
-            $name = $this->request->get("name/s", '');
-            $idCard = $this->request->get("idCard/s", '');
-            $contactPhone = $this->request->get("contactPhone/s", '');
-            $status = $this->request->get("status/s", '');
             $offset = $this->request->get("offset/d", 0);
             $pageSize = $this->request->get("limit/d", 999999);
             if ($offset > 0) {
@@ -138,7 +133,7 @@ class Manager extends Backend
             $param = array_merge($filter_arr, compact('currentPage', 'pageSize'));
             $list = Kww::userList('06', $param);
             foreach ($list['records'] as &$v) {
-                if ($v['hireDate']) {
+                if (!empty($v['hireDate'])) {
                     $v['hireDate'] = date('Y-m-d', ($v['hireDate'] / 1000));
                 }
             }
