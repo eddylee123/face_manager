@@ -3,7 +3,7 @@
         {:build_heading(null, false)}
         <ul class="nav nav-tabs">
             {foreach $tabList as $index=>$vo}
-            <li class="{$vo.name == '门禁明细'?'active':''}"><a href="{$vo.url}" data-toggle="tab">{:__($vo.name)}</a></li>
+            <li class="{$vo.name == '门禁明细'?'active':''}"><a href="{$vo.url}">{:__($vo.name)}</a></li>
             {/foreach}
         </ul>
     </div>

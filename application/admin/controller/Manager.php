@@ -41,6 +41,11 @@ class Manager extends Backend
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
 
+        $this->view->assign("sexList", $this->empModel->getSexList());
+        $this->view->assign("empSourceList", $this->empModel->getEmpSourceList());
+        $this->view->assign("armyList", $this->empModel->getArmyList());
+        $this->view->assign("transList", $this->empModel->getTransList());
+        $this->view->assign("relation_list", $this->empModel->getRelationList());
         $this->view->assign('statusList', Kww::statusList);
         $this->view->assign('marryList', Kww::marryList);
         $this->view->assign('eduList', $this->empModel->getEduList());
@@ -151,11 +156,50 @@ class Manager extends Backend
         return $this->view->fetch('lists');
     }
 
-    public function detail($ids = NULL)
+    public function detail()
     {
         $empNum = $this->request->get("empNum/s", '');
         $row = Kww::userInfo($empNum);
-        echo '<pre>';print_r($row);exit;
+//        echo '<pre>';print_r($row);exit;
+        if (!$row){
+            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
+        }
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a", [], 'trim');
+            if ($params) {
+
+                $validate = new \app\admin\validate\Manager();
+                $result = $validate->scene('edit')->check($params);
+                if (!$result) {
+                    $this->error($validate->getError());
+                }
+                $params = array_merge($params, [
+                    'id' => $row['id'],
+                    'other' => [],
+                ]);
+                $rs = Kww::modify($params);
+                if ($rs['success'] == true) {
+                    $this->success();
+                }
+                $this->error('操作失败');
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $orgConf = array_values(Config::get('site.org_list'));
+        $orgList = array_combine($orgConf, $orgConf);
+
+        $this->assign('row', $row);
+        $this->assign('orgList', $orgList);
+        $this->view->assign('tabList', Handle::getEmpTab($empNum)); //tab
+
+        return $this->view->fetch();
+    }
+
+    public function other()
+    {
+        $empNum = $this->request->get("empNum/s", '');
+        $row = Kww::userInfo($empNum);
+//        echo '<pre>';print_r($row);exit;
         if (!$row){
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
