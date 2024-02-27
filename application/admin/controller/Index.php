@@ -197,9 +197,9 @@ class Index extends Backend
 //            $this->success(__('Logout successful'), 'index/login_admin');
 //        } else {
             $url = Kww::logout('index/login');
-            $this->assign('url',$url);
-        return $this->view->fetch();
-//            return;
+//            $this->assign('url',$url);
+//        return $this->view->fetch();
+            return;
 //        }
     }
 

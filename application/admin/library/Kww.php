@@ -37,8 +37,8 @@ class Kww
 
     public static function header()
     {
-//        $tokenId = self::token();
-        $tokenId = "712802BCF4080F9E6BB8FFEF6D668C369E5917F5288DC592323B28E5D4C85429B5D2";
+        $tokenId = self::token();
+//        $tokenId = "712802BCF4080F9E6BB8FFEF6D668C369E5917F5288DC592323B28E5D4C85429B5D2";
 
         return ["Tokenid: $tokenId"];
     }
@@ -110,7 +110,7 @@ class Kww
     public static function logout($go)
     {
         //删缓存
-        Cookie::delete(BaseCache::kww_token);
+//        Cookie::delete(BaseCache::kww_token);
         $cookies = $_COOKIE;
         foreach ($cookies as $key => $value) {
             setcookie($key, '', time() - 3600);
@@ -119,7 +119,8 @@ class Kww
         $goStr = urlencode(self::kww()."/admin123.php/$go");
         $url = self::kww()."/api/logout?go=".$goStr;
 
-//        header("Location: ".$url);
+        header("Header: ".self::header());
+        header("Location: ".$url);
 
         return $url;
     }
