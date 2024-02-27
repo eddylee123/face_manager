@@ -117,7 +117,8 @@ class Kww
         }
 
         $goStr = urlencode(self::kww()."/admin123.php/$go");
-        $url = self::kww()."/api/logout?go=".$goStr;
+        $url1 = urlencode(self::kww()."/api");
+        $url = self::kww()."/api/logout?go=$goStr&url=$url1";
 
         header("Header: ".self::header());
         header("Location: ".$url);

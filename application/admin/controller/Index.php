@@ -97,6 +97,7 @@ class Index extends Backend
     {
         $url = $this->request->get('url', 'index/index');
         $tokenId = $this->request->request('tokenId', '');
+        empty($tokenId) && $tokenId = $this->request->request('tid', '');
         if(empty($tokenId)) {
             $this->error('登录失败，请咨询管理员');
         }
