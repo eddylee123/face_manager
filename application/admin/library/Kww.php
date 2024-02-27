@@ -111,6 +111,10 @@ class Kww
     {
         //删缓存
         Cookie::delete(BaseCache::kww_token);
+        $cookies = $_COOKIE;
+        foreach ($cookies as $key => $value) {
+            setcookie($key, '', time() - 3600);
+        }
 
         $goStr = urlencode(self::kww()."/admin123.php/$go");
         $url = self::kww()."/api/logout?go=".$goStr;

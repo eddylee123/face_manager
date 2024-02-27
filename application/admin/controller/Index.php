@@ -84,7 +84,7 @@ class Index extends Backend
     public function login()
     {
 //        if (Env::get('app.master')) {
-        var_dump($_COOKIE);exit;
+//        var_dump($_COOKIE);exit;
             Kww::login();
             return;
 //        } else {
