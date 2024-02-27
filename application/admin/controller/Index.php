@@ -6,6 +6,7 @@ use app\admin\library\Kww;
 use app\admin\model\AdminLog;
 use app\common\controller\Backend;
 use think\Config;
+use think\Cookie;
 use think\Env;
 use think\Hook;
 use think\Validate;
@@ -83,6 +84,7 @@ class Index extends Backend
     public function login()
     {
 //        if (Env::get('app.master')) {
+        var_dump($_COOKIE);exit;
             Kww::login();
             return;
 //        } else {
