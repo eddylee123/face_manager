@@ -3,6 +3,7 @@
 namespace app\admin\library;
 
 use app\admin\model\Admin;
+use app\cache\BaseCache;
 use fast\Random;
 use fast\Tree;
 use think\Config;
@@ -89,7 +90,7 @@ class Auth extends \fast\Auth
         $this->logined = false; //重置登录状态
         Session::delete("admin");
         Cookie::delete("keeplogin");
-        Cookie::clear('/');
+        Cookie::delete(BaseCache::kww_token);
 
         return $admin['username'] == 'hr_admin';
     }
