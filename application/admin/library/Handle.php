@@ -51,10 +51,11 @@ class Handle
 
     /**
      * 获取员工详情tab栏
+     * @param $empNum
      * @return \string[][]
-     * DateTime: 2024-02-27 16:19
+     * DateTime: 2024-02-27 16:36
      */
-    public static function getEmpTab()
+    public static function getEmpTab($empNum)
     {
         $tabList = [
             [
@@ -76,7 +77,7 @@ class Handle
         ];
 
         foreach ($tabList as &$v) {
-            $v['url'] = Url::build($v['url']);
+            $v['url'] = Url::build($v['url']."?empNum=$empNum");
         }
 
         return $tabList;

@@ -25,25 +25,6 @@ class Kww
         'LEAVE'=>'离职'
     ];
 
-    const tabList = [
-        [
-            'name' => '基础资料',
-            'url' => 'manager/detail',
-        ],
-        [
-            'name' => '其他资料',
-            'url' => 'manager/other',
-        ],
-        [
-            'name' => '消费明细',
-            'url' => 'cwa/cater_b/emp',
-        ],
-        [
-            'name' => '门禁明细',
-            'url' => 'cwa/door/emp',
-        ],
-    ];
-
     public static function kww()
     {
         return Request::instance()->domain();

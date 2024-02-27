@@ -132,8 +132,8 @@ class CaterB extends Backend
             return json($result);
         }
 
-        $this->view->assign('tabList', Handle::getEmpTab());
         $this->assignconfig('csLevel', ['A'=>'A食堂','B'=>'B食堂']);
+        $this->view->assign('tabList', Handle::getEmpTab($empNum));
         return $this->view->fetch();
     }
 }

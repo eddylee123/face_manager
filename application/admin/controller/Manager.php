@@ -47,7 +47,6 @@ class Manager extends Backend
         $this->view->assign('folkList', $this->empModel->getFolkList());
         $this->view->assign("cs_level_list", $this->empRoleModel->csLevel($this->org));
         $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel($this->org));
-        $this->view->assign('tabList', Handle::getEmpTab()); //tab
     }
 
     public function index()
@@ -152,10 +151,11 @@ class Manager extends Backend
         return $this->view->fetch('lists');
     }
 
-    public function edit($ids = NULL)
+    public function detail($ids = NULL)
     {
         $empNum = $this->request->get("empNum/s", '');
         $row = Kww::userInfo($empNum);
+        echo '<pre>';print_r($row);exit;
         if (!$row){
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
@@ -185,24 +185,9 @@ class Manager extends Backend
 
         $this->assign('row', $row);
         $this->assign('orgList', $orgList);
+        $this->view->assign('tabList', Handle::getEmpTab($empNum)); //tab
 
         return $this->view->fetch();
     }
 
-    public function detail($ids = NULL)
-    {
-        $empNum = $this->request->get("empNum/s", '');
-        $row = Kww::userInfo($empNum);
-        if (!$row){
-            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
-        }
-
-        $orgConf = array_values(Config::get('site.org_list'));
-        $orgList = array_combine($orgConf, $orgConf);
-
-        $this->assign('row', $row);
-        $this->assign('orgList', $orgList);
-
-        return $this->view->fetch();
-    }
 }
