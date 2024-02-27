@@ -38,7 +38,7 @@ class Kww
     public static function header()
     {
 //        $tokenId = self::token();
-        $tokenId = "67804D5DE704B330609BBCBB48E4F345C64217F5288DC592323B28E5D4C85429B5D2";
+        $tokenId = "712802BCF4080F9E6BB8FFEF6D668C369E5917F5288DC592323B28E5D4C85429B5D2";
 
         return ["Tokenid: $tokenId"];
     }

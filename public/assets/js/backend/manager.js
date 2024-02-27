@@ -36,7 +36,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     //图标
                                     icon: 'fa fa-user-circle',
                                     //btn-dialog表示为弹窗
-                                    classname: 'btn btn-xs btn-success btn-dialog',
+                                    classname: 'btn btn-xs btn-default btn-dialog',
                                     //弹窗位置，//自带参数ids
                                     url: 'manager/detail?empNum={row.empNum}',
                                     //弹窗大小
