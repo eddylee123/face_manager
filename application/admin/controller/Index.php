@@ -84,7 +84,6 @@ class Index extends Backend
     public function login()
     {
 //        if (Env::get('app.master')) {
-//        var_dump($_COOKIE);exit;
             Kww::login();
             return;
 //        } else {
@@ -194,14 +193,12 @@ class Index extends Backend
     {
         $isAdmin = $this->auth->logout();
         Hook::listen("admin_logout_after", $this->request);
-//        if ($isAdmin || !Env::get('app.master')) {
-//            $this->success(__('Logout successful'), 'index/login_admin');
-//        } else {
+        if ($isAdmin || !Env::get('app.master')) {
+            $this->success(__('Logout successful'), 'index/login_admin');
+        } else {
             $url = Kww::logout('index/login');
-//            $this->assign('url',$url);
-//        return $this->view->fetch();
             return;
-//        }
+        }
     }
 
     public function clear_url(){

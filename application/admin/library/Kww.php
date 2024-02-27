@@ -50,11 +50,6 @@ class Kww
      */
     public static function login()
     {
-//        if (Cookie::has("apache_")) {
-//            Cookie::delete("apache_");
-//            self::logout();
-//        }
-
         $url = self::kww()."/api/noauth/login";
         $body = [
             "url" =>  self::kww()."/api",
@@ -109,16 +104,9 @@ class Kww
      */
     public static function logout($go)
     {
-        //删缓存
-//        Cookie::delete(BaseCache::kww_token);
-        $cookies = $_COOKIE;
-        foreach ($cookies as $key => $value) {
-            setcookie($key, '', time() - 3600);
-        }
-
         $goStr = urlencode(self::kww()."/admin123.php/$go");
-        $url1 = urlencode(self::kww()."/api");
-        $url = self::kww()."/api/logout?go=$goStr&url=$url1";
+        $urlPar = urlencode(self::kww()."/api");
+        $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
 
         header("Location: ".$url);
 
