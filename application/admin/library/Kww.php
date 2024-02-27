@@ -120,7 +120,6 @@ class Kww
         $url1 = urlencode(self::kww()."/api");
         $url = self::kww()."/api/logout?go=$goStr&url=$url1";
 
-        header("Header: ".self::header());
         header("Location: ".$url);
 
         return $url;
