@@ -18,7 +18,7 @@ class Events
     public static function onWorkerStart($worker)
     {
         new Crontab('0 1 0 * * *', function (){
-            (new Handle())->notice();
+            Handle::notice();
         });
     }
 

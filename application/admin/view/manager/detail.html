@@ -1,4 +1,13 @@
-
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            {foreach $tabList as $vo}
+            <li class="{$vo.name == '基础资料'?'active':''}"><a href="{$vo.url}" data-toggle="tab">{:__($vo.name)}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
     <div class="form-group">
         <label class="control-label col-xs-3 col-sm-2"> {:__('EmpNum')}:</label>

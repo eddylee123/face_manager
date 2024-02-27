@@ -4,12 +4,14 @@
 namespace app\admin\controller;
 
 
+use app\admin\library\Handle;
 use app\admin\library\Kww;
 use app\admin\model\EmpRole;
 use app\common\controller\Backend;
 use fast\Http;
 use think\Config;
 use think\Session;
+use think\Url;
 use think\Validate;
 
 class Manager extends Backend
@@ -29,6 +31,8 @@ class Manager extends Backend
     protected $cs_list = [];
     protected $kq_list = [];
 
+
+
     public function _initialize()
     {
         parent::_initialize();
@@ -43,6 +47,7 @@ class Manager extends Backend
         $this->view->assign('folkList', $this->empModel->getFolkList());
         $this->view->assign("cs_level_list", $this->empRoleModel->csLevel($this->org));
         $this->view->assign("kq_level_list", $this->empRoleModel->kqLevel($this->org));
+        $this->view->assign('tabList', Handle::getEmpTab()); //tab
     }
 
     public function index()

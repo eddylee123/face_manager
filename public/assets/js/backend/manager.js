@@ -36,11 +36,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     //图标
                                     icon: 'fa fa-user-circle',
                                     //btn-dialog表示为弹窗
-                                    classname: 'btn btn-xs btn-default btn-dialog',
+                                    classname: 'btn btn-xs btn-default',
                                     //弹窗位置，//自带参数ids
-                                    url: 'manager/detail?empNum={row.empNum}',
+                                    url: 'manager/detail?empNum={row.empNum}&ref=addtabs',
                                     //弹窗大小
-                                    extend: 'data-area=\'["100%","100%"]\'',
+                                    extend: 'data-area=\'["100%","100%"]\', target="_blank"',
 
                                 }
                             ], operate:false, formatter: Table.api.formatter.buttons

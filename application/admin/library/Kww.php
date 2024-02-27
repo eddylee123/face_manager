@@ -25,6 +25,25 @@ class Kww
         'LEAVE'=>'离职'
     ];
 
+    const tabList = [
+        [
+            'name' => '基础资料',
+            'url' => 'manager/detail',
+        ],
+        [
+            'name' => '其他资料',
+            'url' => 'manager/other',
+        ],
+        [
+            'name' => '消费明细',
+            'url' => 'cwa/cater_b/emp',
+        ],
+        [
+            'name' => '门禁明细',
+            'url' => 'cwa/door/emp',
+        ],
+    ];
+
     public static function kww()
     {
         return Request::instance()->domain();
@@ -37,8 +56,8 @@ class Kww
 
     public static function header()
     {
-        $tokenId = self::token();
-//        $tokenId = "712802BCF4080F9E6BB8FFEF6D668C369E5917F5288DC592323B28E5D4C85429B5D2";
+//        $tokenId = self::token();
+        $tokenId = "4509D244C32E8F24ED82DF32A7EF59FEEC7717F5288DC592323B28E5D4C85429B5D2";
 
         return ["Tokenid: $tokenId"];
     }

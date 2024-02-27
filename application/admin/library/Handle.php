@@ -7,47 +7,78 @@ use app\admin\model\Employee;
 use app\admin\model\Notice;
 use app\cache\BaseCache;
 use think\Exception;
+use think\Url;
 
 class Handle
 {
 
-    protected $redis;
-    protected $empModel;
-    protected $noticeModel;
-
-    public function __construct()
+    /**
+     * 消息通知
+     * DateTime: 2024-02-27 16:17
+     */
+    public static function notice()
     {
-        $this->redis = alone_redis();
-    }
+        $redis = alone_redis();
+        $empModel = new Employee();
+        $noticeModel = new Notice();
 
-    public function notice()
-    {
-        $this->empModel = new Employee();
-        $this->noticeModel = new Notice();
-        $point = $this->redis->get(BaseCache::notice_point);
+        $point = $redis->get(BaseCache::notice_point);
         $statTime = $point ?? '2023-10-01';
         $endTime = date('Y-m-d');
-        $list = $this->empModel
+        $list = $empModel
             ->field('id,emp_name,emp_source')
             ->whereBetween('auth_date', [$statTime, $endTime])
             ->select();
 
         try {
             foreach ($list as $v) {
-                $id = $this->noticeModel->where([
-                    'type' => $this->noticeModel->type_auth,
+                $id = $noticeModel->where([
+                    'type' => $noticeModel->type_auth,
                     'link_id' => $v['id']
                 ])->value('id');
                 if (!empty($id)) continue;
 
                 $content = $v['emp_name']."({$v['emp_source']})";
-                $this->noticeModel->addNotice($this->noticeModel->type_auth, $v['id'],$content);
+                $noticeModel->addNotice($noticeModel->type_auth, $v['id'],$content);
             }
 
         } catch (Exception $e) {
             logs_write($e->getMessage());
         }
-        $this->redis->set(BaseCache::notice_point, $endTime);
+        $redis->set(BaseCache::notice_point, $endTime);
     }
 
+
+    /**
+     * 获取员工详情tab栏
+     * @return \string[][]
+     * DateTime: 2024-02-27 16:19
+     */
+    public static function getEmpTab()
+    {
+        $tabList = [
+            [
+                'name' => '基础资料',
+                'url' => 'manager/detail',
+            ],
+            [
+                'name' => '其他资料',
+                'url' => 'manager/other',
+            ],
+            [
+                'name' => '消费明细',
+                'url' => 'cwa/cater_b/emp',
+            ],
+            [
+                'name' => '门禁明细',
+                'url' => 'cwa/door/emp',
+            ],
+        ];
+
+        foreach ($tabList as &$v) {
+            $v['url'] = Url::build($v['url']);
+        }
+
+        return $tabList;
+    }
 }
