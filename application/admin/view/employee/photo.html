@@ -49,6 +49,7 @@
 </div>
 
 <script src="/assets/js/index/jquery.min.js"></script>
+<script src="/assets/libs/jquery.cookie/jquery.cookie.js"></script>
 <script>
     window.onload = function () {
         //访问用户媒体设备的兼容方法
@@ -145,10 +146,10 @@
 
             return uploadImg(image.src, flag, emp2);
         })
-
+        var token = $.cookie('KWW_TOKEN');
         function uploadImg(photo, flag, emp2) {
             var picFile = dataURLtoFile(photo, "picFile");
-            var token = $.cookie('KWW_TOKEN');
+
             var pid = emp2;
             if (flag === 'dis_img_url') {
                 pid = emp2+'A';
