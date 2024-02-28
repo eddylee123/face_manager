@@ -63,6 +63,7 @@ class Manager extends Model
         'job' => '',
         'position' => '',
         'transport' => '',
+        'emp_source' => '合同工',
         'other' => [
         ],
     ];
