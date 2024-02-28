@@ -36,11 +36,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     //图标
                                     icon: 'fa fa-user-circle',
                                     //btn-dialog表示为弹窗
-                                    classname: 'btn btn-xs btn-default',
+                                    classname: 'btn btn-xs btn-default btn-dialog',
                                     //弹窗位置，//自带参数ids
-                                    url: 'manager/detail?empNum={row.empNum}&ref=addtabs',
+                                    url: 'manager/detail?empNum={row.empNum}',
                                     //弹窗大小
-                                    extend: 'data-area=\'["100%","100%"]\', target="_blank"',
+                                    extend: 'data-area=\'["100%","100%"]\'',
 
                                 }
                             ], operate:false, formatter: Table.api.formatter.buttons
@@ -70,6 +70,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         edit: function () {
+            Controller.api.bindevent();
+        },
+        detail: function () {
+            Controller.api.bindevent();
+        },
+        other: function () {
             Controller.api.bindevent();
         },
         api: {

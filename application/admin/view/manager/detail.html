@@ -19,7 +19,7 @@
         </ul>
     </div>
 </div>
-<form id="detail-form" class="form-horizontal" method="POST" action="">
+<form id="edit-form" class="form-horizontal" data-toggle="validator" role="form" method="POST" action="">
     <div class="title">基本信息</div>
     <div class="area tab-1">
         <div class="form-group">
@@ -38,121 +38,128 @@
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Sex')}:</label>
                 <div class="col-sm-8">
+                    {:Form::radios('row[other][sex]', $sexList, $row['sex'] )}
                 </div>
             </div>
-            <div class="col-md-3">
-
-            </div>
+<!--            <div class="" style="float: right">-->
+<!--                <img src="/assets/img/person.png" alt="">-->
+<!--            </div>-->
         </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Emp_source')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-jobLevel" class="form-control" name="row[other][jobLevel]" type="text" value="{$row.jobLevel|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Age')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-age" class="form-control" name="row[other][age]" type="text" value="{$row.age|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Birthday')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-birthday" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][birthday]" type="text" value="{$row.birthday}">
                 </div>
-            </div>
-            <div class="col-md-3">
-
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('IdCard')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-idCard" class="form-control" name="row[idCard]" type="text" value="{$row.idCard|htmlentities}">
                 </div>
             </div>
             <div class="col-md-6">
                 <label class="control-label col-sm-2">{:__('Id_department')}:</label>
                 <div class="col-sm-10">
+                    <input id="c-IDDepartment" class="form-control" name="row[other][IDDepartment]" type="text" value="{$row.IDDepartment|htmlentities}">
                 </div>
             </div>
-            <div class="col-md-3">
 
-            </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Id_date')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-IDDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][IDDate]" type="text" value="{$row.IDDate}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Id_validity')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-IDValidity" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][IDValidity]" type="text" value="{$row.IDValidity}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('MarriageStatus')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[marriageStatus]', $marryList, $row.marriageStatus)}
                 </div>
             </div>
-            <div class="col-md-3">
 
-            </div>
         </div>
         <div class="form-group">
             <div class="col-md-6">
                 <label class="control-label col-sm-2">{:__('Address')}:</label>
                 <div class="col-sm-10">
+                    <input id="c-address" class="form-control" name="row[other][address]" type="text" value="{$row.address|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('MarriageStatus')}:</label>
+                <label class="control-label col-sm-4">{:__('籍贯')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-Native" class="form-control" name="row[other][Native]" type="text" value="{$row.Native|htmlentities}">
                 </div>
             </div>
-            <div class="col-md-3">
 
-            </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Education')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[education]', $eduList, $row.education)}
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('专业')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-Major" class="form-control" name="row[other][Major]" type="text" value="{$row.Major|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('院校')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-Academy" class="form-control" name="row[other][Academy]" type="text" value="{$row.Academy|htmlentities}">
                 </div>
             </div>
-            <div class="col-md-3">
 
-            </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('政治面貌')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-Political" class="form-control" name="row[other][Political]" type="text" value="{$row.Political|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Tel')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-contactPhone" class="form-control" name="row[contactPhone]" type="text" value="{$row.contactPhone|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('邮箱')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-email" class="form-control" name="row[other][email]" type="text" value="{$row.email|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Ethnicity')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[ethnicity]', $folkList, $row.ethnicity)}
                 </div>
             </div>
         </div>
@@ -160,21 +167,25 @@
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Urgency_man')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-UrgencyMan" class="form-control" name="row[other][UrgencyMan]" type="text" value="{$row.UrgencyMan|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Urgency_tel')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-UrgencyTEL" class="form-control" name="row[other][UrgencyTEL]" type="text" value="{$row.UrgencyTEL|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('Urgency_relation')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-UrgencyRelation" class="form-control" name="row[other][UrgencyRelation]" type="text" value="{$row.UrgencyRelation|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('旧系统工号')}:</label>
+                <label class="control-label col-sm-4">{:__('transport')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[other][transport]', $transList, $row.transport)}
                 </div>
             </div>
         </div>
@@ -186,21 +197,25 @@
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('部门')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[other][HR_DeptID]', $deptList, $row.HR_DeptID)}
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('职务')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-job" class="form-control" name="row[other][job]" type="text" value="{$row.job|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('职级')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-jobLevel1" class="form-control" name="row[other][jobLevel]" type="text" value="{$row.jobLevel|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('计薪方式')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[other][PayMode]', $payList, $row.PayMode)}
                 </div>
             </div>
         </div>
@@ -208,21 +223,25 @@
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('默认班别')}:</label>
                 <div class="col-sm-8">
+                    {:Form::select('row[other][AttenceMode]', $attenceList, $row.AttenceMode)}
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('岗位')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-position" class="form-control" name="row[other][position]" type="text" value="{$row.position|htmlentities}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('HireDate')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-hireDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[hireDate]" type="text" value="{$row.hireDate}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('考勤日期')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-KQDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][KQDate]" type="text" value="{$row.KQDate}">
                 </div>
             </div>
         </div>
@@ -230,54 +249,58 @@
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('转正日期')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-TryDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][TryDate]" type="text" value="{$row.TryDate}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('劳动合同到期日期')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-EndTimeLD" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][EndTimeLD]" type="text" value="{$row.EndTimeLD}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('健康证到期日期')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-EndTimeJKZ" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[other][EndTimeJKZ]" type="text" value="{$row.EndTimeJKZ}">
                 </div>
             </div>
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('工种')}:</label>
                 <div class="col-sm-8">
+                    <input id="c-IsTry" class="form-control" name="row[other][IsTry]" type="text" value="{$row.IsTry|htmlentities}">
                 </div>
             </div>
         </div>
-        <div>介绍人资料</div>
-        <div class="form-group">
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('工号')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('姓名')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('部门')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('说明')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-        </div>
+<!--        <div>介绍人资料</div>-->
+<!--        <div class="form-group">-->
+<!--            <div class="col-md-3">-->
+<!--                <label class="control-label col-sm-4">{:__('工号')}:</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label class="control-label col-sm-4">{:__('姓名')}:</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label class="control-label col-sm-4">{:__('部门')}:</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label class="control-label col-sm-4">{:__('说明')}:</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
     <div class="form-group layer-footer">
-        <input type="hidden" name="pass" value="1">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
-            <button type="button" class="btn btn-danger close-dia">确定</button>
+            <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
         </div>
     </div>
 </form>

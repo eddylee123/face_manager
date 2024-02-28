@@ -38,7 +38,7 @@ class Kww
     public static function header()
     {
 //        $tokenId = self::token();
-        $tokenId = "4509D244C32E8F24ED82DF32A7EF59FEEC7717F5288DC592323B28E5D4C85429B5D2";
+        $tokenId = "88264F184592B3B7F6ED562B5592C03F6D2317F5288DC592323B28E5D4C85429B5D2";
 
         return ["Tokenid: $tokenId"];
     }
@@ -182,12 +182,11 @@ class Kww
 
     /**
      * 员工列表
-     * @param $orgId
      * @param array $param
      * @return array|mixed
      * DateTime: 2024-02-26 16:08
      */
-    public static function userList($orgId, $param=[])
+    public static function userList($param=[])
     {
         $header = self::header();
         $url = self::hrNewApi."/api/w/dispatch";
@@ -256,6 +255,7 @@ class Kww
             "version" => "1.0.0",
             "data" => $param
         ];
+//        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);;
 

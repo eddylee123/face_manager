@@ -82,4 +82,34 @@ class Handle
 
         return $tabList;
     }
+
+    public static function reFiled($filedArr)
+    {
+        $data = [];
+        foreach ($filedArr as $v) {
+            if (empty($v['fieldName'])) {
+                continue;
+            }
+            $data[$v['fieldName']] = $v['fieldValue'] ?? '';
+
+        }
+
+        return $data;
+    }
+
+    public static function toFiled($filedArr, $filedNew)
+    {
+        foreach ($filedArr as &$v) {
+
+            if (empty($v['fieldName'])) {
+                continue;
+            }
+            if (empty($filedNew[$v['fieldName']])) {
+                continue;
+            }
+            $v['fieldValue'] = $filedNew[$v['fieldName']];
+        }
+
+        return $filedArr;
+    }
 }

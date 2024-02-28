@@ -26,18 +26,25 @@ class Manager extends Backend
      */
     protected $empModel = null;
 
+    /**
+     * @var \app\admin\model\Manager
+     */
+    protected $managerModel = null;
+
     protected $org;
     protected $admin;
     protected $cs_list = [];
     protected $kq_list = [];
 
-
+    protected $payList = ['计时','计件'];
+    protected $attenceList = ['白班','晚班'];
 
     public function _initialize()
     {
         parent::_initialize();
         $this->empRoleModel = new EmpRole();
         $this->empModel = new \app\admin\model\Employee();
+        $this->managerModel = new \app\admin\model\Manager();
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
 
@@ -136,14 +143,17 @@ class Manager extends Backend
             } else {
                 $currentPage = 1;
             }
+            $orgId = '06';
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
 
-            $param = array_merge($filter_arr, compact('currentPage', 'pageSize'));
-            $list = Kww::userList('06', $param);
-            foreach ($list['records'] as &$v) {
-                if (!empty($v['hireDate'])) {
-                    $v['hireDate'] = date('Y-m-d', ($v['hireDate'] / 1000));
+            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId'));
+            $list = Kww::userList($param);
+            if(!empty($list['records'])) {
+                foreach ($list['records'] as &$v) {
+                    if (!empty($v['hireDate'])) {
+                        $v['hireDate'] = date('Y-m-d', ($v['hireDate'] / 1000));
+                    }
                 }
             }
 
@@ -173,13 +183,17 @@ class Manager extends Backend
                 if (!$result) {
                     $this->error($validate->getError());
                 }
+                $params['other'] = Handle::toFiled($row['other'], $params['other']);
                 $params = array_merge($params, [
                     'id' => $row['id'],
-                    'other' => [],
                 ]);
+                if (!empty($params['hireDate'])) {
+                    $params['hireDate'] = strtotime($params['hireDate']) * 1000;
+                }
+//                echo '<pre>';print_r($params);exit;
                 $rs = Kww::modify($params);
                 if ($rs['success'] == true) {
-                    $this->success();
+                    $this->success('操作成功');
                 }
                 $this->error('操作失败');
             }
@@ -187,9 +201,27 @@ class Manager extends Backend
         }
         $orgConf = array_values(Config::get('site.org_list'));
         $orgList = array_combine($orgConf, $orgConf);
+        //部门编码
+        $dept = $this->empModel->getDept($this->admin['org_id']);
+        $deptList = $dept['Data'] ?? [];
 
-        $this->assign('row', $row);
+        //字段重组
+        $rowNew = array_merge($this->managerModel->fieldMap, $row);
+        $birthday = substr($rowNew['idCard'], 6, 8);
+        $rowNew['birthday'] = date("Y-m-d", strtotime($birthday));
+        $rowNew['age'] = get_age($rowNew['birthday']);
+        if (!empty($row['other'])) {
+            $rowNew = array_merge($rowNew, Handle::reFiled($row['other']));
+        }
+        if (!empty($rowNew['hireDate'])) {
+            $rowNew['hireDate'] = date('Y-m-d', ($rowNew['hireDate'] / 1000));
+        }
+
+        $this->assign('row', $rowNew);
         $this->assign('orgList', $orgList);
+        $this->assign('deptList', $deptList);
+        $this->assign('payList', $this->payList);
+        $this->assign('attenceList', $this->attenceList);
         $this->view->assign('tabList', Handle::getEmpTab($empNum)); //tab
 
         return $this->view->fetch();
