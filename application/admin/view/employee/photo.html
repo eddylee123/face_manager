@@ -147,16 +147,30 @@
         })
 
         function uploadImg(photo, flag, emp2) {
+            var picFile = dataURLtoFile(photo, "picFile");
+            var token = $.cookie('KWW_TOKEN');
+            var pid = emp2;
+            if (flag === 'dis_img_url') {
+                pid = emp2+'A';
+            }
+
+            // 创建FromData()并赋值
+            var formFile = new FormData();
+            // formFile.append("emp2", emp2);
+            // formFile.append("flag", flag);
+            // ***注意此处为附件数据
+            formFile.append("file", picFile);
+
             $.ajax({
-                url: base_file+'/employee/uploadImg',
+                url: hr_api+"/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
-                // dataType: 'json',
-                data: {
-                    emp2: emp2,
-                    flag: flag,
-                    photo: photo
+                header: {
+                    Tokenid : token
                 },
+                data: formFile,
                 cache: false,
+                processData: false,
+                contentType: false,
                 success: function (ret) {
                     // console.log(ret);
                     if (ret.hasOwnProperty("code")) {
@@ -193,6 +207,19 @@
         $(".canvas-group1").click(function () {
             $(this).find('input[type=radio]').prop('checked', true);
         });
+    }
+
+    //将base64转换为文件
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
     }
 </script>
 </body>
