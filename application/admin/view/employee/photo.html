@@ -165,7 +165,7 @@
             $.ajax({
                 url: hr_api+"/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
-                header: {
+                headers: {
                     Tokenid : token
                 },
                 data: formFile,
