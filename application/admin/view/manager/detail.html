@@ -8,6 +8,14 @@
     .title {
         background-color: #D8E0E6;
     }
+    .person {
+        position: absolute;
+        right: 0;
+        margin-right: 50px;
+    }
+    .person img {
+        height: 200px;
+    }
 </style>
 <div class="panel panel-default panel-intro">
     <div class="panel-heading">
@@ -22,6 +30,9 @@
 <form id="edit-form" class="form-horizontal" data-toggle="validator" role="form" method="POST" action="">
     <div class="title">基本信息</div>
     <div class="area tab-1">
+        <div class="person" style="">
+            <img src="/assets/img/person.png" alt="">
+        </div>
         <div class="form-group">
             <div class="col-md-3">
                 <label class="control-label col-sm-4">{:__('EmpNum')}:</label>
@@ -41,9 +52,6 @@
                     {:Form::radios('row[other][sex]', $sexList, $row['sex'] )}
                 </div>
             </div>
-<!--            <div class="" style="float: right">-->
-<!--                <img src="/assets/img/person.png" alt="">-->
-<!--            </div>-->
         </div>
         <div class="form-group">
             <div class="col-md-3">
