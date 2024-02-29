@@ -641,6 +641,9 @@ class Employee extends Backend
 
                     $result = $row->allowField(true)->save($params);
                     if ($result !== false) {
+                        //初始化正式工
+                        (new \app\admin\model\Manager())->initInsert($this->model->get($row['id']));
+
                         $this->success('操作成功', '', compact('named', 'url'));
                     } else {
                         $this->error($row->getError());

@@ -207,7 +207,7 @@ class Manager extends Backend
         $deptList = $dept['Data'] ?? [];
 
         //字段重组
-        $rowNew = array_merge($this->managerModel->fieldMap, $row);
+        $rowNew = array_merge(array_keys($this->managerModel->fieldMap), $row);
         $birthday = substr($rowNew['idCard'], 6, 8);
         $rowNew['birthday'] = date("Y-m-d", strtotime($birthday));
         $rowNew['age'] = get_age($rowNew['birthday']);
