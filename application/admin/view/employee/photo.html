@@ -130,10 +130,13 @@
         var img2 = document.getElementById("img2");
         context.drawImage(img1, 0, 0, 300, imgHeight);
         context2.drawImage(img2, 0, 0, 300, imgHeight);
+        var emp2 = $('#emp2').val();
+        var token = $.cookie('KWW_TOKEN');
+        var imgFile1 = ''
+        var imgFile2 = ''
 
         $('#capture').click(function () {
             var flag = $("input[name='flag']:checked").val();
-            var emp2 = $('#emp2').val();
 
             var image = new Image();
             if (flag === 'dis_img_url') {
@@ -146,7 +149,7 @@
 
             return uploadImg(image.src, flag, emp2);
         })
-        var token = $.cookie('KWW_TOKEN');
+
         function uploadImg(photo, flag, emp2) {
             var picFile = dataURLtoFile(photo, "picFile");
 
@@ -157,13 +160,11 @@
 
             // 创建FromData()并赋值
             var formFile = new FormData();
-            // formFile.append("emp2", emp2);
-            // formFile.append("flag", flag);
             // ***注意此处为附件数据
             formFile.append("file", picFile);
 
             $.ajax({
-                url: hr_api+"/api/m/buckets/app/"+pid+"/objects",
+                url: "/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
                 headers: {
                     Tokenid : token
@@ -174,7 +175,15 @@
                 contentType: false,
                 success: function (ret) {
                     // console.log(ret);
-                    if (ret.hasOwnProperty("code")) {
+                    if (ret.hasOwnProperty("success")) {
+                        if (ret.success == true) {
+                            if (flag === 'dis_img_url') {
+                                imgFile2 = ret.data;
+                            } else {
+                                imgFile1 = ret.data;
+                            }
+                        }
+                        return true;
                         var msg = ret.hasOwnProperty("msg") && ret.msg != "" ? ret.msg : "";
                         if (ret.code === 200) {
                             Toastr.success(msg ? msg : __('上传成功'));
@@ -193,16 +202,27 @@
         //确定
         $(".ok").click(function () {
             var url = "{$url}";
-            if (url.length > 0 ) {
-                Toastr.success('操作成功，正在跳转……');
-                setTimeout(function(){
-                    Fast.api.close();
-                    parent.Fast.api.open(url, "{$named}", {area:["100%", "100%"]});
-                }, 2000);
-            } else {
-                Toastr.success('操作成功');
-                parent.location.reload();
-            }
+            $.post(
+                base_file+'/employee/uploadImg',
+                {"img_url": imgFile1, "dis_img_url": imgFile2, "emp2": emp2},
+                function (ret) {
+                    console.log(ret);
+                    if (ret.code === 1) {
+                        if (url.length > 0 ) {
+                            Toastr.success('操作成功，正在跳转……');
+                            setTimeout(function(){
+                                Fast.api.close();
+                                parent.Fast.api.open(url, "{$named}", {area:["100%", "100%"]});
+                            }, 2000);
+                        } else {
+                            Toastr.error(ret.msg);
+                            parent.location.reload();
+                        }
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                }
+            );
         });
 
         $(".canvas-group1").click(function () {

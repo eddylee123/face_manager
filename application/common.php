@@ -891,7 +891,7 @@ function is_id_number($idNumber) {
     return preg_match($pattern, $idNumber) === 1;
 }
 
-function curl_request($url, $method = '', $data = '', $header = [])
+function curl_request($url, $method = '', $data = '', $header = [], $json=true)
 {
     $data_string = json_encode($data);
 
@@ -904,9 +904,13 @@ function curl_request($url, $method = '', $data = '', $header = [])
     curl_setopt($action, CURLOPT_SSL_VERIFYHOST, 0);
 
     $httpHeader = [
-        'Content-Type: application/json',
         'Content-Length: ' . strlen($data_string)
     ];
+    if ($json) {
+        $httpHeader = array_merge($httpHeader, ['Content-Type: application/json']);
+    } else {
+        $httpHeader = array_merge($httpHeader, ['Content-Type: multipart/form-data']);
+    }
     if ($header) {
         $httpHeader = array_merge($httpHeader, $header);
     }

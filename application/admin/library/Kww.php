@@ -12,7 +12,7 @@ use traits\controller\Jump;
 class Kww
 {
 //    const kww = "https://kwwhrp.kwwict.com:10213";    //生产
-    const hrNewApi = "https://10.254.30.36:8801";    //测试
+//    const hrNewApi = "https://10.254.30.36:8801";    //测试
 
     const marryList = [
         'MARRIED'=>'已婚',
@@ -37,8 +37,7 @@ class Kww
 
     public static function header()
     {
-//        $tokenId = self::token();
-        $tokenId = "88264F184592B3B7F6ED562B5592C03F6D2317F5288DC592323B28E5D4C85429B5D2";
+        $tokenId = self::token();
 
         return ["Tokenid: $tokenId"];
     }
@@ -57,7 +56,6 @@ class Kww
         ];
 
         $rs = curl_request($url, 'POST', $body);
-//        var_dump($rs);exit;
         header("Location: ".$rs);
         return true;
     }
@@ -123,16 +121,16 @@ class Kww
     public static function uploadFile($appId, $file)
     {
         $header = self::header();
-        $url = self::kww()."/m/buckets/app/{$appId}/objects";
+        $url = self::kww()."/api/m/buckets/app/{$appId}/objects";
         $body = [
-            "file" => $file,
+            "file" => file_get_contents($file),
         ];
 
-        $rs = curl_request($url, 'POST', $body, $header);;
+        $rs = curl_request($url, 'POST', $body, $header, false);;
 
         $data = [];
         if ($rs) {
-            $data = json_decode($rs['data'], true);
+            $data = json_decode($rs, true);
         }
 
         return $data;
@@ -165,15 +163,13 @@ class Kww
                 "photo2Type" => $photo2Type,
             ],
         ];
+//        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
         $data = [];
         if ($rs) {
-            $datas = json_decode($rs, true);
-            if (isset($datas['data'])) {
-                $data = json_decode($datas['data'], true);
-            }
+            $data = json_decode($rs, true);
         }
 
         return $data;
@@ -189,7 +185,7 @@ class Kww
     public static function userList($param=[])
     {
         $header = self::header();
-        $url = self::hrNewApi."/api/w/dispatch";
+        $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "employee.info.page",
             "version" => "1.0.0",
@@ -218,7 +214,7 @@ class Kww
     public static function userInfo($empNum)
     {
         $header = self::header();
-        $url = self::hrNewApi."/api/w/dispatch";
+        $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "employee.info.get",
             "version" => "1.0.0",
@@ -249,7 +245,7 @@ class Kww
     public static function modify($param)
     {
         $header = self::header();
-        $url = self::hrNewApi."/api/w/dispatch";
+        $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "employee.info.save",
             "version" => "1.0.0",
@@ -276,7 +272,7 @@ class Kww
     public static function orgList($pid=0)
     {
         $header = self::header();
-        $url = self::hrNewApi."/api/w/dispatch";
+        $url = self::kww()."/api/w/dispatch";
         $body = [
             "service" => "employee.org.list",
             "version" => "1.0.0",

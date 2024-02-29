@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\library\Kww;
 use app\admin\library\Ysl;
 use app\admin\model\AdminLog;
 use app\admin\model\EmpImg;
@@ -348,60 +349,60 @@ class Employee extends Backend
      */
     public function uploadImg()
     {
-        $base64 = $this->request->param('photo', '');
-        $flag = $this->request->param('flag', '');
         $emp2 = $this->request->param('emp2', '');
+        $img1 = $this->request->param('img_url', '');
+        $img2 = $this->request->param('dis_img_url', '');
+        $pType = 'jpeg';
 
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
-            //人像检测
-            if ($flag === 'dis_img_url') {
-                $pid = $emp2.'A';
-                $other_field = 'img_url';
-            } else {
-                $pid = $emp2;
-                $other_field = 'dis_img_url';
-            }
-            $res = $this->ysl->photoHandle($pid, $base64);;
-            if ($res['code'] != 200) {
-                $this->error($res['msg']);
-            }
+        if (empty($emp2)) {
+            $this->error('工号异常');
+        }
+        if (empty($img1) && empty($img2)) {
+            $this->error('请完成拍照');
+        }
+        $row = $this->model->where(['emp_id_2'=>$emp2])->find();
+        if (empty($row)) {
+            $this->error('员工信息异常');
+        }
 
-            //更新数据
-            $data = [
-                $flag => $res['data']['new_file']
-            ];
-            $info = $this->empImgModel->where('emp_id_2', $emp2)->find();
-            if (!empty($info)) {
-                $data['update_id'] = $this->admin['id'];
-                $rs  = $info->save($data);
-            } else {
-                $data['emp_id_2'] = $emp2;
-                $data['create_id'] = $this->admin['id'];
-                $rs = $this->empImgModel->save($data);
-            }
-
-            if ($rs === false) {
+        $res = Kww::uploadFace($emp2, $row['emp_name'], $img1, $pType, $img2, $pType);
+        if (!empty($res['errorMessage'])) {
+            $this->error($res['errorMessage']);
+        }
+        $date = date("Y-m-d");
+        $imgDir = "/www/winshare2/";;
+        //更新照片
+        $data = [
+            'img_url' => $imgDir.$emp2."_".$row['emp_name']."_".$date.".jpg",
+            'dis_img_url' => $imgDir.$emp2."A_".$row['emp_name']."_".$date.".jpg",
+        ];
+        $info = $this->empImgModel->where('emp_id_2', $emp2)->find();
+        if (!empty($info)) {
+            $data['update_id'] = $this->admin['id'];
+            $rs  = $info->save($data);
+        } else {
+            $data['emp_id_2'] = $emp2;
+            $data['create_id'] = $this->admin['id'];
+            $rs = $this->empImgModel->save($data);
+        }
+        if ($rs === false) {
+            $this->error('上传成功');
+        }
+        //更新操作步骤
+        $emp_info = $this->model->where(['emp_id_2'=>$emp2,'status'=>1])->find();
+        if ($emp_info) {
+            $rs1 = $emp_info->save(['status'=>2]);
+            if ($rs1 === false) {
                 $this->error();
             }
-
-            if (!empty($info[$other_field])) {
-                //更新操作步骤
-                $emp_info = $this->model->where(['emp_id_2'=>$emp2,'status'=>1])->find();
-                if ($emp_info) {
-                    $rs1 = $emp_info->save(['status'=>2]);
-                    if ($rs1 === false) {
-                        $this->error();
-                    }
-                }
-                //写入记录
-                Arr::forget($data, $flag);
-                AdminLog::record('人脸拍照', $data);
-            }
-            //同步更新
-            $this->model->where(['emp_id_2'=>$emp2])->update(['is_new'=>0]);
-
-            $this->result([], 200);
         }
+        //写入记录
+        AdminLog::record('人脸拍照', $data);
+
+        //同步更新
+        $this->model->where(['emp_id_2'=>$emp2])->update(['is_new'=>0]);
+
+        $this->success('上传成功');
     }
 
     /**
