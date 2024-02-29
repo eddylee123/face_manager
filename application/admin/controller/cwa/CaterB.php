@@ -13,6 +13,7 @@ class CaterB extends Backend
     protected $model = null;
 
     protected $admin;
+    protected $csText = ['A'=>'A食堂','B'=>'B食堂'];
 
     public function _initialize()
     {
@@ -57,7 +58,7 @@ class CaterB extends Backend
 
     public function detail()
     {
-
+        $date = $this->request->get("date/s", '');
         $this->request->filter(['strip_tags','trim']);
         if ($this->request->isAjax())
         {
@@ -90,7 +91,42 @@ class CaterB extends Backend
             return json($result);
         }
 
-        $this->assignconfig('csLevel', ['A'=>'A食堂','B'=>'B食堂']);
+        $this->assignconfig('csLevel', $this->csText);
+        return $this->view->fetch();
+    }
+
+    public function detail2()
+    {
+        $date = $this->request->get("date/s", '');
+        $area = $this->request->get("area/s", '');
+        $this->request->filter(['strip_tags','trim']);
+        if ($this->request->isAjax())
+        {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('pkey_name'))
+            {
+                return $this->selectpage();
+            }
+            $offset = $this->request->get("offset/d", 0);
+            $limit = $this->request->get("limit/d", 999);
+            $sort = $this->request->get("sort/s", '打卡时间');
+            $order = $this->request->get("order/s", 'DESC');
+            $filter = $this->request->request('filter');
+
+            $filter_arr = json_decode($filter , true);
+            $filter_arr['start'] = date('Y-m-d', strtotime($date));
+            $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($date));
+            $filter_arr['食堂'] = $area;
+
+            $total = $this->model->countDetail($this->admin['org_id'],$filter_arr);
+
+            $list = $this->model->getDetail($this->admin['org_id'],$filter_arr,$offset,$limit,$sort,$order);
+//            echo "<pre/>";print_r($list);exit;
+            $result = array("total" => $total, "rows" => $list);
+            return json($result);
+        }
+
+        $this->assignconfig('csLevel', $this->csText);
         return $this->view->fetch();
     }
 
@@ -132,7 +168,7 @@ class CaterB extends Backend
             return json($result);
         }
 
-        $this->assignconfig('csLevel', ['A'=>'A食堂','B'=>'B食堂']);
+        $this->assignconfig('csLevel', $this->csText);
         $this->view->assign('tabList', Handle::getEmpTab($empNum));
         return $this->view->fetch();
     }

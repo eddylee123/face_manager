@@ -629,7 +629,7 @@ class Employee extends Backend
                         if ($row['emp_source'] == '合同工') {
                             $params['emp_id'] = $this->model->getEmpHtg($row['org_id']);
                         } else {
-                            $params['emp_id'] = $this->model->getEmpHtg($row['org_id']);
+                            $params['emp_id'] = $this->model->getEmpLwg($row['org_id']);
                         }
                     } else {
                         $params['emp_id'] = $this->model->getNewEmpId($row['org_id'], $row['emp_name'], $row['emp_source']);

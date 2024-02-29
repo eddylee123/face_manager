@@ -21,7 +21,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'id',
-                sortName: 'status',
+                sortName: 'status,id',
                 sortOrder: 'asc',
                 searchFormVisible:true,
                 showToggle:false,

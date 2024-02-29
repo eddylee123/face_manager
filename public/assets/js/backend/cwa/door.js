@@ -32,6 +32,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
                         {field: '位置ID', title: __('安装位置'), searchList: Config.kqLevel, formatter: Table.api.formatter.normal},
                         {field: '安装地址', title: __('设备名'), operate: false},
+                        {field: '进出标识', title: __('进出标识'), operate: false},
                         {field: '联系电话', title: __('联系电话'), operate: false},
                         {field: '部门名称', title: __('部门名称'), operate: false},
                         {field: '级别', title: __('级别'), operate: false},
@@ -79,9 +80,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
                         {field: '位置ID', title: __('安装位置'), searchList: Config.kqLevel, formatter: Table.api.formatter.normal},
                         {field: '安装地址', title: __('设备名'), operate: false},
-                        {field: '联系电话', title: __('联系电话'), operate: false},
-                        {field: '部门名称', title: __('部门名称'), operate: false},
-                        {field: '级别', title: __('级别'), operate: false},
+                        {field: '进出标识', title: __('进出标识'), operate: false},
                     ]
                 ]
                 ,onLoadSuccess: function(){
