@@ -370,7 +370,7 @@ class Employee extends Backend
             $this->error($res['errorMessage']);
         }
         $date = date("Y-m-d");
-        $imgDir = "/www/winshare2/";;
+        $imgDir = "/www/winshare/";;
         //更新照片
         $data = [
             'img_url' => $imgDir.$emp2."_".$row['emp_name']."_".$date.".jpg",
