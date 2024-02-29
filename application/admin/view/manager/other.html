@@ -76,26 +76,13 @@
                 </div>
             </div>
         </div>
-        <div>消费等级</div>
+        <div>消费权限</div>
         <div class="form-group">
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('父亲姓名')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('父亲出生年月:')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('关系')}:</label>
-                <div class="col-sm-8">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label class="control-label col-sm-4">{:__('电话')}:</label>
-                <div class="col-sm-8">
+            <div class="col-md-12">
+                <div class="checkbox cs-list">
+                    {foreach name="cs_level_list" item="vo"}
+                    <label for="row[cs_level][]-{$key}"><input id="row[cs_level][]-{$key}" name="row[cs_level][]" type="checkbox" value="{$key}" {in name="key" value="$cs_arr" }checked{/in} /> {$vo}</label>
+                    {/foreach}
                 </div>
             </div>
         </div>

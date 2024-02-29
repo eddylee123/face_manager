@@ -231,7 +231,6 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $row = Kww::userInfo($empNum);
-//        echo '<pre>';print_r($row);exit;
         if (!$row){
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
@@ -258,6 +257,13 @@ class Manager extends Backend
         }
         $orgConf = array_values(Config::get('site.org_list'));
         $orgList = array_combine($orgConf, $orgConf);
+        $kq_arr = $cs_arr = [];
+        $cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
+        $kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
+        if (!empty($row['kq_level'])) {
+            $kq_arr = split_param($row['kq_level'], $this->kq_list);
+            $cs_arr = split_param($row['cs_level'], $this->cs_list);
+        }
 
         $this->assign('row', $row);
         $this->assign('orgList', $orgList);

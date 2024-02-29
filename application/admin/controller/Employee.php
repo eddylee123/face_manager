@@ -369,20 +369,24 @@ class Employee extends Backend
             }
         }
 
+        $imgDir = "/www/winshare/";;
+        $date = date("Y-m-d");
+        $data = [];
+        if (!empty($img1)) {
+            $data['img_url'] = $imgDir.$emp2."_".$row['emp_name']."_".$date.".jpg";
+        }
+        if (!empty($img2)) {
+            $data['dis_img_url'] = $imgDir.$emp2."A_".$row['emp_name']."_".$date.".jpg";
+        }
+        if (empty($data)) {
+            $this->success('操作成功');
+        }
+
         $res = Kww::uploadFace($emp2, $row['emp_name'], $img1, $pType, $img2, $pType);
         if (!empty($res['errorMessage'])) {
             $this->error($res['errorMessage']);
         }
-        $date = date("Y-m-d");
-        $imgDir = "/www/winshare/";;
         //更新照片
-        $data = [
-            'img_url' => $imgDir.$emp2."_".$row['emp_name']."_".$date.".jpg",
-        ];
-        if (!empty($img2)) {
-            $data['dis_img_url'] = $imgDir.$emp2."A_".$row['emp_name']."_".$date.".jpg";
-        }
-
         if (!empty($info)) {
             $data['update_id'] = $this->admin['id'];
             $rs  = $info->save($data);

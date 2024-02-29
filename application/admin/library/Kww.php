@@ -157,10 +157,12 @@ class Kww
             "data" => [
                 "empno" => $empId,
                 "name" => $name,
-//                "photo1" => $photo1,
-//                "photo1Type" => $photo1Type,
             ],
         ];
+        if (!empty($photo1)) {
+            $body['data']['photo1'] = $photo1;
+            $body['data']['photo1Type'] = $photo1Type;
+        }
         if (!empty($photo2)) {
             $body['data']['photo2'] = $photo2;
             $body['data']['photo2Type'] = $photo2Type;
