@@ -14,6 +14,7 @@ use fast\Arr;
 use think\Env;
 use think\Exception;
 use think\Session;
+use function fast\e;
 
 /**
  * 员工基础信息管理
@@ -357,12 +358,15 @@ class Employee extends Backend
         if (empty($emp2)) {
             $this->error('工号异常');
         }
-        if (empty($img1) && empty($img2)) {
-            $this->error('请完成拍照');
-        }
         $row = $this->model->where(['emp_id_2'=>$emp2])->find();
         if (empty($row)) {
             $this->error('员工信息异常');
+        }
+        $info = $this->empImgModel->where('emp_id_2', $emp2)->find();
+        if (empty($info['img_url'])) {
+            if (empty($img1)) {
+                $this->error('照片1不能为空');
+            }
         }
 
         $res = Kww::uploadFace($emp2, $row['emp_name'], $img1, $pType, $img2, $pType);
@@ -374,9 +378,11 @@ class Employee extends Backend
         //更新照片
         $data = [
             'img_url' => $imgDir.$emp2."_".$row['emp_name']."_".$date.".jpg",
-            'dis_img_url' => $imgDir.$emp2."A_".$row['emp_name']."_".$date.".jpg",
         ];
-        $info = $this->empImgModel->where('emp_id_2', $emp2)->find();
+        if (!empty($img2)) {
+            $data['dis_img_url'] = $imgDir.$emp2."A_".$row['emp_name']."_".$date.".jpg";
+        }
+
         if (!empty($info)) {
             $data['update_id'] = $this->admin['id'];
             $rs  = $info->save($data);

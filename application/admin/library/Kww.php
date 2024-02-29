@@ -159,10 +159,12 @@ class Kww
                 "name" => $name,
                 "photo1" => $photo1,
                 "photo1Type" => $photo1Type,
-                "photo2" => $photo2,
-                "photo2Type" => $photo2Type,
             ],
         ];
+        if (!empty($photo2)) {
+            $body['data']['photo2'] = $photo2;
+            $body['data']['photo2Type'] = $photo2Type;
+        }
 //        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);;
