@@ -157,8 +157,8 @@ class Kww
             "data" => [
                 "empno" => $empId,
                 "name" => $name,
-                "photo1" => $photo1,
-                "photo1Type" => $photo1Type,
+//                "photo1" => $photo1,
+//                "photo1Type" => $photo1Type,
             ],
         ];
         if (!empty($photo2)) {
