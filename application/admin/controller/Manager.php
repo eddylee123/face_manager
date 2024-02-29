@@ -5,6 +5,7 @@ namespace app\admin\controller;
 
 
 use app\admin\library\Handle;
+use app\admin\library\Hro;
 use app\admin\library\Kww;
 use app\admin\model\EmpRole;
 use app\common\controller\Backend;
@@ -66,71 +67,71 @@ class Manager extends Backend
         return $this->view->fetch('emp_info');
     }
 
-    public function update()
-    {
-        $emp_id = $this->request->param('emp_id', '');
-        $xf = $this->request->param('xf', '-1');
-        $mj = $this->request->param('mj', '-1');
-        if (empty($emp_id)) $this->error('工号不能为空');
-
-        $kq_arr = $cs_arr = [];
-        if (!empty($xf)) $cs_arr = split_param($xf, $this->cs_list);
-        if (!empty($mj)) $kq_arr = split_param($mj, $this->kq_list);;
-
-        if ($this->request->isPost()) {
-            $params = $this->request->post("row/a", [], 'strip_tags');
-            if ($params) {
-                if (!empty($params['cs_level'])) {
-                    $params['cs_level'] = array_sum($params['cs_level']);
-                } else {
-                    $params['cs_level'] = -1;
-                }
-                if (!empty($params['kq_level'])) {
-                    $params['kq_level'] = array_sum($params['kq_level']);
-                } else {
-                    $params['kq_level'] = -1;
-                }
-            }
-            $reqUrl = "http://220.168.154.86:50522/UpEmpLevel";
-            $par = [
-                "OrderName" => "UpEmpLevel",
-                "data" => [
-                    "ORGID" => $this->org,
-                    "EMPID" => $emp_id,
-                    "XFLevel" => $params['cs_level'],
-                    "MJLevel" => $params['kq_level']
-                ]
-            ];
-            $rs = Http::post($reqUrl, json_encode($par));
-            $rs = json_decode($rs, true);
-            if (!$rs) $this->error('数据请求失败');
-            if ($rs['result'] == 1) {
-                //权限同步
-                $empInfo = $this->empModel->where(['emp_id'=>$emp_id])->find();
-                if ($empInfo) {
-                    $empInfo->save([
-                        'cs_level'=>$params['cs_level'],
-                        'kq_level'=>$params['kq_level'],
-                    ]);
-                }
-                //操作记录
-                $this->empRoleModel->addLogEmp($emp_id,
-                    $this->admin['id'],
-                    $params['cs_level'],
-                    $params['kq_level'],
-                    '确认修改',
-                    1);
-
-                $this->success('修改成功');
-            }
-            $this->error('修改失败');
-        }
-
-        $this->view->assign("row", compact('emp_id'));
-        $this->view->assign("kq_arr", $kq_arr);
-        $this->view->assign("cs_arr", $cs_arr);
-        return $this->view->fetch();
-    }
+//    public function update()
+//    {
+//        $emp_id = $this->request->param('emp_id', '');
+//        $xf = $this->request->param('xf', '-1');
+//        $mj = $this->request->param('mj', '-1');
+//        if (empty($emp_id)) $this->error('工号不能为空');
+//
+//        $kq_arr = $cs_arr = [];
+//        if (!empty($xf)) $cs_arr = split_param($xf, $this->cs_list);
+//        if (!empty($mj)) $kq_arr = split_param($mj, $this->kq_list);;
+//
+//        if ($this->request->isPost()) {
+//            $params = $this->request->post("row/a", [], 'strip_tags');
+//            if ($params) {
+//                if (!empty($params['cs_level'])) {
+//                    $params['cs_level'] = array_sum($params['cs_level']);
+//                } else {
+//                    $params['cs_level'] = -1;
+//                }
+//                if (!empty($params['kq_level'])) {
+//                    $params['kq_level'] = array_sum($params['kq_level']);
+//                } else {
+//                    $params['kq_level'] = -1;
+//                }
+//            }
+//            $reqUrl = "http://220.168.154.86:50522/UpEmpLevel";
+//            $par = [
+//                "OrderName" => "UpEmpLevel",
+//                "data" => [
+//                    "ORGID" => $this->org,
+//                    "EMPID" => $emp_id,
+//                    "XFLevel" => $params['cs_level'],
+//                    "MJLevel" => $params['kq_level']
+//                ]
+//            ];
+//            $rs = Http::post($reqUrl, json_encode($par));
+//            $rs = json_decode($rs, true);
+//            if (!$rs) $this->error('数据请求失败');
+//            if ($rs['result'] == 1) {
+//                //权限同步
+//                $empInfo = $this->empModel->where(['emp_id'=>$emp_id])->find();
+//                if ($empInfo) {
+//                    $empInfo->save([
+//                        'cs_level'=>$params['cs_level'],
+//                        'kq_level'=>$params['kq_level'],
+//                    ]);
+//                }
+//                //操作记录
+//                $this->empRoleModel->addLogEmp($emp_id,
+//                    $this->admin['id'],
+//                    $params['cs_level'],
+//                    $params['kq_level'],
+//                    '确认修改',
+//                    1);
+//
+//                $this->success('修改成功');
+//            }
+//            $this->error('修改失败');
+//        }
+//
+//        $this->view->assign("row", compact('emp_id'));
+//        $this->view->assign("kq_arr", $kq_arr);
+//        $this->view->assign("cs_arr", $cs_arr);
+//        return $this->view->fetch();
+//    }
 
     public function lists()
     {
@@ -230,26 +231,43 @@ class Manager extends Backend
     public function other()
     {
         $empNum = $this->request->get("empNum/s", '');
-        $row = Kww::userInfo($empNum);
-        if (!$row){
-            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
-        }
+//        $row = Kww::userInfo($empNum);
+//        if (!$row){
+//            $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
+//        }
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a", [], 'trim');
             if ($params) {
-
-                $validate = new \app\admin\validate\Manager();
-                $result = $validate->scene('edit')->check($params);
-                if (!$result) {
-                    $this->error($validate->getError());
+                if (!empty($params['cs_level'])) {
+                    $params['cs_level'] = array_sum($params['cs_level']);
+                } else {
+                    $params['cs_level'] = -1;
                 }
-                $params = array_merge($params, [
-                    'id' => $row['id'],
-                    'other' => [],
-                ]);
-                $rs = Kww::modify($params);
-                if ($rs['success'] == true) {
-                    $this->success();
+                if (!empty($params['kq_level'])) {
+                    $params['kq_level'] = array_sum($params['kq_level']);
+                } else {
+                    $params['kq_level'] = -1;
+                }
+                $rs = Hro::upEmpLevel($this->org, $empNum, $params['cs_level'], $params['kq_level']);
+                if (!$rs) $this->error('数据异常，请求失败');
+                if ($rs['result'] == 1) {
+                    //权限同步
+                    $empInfo = $this->empModel->where(['emp_id'=>$empNum])->find();
+                    if ($empInfo) {
+                        $empInfo->save([
+                            'cs_level'=>$params['cs_level'],
+                            'kq_level'=>$params['kq_level'],
+                        ]);
+                    }
+                    //操作记录
+                    $this->empRoleModel->addLogEmp($empNum,
+                        $this->admin['id'],
+                        $params['cs_level'],
+                        $params['kq_level'],
+                        '确认修改',
+                        1);
+
+                    $this->success('操作成功');
                 }
                 $this->error('操作失败');
             }
@@ -257,16 +275,16 @@ class Manager extends Backend
         }
         $orgConf = array_values(Config::get('site.org_list'));
         $orgList = array_combine($orgConf, $orgConf);
-        $kq_arr = $cs_arr = [];
+
         $cs_list = $this->empRoleModel->csLevel($this->admin['org_id']);
         $kq_list = $this->empRoleModel->kqLevel($this->admin['org_id']);
-        if (!empty($row['kq_level'])) {
-            $kq_arr = split_param($row['kq_level'], $this->kq_list);
-            $cs_arr = split_param($row['cs_level'], $this->cs_list);
-        }
+        $empInfo = $this->empModel->getRoleImg($empNum, $cs_list, $kq_list);
+//        echo"<pre>";print_r($empInfo);exit;
 
-        $this->assign('row', $row);
-        $this->assign('orgList', $orgList);
+        $this->view->assign('orgList', $orgList);
+        $this->view->assign('empInfo', $empInfo);
+        $this->view->assign("cs_level_list", $cs_list);
+        $this->view->assign("kq_level_list", $kq_list);
         $this->view->assign('tabList', Handle::getEmpTab($empNum)); //tab
 
         return $this->view->fetch();

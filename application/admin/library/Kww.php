@@ -227,7 +227,7 @@ class Kww
             ]
         ];
 
-        $rs = curl_request($url, 'POST', $body, $header);;
+        $rs = curl_request($url, 'POST', $body, $header);
 
         $data = [];
         if ($rs) {

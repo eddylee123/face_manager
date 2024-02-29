@@ -56,7 +56,7 @@ class Manager extends Model
         'EndTimeLD' => '',
         'EndTimeJKZ' => '',
         'TryDate' => '',
-        'KODate' => '',
+        'KQDate' => '',
         'KindFund' => '',
         'IsTry' => '',
         'email' => '',
