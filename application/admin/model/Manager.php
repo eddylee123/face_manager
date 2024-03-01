@@ -130,7 +130,7 @@ class Manager extends Model
         ];
 
         $base['other'] = $this->postOtherField($other);
-
+echo '<pre>';print_r($base);exit();
         $rs = Kww::modify($base);
         if ($rs['success'] == true) {
             return true;

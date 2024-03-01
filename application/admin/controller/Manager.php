@@ -252,7 +252,7 @@ class Manager extends Backend
                     $params['kq_level'] = -1;
                 }
                 $rs = Hro::upEmpLevel($this->org, $empNum, $params['cs_level'], $params['kq_level']);
-                if (!$rs) $this->error('数据异常，请求失败');
+                if (empty($rs['result'])) $this->error($rs['msg']);
                 if ($rs['result'] == 1) {
                     //权限同步
                     $empInfo = $this->empModel->where(['emp_id'=>$empNum])->find();

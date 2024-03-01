@@ -19,9 +19,9 @@ class Hro
      */
     public static function upEmpLevel($org_id, $emp_id, $cs_level, $kq_level)
     {
-        $url = self::hrOldApi.'/upEmpLevel';
+        $url = self::hrOldApi.'/UpEmpLevel';
         $body = [
-            "OrderName" => "UpEmpLevel",
+            "OrderName" => "upEmpLevel",
             "data" => [
                 "ORGID" => $org_id,
                 "EMPID" => $emp_id,

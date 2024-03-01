@@ -116,7 +116,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: '机器号', title: __('机器号'), operate: false},
                         {field: '卡号', title: __('卡号'), operate: false},
                         {field: '消费级别', title: __('消费级别'), operate: false},
-                        {field: '门禁级别', title: __('门禁级别'), operate: false},
                         {field: '消费模式', title: __('消费模式'), operate: false},
                     ]
                 ]
@@ -166,7 +165,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: '机器号', title: __('机器号'), operate: false},
                         {field: '卡号', title: __('卡号'), operate: false},
                         {field: '消费级别', title: __('消费级别'), operate: false},
-                        {field: '门禁级别', title: __('门禁级别'), operate: false},
                         {field: '消费模式', title: __('消费模式'), operate: false},
                     ]
                 ]

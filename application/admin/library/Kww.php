@@ -21,7 +21,8 @@ class Kww
     ];
 
     const statusList = [
-        'NORMAL'=>'正常',
+        'ON_TRIAL'=>'试用',
+        'FORMAL'=>'正常',
         'LEAVE'=>'离职'
     ];
 
@@ -198,7 +199,7 @@ class Kww
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
-        $data = [];
+        $data = ["total"=>0,"records"=>[]];
         if ($rs) {
             $datas = json_decode($rs, true);
             if (isset($datas['data'])) {
@@ -255,7 +256,7 @@ class Kww
             "version" => "1.0.0",
             "data" => $param
         ];
-        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
+//        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
@@ -287,7 +288,7 @@ class Kww
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
-        $data = [];
+        $data = ["total"=>0,"records"=>[]];
         if ($rs) {
             $datas = json_decode($rs, true);
             if (isset($datas['data'])) {

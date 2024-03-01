@@ -277,7 +277,7 @@ class Employee extends Model
     public function getEmpHtg($org_id)
     {
         $str = "set nocount on;
-        exec KwwSys.dbo.[GetNewEmpID] 'Z24%s','00000','%s','ADMIN','GH01'
+        exec KwwSys.dbo.[GetNewEmpID] 'Z31%s','00000','%s','ADMIN','GH01'
         set nocount off;";
         $sql = sprintf($str, $org_id, $org_id);
         $rs = Db::query($sql);

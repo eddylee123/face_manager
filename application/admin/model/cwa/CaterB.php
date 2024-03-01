@@ -82,6 +82,13 @@ class CaterB extends Model
         offset {$offset} rows fetch next {$limit} rows only";
 
         $rs = $this->query($query);
+        if ($rs) {
+            foreach ($rs as &$v) {
+                if (!empty($v['部门'])) {
+                    $v['部门'] = substr($v['部门'], strpos($v['部门'], ' '));
+                }
+            }
+        }
         return $rs;
     }
 
