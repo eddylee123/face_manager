@@ -381,9 +381,12 @@ class Employee extends Model
 
     public function getRoleImg($emp_id, $cs_list, $kq_list)
     {
-        $emp = [];
-        $emp['cs_level'] = $emp['kq_level'] = [];
-        $emp['img1'] = $emp['img2'] = '/assets/img/face_default.png';
+        $emp = [
+            'cs_level' => [],
+            'kq_level' => [],
+            'images' => [],
+        ];
+
         $rs = $this->getEmpInfo($emp_id);
         if ($rs['msg'] == '查询成功') {
             $emp = array_merge($emp, $rs['emp']);
@@ -396,14 +399,17 @@ class Employee extends Model
 
             if (!empty($img['Data'])) {
                 if (!empty($img['Data']['PFILE1Name'])) {
-                    $emp['img1'] = str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
-                        'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE1Name']);
+                    array_push($emp['images'], str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                        'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE1Name']));
                 }
                 if (!empty($img['Data']['PFILE2Name'])) {
-                    $emp['img2'] = str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
-                        'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE2Name']);
+                    array_push($emp['images'], str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                        'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE2Name']));
                 }
             }
+        }
+        if (empty($emp['images'])) {
+            array_push($emp['images'],'/assets/img/face_default.png');
         }
 
         return $emp;

@@ -29,7 +29,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                         {field: '工号', title: __('工号'), operate: 'like'},
                         {field: '姓名', title: __('姓名'), operate: 'like'},
-                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
+                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true,
+                            defaultValue:Moment().subtract(29, 'days').format('YYYY-MM-DD 00:00:00')+' - ' + Moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')},
                         {field: '位置ID', title: __('安装位置'), searchList: Config.kqLevel, formatter: Table.api.formatter.normal},
                         {field: '安装地址', title: __('设备名'), operate: false},
                         {field: '进出标识', title: __('进出标识'), operate: false},
@@ -77,7 +78,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {field: '工号', title: __('工号'), operate: false},
                         {field: '姓名', title: __('姓名'), operate: false},
-                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
+                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true,
+                            defaultValue:Moment().subtract(29, 'days').format('YYYY-MM-DD 00:00:00')+' - ' + Moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')},
                         {field: '位置ID', title: __('安装位置'), searchList: Config.kqLevel, formatter: Table.api.formatter.normal},
                         {field: '安装地址', title: __('设备名'), operate: false},
                         {field: '进出标识', title: __('进出标识'), operate: false},

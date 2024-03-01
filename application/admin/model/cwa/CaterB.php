@@ -24,7 +24,8 @@ class CaterB extends Model
 
     public function getList($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=999)
     {
-        $query = "SELECT * FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}'";
+        $date = date("Y-m-d");
+        $query = "SELECT * FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}' AND [日期] < '{$date}'";
         if (!empty($start_date)) {
             $query .= " AND [日期] >= '{$start_date}'";
         }
@@ -43,7 +44,8 @@ class CaterB extends Model
 
     public function countList($start_date,$end_date,$org_id,$params=[])
     {
-        $query = "SELECT count(*) total FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}'";
+        $date = date("Y-m-d");
+        $query = "SELECT count(*) total FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}' AND [日期] < '{$date}'";
         if (!empty($start_date)) {
             $query .= " AND [日期] >= '{$start_date}'";
         }

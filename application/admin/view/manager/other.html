@@ -112,8 +112,9 @@
         <div class="title1">员工照片</div>
         <div class="form-group">
             <div class="col-md-12 img-list">
-                <img class="img-src1" src="{$empInfo.img1}">
-                <img class="img-src2" src="{$empInfo.img2}">
+                {foreach name="empInfo.images" item="vo"}
+                <img class="img-src" src="{$vo}">
+                {/foreach}
             </div>
         </div>
     </div>

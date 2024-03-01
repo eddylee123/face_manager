@@ -46,9 +46,6 @@ class Door extends Backend
                 [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
                 $filter_arr['start'] = date('Y-m-d', strtotime($start));
                 $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
-            } else {
-                $filter_arr['start'] = date('Y-m-d', strtotime("-30 day"));
-                $filter_arr['end'] = date('Y-m-d 23:59:59');
             }
             $total = $this->model->countList($this->admin['org_id'],$filter_arr);
 
@@ -89,9 +86,6 @@ class Door extends Backend
                 [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
                 $filter_arr['start'] = date('Y-m-d', strtotime($start));
                 $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
-            } else {
-                $filter_arr['start'] = date('Y-m-d', strtotime("-30 day"));
-                $filter_arr['end'] = date('Y-m-d 23:59:59');
             }
             $filter_arr['工号'] = $empNum;
 

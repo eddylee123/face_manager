@@ -109,7 +109,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {field: '工号', title: __('工号'), operate: 'like'},
                         {field: '姓名', title: __('姓名'), operate: 'like'},
-                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
+                        {field: '打卡时间', title: __('打卡时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true,
+                            defaultValue:Moment().subtract(29, 'days').format('YYYY-MM-DD 00:00:00')+' - ' + Moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')},
                         {field: '食堂', title: __('食堂'), searchList: Config.csLevel, formatter: Table.api.formatter.normal},
                         {field: '部门', title: __('部门'), operate: false},
                         {field: '餐别', title: __('餐别'), operate: false},
@@ -207,7 +208,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {field: '工号', title: __('工号'), operate: false},
                         {field: '姓名', title: __('姓名'), operate: false},
-                        {field: '打卡时间', title: __('消费时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true},
+                        {field: '打卡时间', title: __('消费时间'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, sortable:true,
+                            defaultValue:Moment().subtract(29, 'days').format('YYYY-MM-DD 00:00:00')+' - ' + Moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')},
                         {field: '食堂', title: __('食堂'), searchList: Config.csLevel, formatter: Table.api.formatter.normal},
                         {field: '部门', title: __('部门'), operate: false},
                         {field: '餐别', title: __('餐别'), operate: false},
