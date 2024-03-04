@@ -36,7 +36,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                 columns: [
                     [
-                        // {checkbox: true},
+                        {checkbox: true},
                         {field: 'detail', title: __('详情'), table: table,
                             buttons: [
                                 {
@@ -195,6 +195,28 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                         var url = base_file+"/employ/export?filter="+btoa(encodeURI(jsonData));
                         window.open(url, '_blank');
+                    });
+                    //批量打印
+                    $(document).on("click", ".btn-make", function () {
+                        var ids = Table.api.selectedids(table);//获取选中列的id
+                        if(ids.length==0){
+                            Toastr.error("最少选择一条记录操作");
+                            return false;
+                        }
+                        Fast.api.open(
+                            'pdf/multiMake?nid='+ids.join(','),
+                            '批量打印',
+                            {area:["100%", "100%"]
+                            });
+                        // $.post(base_file+"/pdf/multiMake", {nid:ids.join(',')}, function (ret) {
+                        //     console.log(ret);return;
+                        //     if (ret.code === 1) {
+                        //         Toastr.success(ret.msg);
+                        //     } else {
+                        //         Toastr.error(ret.msg);
+                        //     }
+                        //     parent.location.reload();
+                        // });
                     });
                 }
             });

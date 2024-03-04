@@ -71,4 +71,51 @@ class Pdf extends Backend
         return $this->view->fetch('template');
     }
 
+    public function multiMake()
+    {
+        $nid = $this->request->param('nid', '');
+        if (empty($nid)) $this->error('操作记录不能为空');
+
+        $idArr = explode(',', $nid);
+        $list = $this->empModel->whereIn('id', $idArr)->select();
+        if (!$list) $this->error('员工信息异常', $_SERVER['HTTP_REFERER']);
+        $list = collection($list)->toArray();
+        foreach ($list as &$v) {
+            if(!empty($v['edu_exp'])) {
+                $edu_arr = json_decode($v['edu_exp'], true);
+                if (!empty(reset($edu_arr))) {
+                    $v['edu_exp_arr'] = $edu_arr;
+                }
+            }
+            if(!empty($v['work_exp'])) {
+                $work_arr = json_decode($v['work_exp'], true);
+                if (!empty(reset($work_arr))) {
+                    $v['work_exp_arr'] = $work_arr;
+                }
+            }
+            if(!empty($v['family_member'])) {
+                $family_arr = json_decode($v['family_member'], true);
+                if (!empty(reset($family_arr))) {
+                    $v['family_member_arr'] = $family_arr;
+                }
+                $family_num = count($v['family_member_arr']);
+                for ($i=0; $i<(3-$family_num); $i++) {
+                    array_push($v['family_member_arr'], [
+                        'name' => '&nbsp;',
+                        'relation' => '&nbsp;',
+                        'tel' => '&nbsp;',
+                    ]);
+                }
+
+            }
+            //籍贯
+            if(empty($v['native_place'])) {
+                $v['native_place'] = substr($v['address'], 0, strpos($v['address'], '省'));
+            }
+        }
+
+        $this->assign('list', $list);
+        return $this->view->fetch('multi');
+    }
+
 }
