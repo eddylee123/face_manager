@@ -303,7 +303,7 @@
                 success: function (ret) {
                     // console.log(ret);return;
                     if (ret.code === 1) {
-                        if (flag === 'nex') {
+                        if (flag == 'nex' || flag == 'sign' ) {
                             Toastr.success('操作成功，正在跳转……');
                             setTimeout(function(){
                                 Fast.api.close();
