@@ -216,7 +216,9 @@
                             }, 2000);
                         } else {
                             Toastr.success(ret.msg);
-                            parent.location.reload();
+                            setTimeout(function(){
+                                parent.location.reload();
+                            }, 2000);
                         }
                     } else {
                         Toastr.error(ret.msg);
