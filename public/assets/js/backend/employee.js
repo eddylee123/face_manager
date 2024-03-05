@@ -153,7 +153,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         }
                     });
                     //报名
-                    $('.btn_sign').click(function(){
+                    $('.btn_sign').unbind('click').click(function(){
                         var device = sessionStorage.getItem('device');
                         if (device !== null) {
                             $.get(base_file+"/employee/readCard?flag=sign&device="+device, function (ret) {
@@ -197,7 +197,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         window.open(url, '_blank');
                     });
                     //批量打印
-                    $(document).on("click", ".btn-make", function () {
+                    $('.btn-make').unbind('click').click(function(){
                         var ids = Table.api.selectedids(table);//获取选中列的id
                         if(ids.length==0){
                             Toastr.error("最少选择一条记录操作");
@@ -208,15 +208,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             '批量打印',
                             {area:["100%", "100%"]
                             });
-                        // $.post(base_file+"/pdf/multiMake", {nid:ids.join(',')}, function (ret) {
-                        //     console.log(ret);return;
-                        //     if (ret.code === 1) {
-                        //         Toastr.success(ret.msg);
-                        //     } else {
-                        //         Toastr.error(ret.msg);
-                        //     }
-                        //     parent.location.reload();
-                        // });
                     });
                 }
             });
