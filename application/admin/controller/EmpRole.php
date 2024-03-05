@@ -106,8 +106,6 @@ class EmpRole extends Backend
     {
         //设置过滤方法
         $this->request->filter(['strip_tags','trim']);
-        $emp2 = $this->request->param('emp2', '');
-        $emp_id = $this->request->param('emp_id', '');
         if ($this->request->isAjax())
         {
             //如果发送的来源是Selectpage，则转发到Selectpage
@@ -136,6 +134,10 @@ class EmpRole extends Backend
             $kq_level = $this->model->kqLevel($this->org);
             $admins = array_column($list, 'create_id');
             $adminArr = $this->adminModel->whereIn('id', $admins)->column('nickname', 'id');
+            $emp_id_2 = array_column($list, 'emp_id_2');
+            $emp2Arr = $this->employeeModel->whereIn('emp_id_2', $emp_id_2)->column('emp_name', 'emp_id_2');
+            $emp_id = array_column($list, 'emp_id');
+            $empArr = $this->employeeModel->whereIn('emp_id', $emp_id)->column('emp_name', 'emp_id');
 
             foreach ($list as &$v) {
                 //拼接参数
@@ -153,6 +155,12 @@ class EmpRole extends Backend
                     return $kq_level[$item] ?? '';
                 }, $split_arr);
                 $v['kq_text'] = implode(',', $split_val);
+                if (!empty($v['emp_id_2'])) {
+                    $v['emp_name'] = $emp2Arr[$v['emp_id_2']]['emp_name'] ?? '';
+                } elseif (!empty($v['emp_id'])) {
+                    $v['emp_name'] = $emp2Arr[$v['emp_id']]['emp_name'] ?? '';
+                }
+
             }
             $result = array("total" => $total, "rows" => $list);
             return json($result);

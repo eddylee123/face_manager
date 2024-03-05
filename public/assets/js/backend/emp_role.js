@@ -69,6 +69,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'id', title: __('序号'), operate: false},
                         {field: 'nickname', title: __('操作人'), operate: false},
                         {field: 'create_time', title: __('操作时间'), addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime, operate: 'range'},
+                        {field: 'emp_name', title: __('员工姓名'), operate: false},
                         {field: 'remark', title: __('描述'), operate: false},
                         {field: 'cs_text', title: __('食堂权限'), operate: false},
                         {field: 'kq_text', title: __('门禁权限'), operate: false},
