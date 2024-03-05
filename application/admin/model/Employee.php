@@ -2,8 +2,8 @@
 
 namespace app\admin\model;
 
+use app\admin\library\Kww;
 use fast\Http;
-use fast\Random;
 use think\Config;
 use think\Db;
 use think\Model;
@@ -190,7 +190,7 @@ class Employee extends Model
 
     public function getTempId($org_id)
     {
-        $tempId = 'T'.date('y').$org_id.Random::numeric(5);
+        $tempId = Kww::getTmpNo($org_id);
         $exist = $this->where(['emp_id_2'=>$tempId])->value('id');
         if ($exist) {
             return $this->getTempId($org_id);

@@ -5,6 +5,7 @@ namespace app\admin\library;
 
 
 use app\cache\BaseCache;
+use fast\Http;
 use think\Cookie;
 use think\Request;
 use traits\controller\Jump;
@@ -297,5 +298,27 @@ class Kww
         }
 
         return $data;
+    }
+
+    /**
+     * 获取临时工号
+     * @param $orgId
+     * @return mixed|string
+     * DateTime: 2024-03-05 14:09
+     */
+    public static function getTmpNo($orgId)
+    {
+        $url = "http://10.254.30.43:8085/emp/tmpNo?baseNo=$orgId";
+        $rs = Http::get($url);
+
+        $tmpNo = '';
+        if ($rs) {
+            $data = json_decode($rs, true);
+            if (!empty($data['data'])) {
+                $tmpNo = $data['data'];
+            }
+        }
+
+        return $tmpNo;
     }
 }
