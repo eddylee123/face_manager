@@ -158,7 +158,7 @@ class EmpRole extends Backend
                 if (!empty($v['emp_id_2'])) {
                     $v['emp_name'] = $emp2Arr[$v['emp_id_2']]['emp_name'] ?? '';
                 } elseif (!empty($v['emp_id'])) {
-                    $v['emp_name'] = $emp2Arr[$v['emp_id']]['emp_name'] ?? '';
+                    $v['emp_name'] = $empArr[$v['emp_id']]['emp_name'] ?? '';
                 }
 
             }
