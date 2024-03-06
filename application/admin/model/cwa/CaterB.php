@@ -62,7 +62,7 @@ class CaterB extends Model
 
     public function getDetail($org_id,$params=[],$offset=0,$limit=999,$sort='',$order='DESC')
     {
-        $query = "SELECT * FROM View_EMP_ALL_2024 WHERE [基地代码] = '{$org_id}'";
+        $query = "SELECT * FROM View_XFALL_2024 WHERE [基地代码] = '{$org_id}'";
 
         if (!empty($params['start'])) {
             $query .= " AND [打卡时间] >= '{$params['start']}'";
@@ -96,7 +96,7 @@ class CaterB extends Model
 
     public function countDetail($org_id,$params=[])
     {
-        $query = "SELECT COUNT(*) total FROM View_EMP_ALL_2024 WHERE [基地代码] = '{$org_id}'";
+        $query = "SELECT COUNT(*) total FROM View_XFALL_2024 WHERE [基地代码] = '{$org_id}'";
 
         if (!empty($params['start'])) {
             $query .= " AND [打卡时间] >= '{$params['start']}'";
