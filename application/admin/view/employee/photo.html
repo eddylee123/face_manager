@@ -77,7 +77,7 @@
         let imgWidth = 640;
         let imgHeight = 460;
         //拍照翻转
-        video.style.transform='scaleX(-1)';
+        // video.style.transform='scaleX(-1)';
 
         function success(stream) {
             //兼容webkit核心浏览器
@@ -184,13 +184,15 @@
                             } else {
                                 imgFile1 = ret.data;
                             }
-                        }
-                        return true;
-                        var msg = ret.hasOwnProperty("msg") && ret.msg != "" ? ret.msg : "";
-                        if (ret.code === 200) {
-                            Toastr.success(msg ? msg : __('上传成功'));
+                            return true;
                         } else {
-                            Toastr.error(msg ? msg : __('上传失败'));
+                            var msg = ret.hasOwnProperty("errorMessage") && ret.errorMessage != "" ? ret.errorMessage : "";
+                            Toastr.error(msg);
+                            if (ret.errorCode == "A1010000") {
+                                setTimeout(function () {
+                                    parent.location.href = base_file + "/index/logout";
+                                }, 1000);
+                            }
                         }
                     } else {
                         Toastr.error(__('Unknown data format'));
