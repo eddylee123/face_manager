@@ -70,6 +70,7 @@ class Manager extends Model
         'introducerdept' => '介绍人部门',
         'introducerRemark' => '介绍人说明',
         'workExperience' => '工作经验',
+        'empType' => '工作经验',
     ];
 
     /**
@@ -127,6 +128,7 @@ class Manager extends Model
             'introducerdept' => '',
             'introducerRemark' => '',
             'workExperience' => $info['work_exp'],
+            'empType' => $info['emp_source'],
         ];
 
         $base['other'] = $this->postOtherField($other);
