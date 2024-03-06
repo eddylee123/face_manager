@@ -98,7 +98,7 @@ class EmpRole extends Model
             $arr = json_decode($rs, true);
             return $arr[$key] ?? [];
         }
-        return  ['msg'=>'查询失败'];
+        return  [];
     }
 
     public function getCreateTimeTextAttr($value, $data)
