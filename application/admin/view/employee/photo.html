@@ -76,6 +76,8 @@
         let context2 = canvas2.getContext('2d');
         let imgWidth = 640;
         let imgHeight = 460;
+        //拍照翻转
+        video.style.transform='scaleX(-1)';
 
         function success(stream) {
             //兼容webkit核心浏览器
