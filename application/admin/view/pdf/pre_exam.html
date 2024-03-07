@@ -1,0 +1,17 @@
+
+<form id="pre-exam" class="form-horizontal" data-toggle="validator" role="form" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">体检日期</label>
+        <div class="col-xs-12 col-sm-3">
+            <input data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="exam_date" type="text" value="">
+        </div>
+        <label class="control-label col-xs-12 col-sm-2">报名日期</label>
+        <div class="col-xs-12 col-sm-3">
+            <input data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="report_date" type="text" value="" >
+        </div>
+    </div>
+    <div class="form-group" id="make" style="margin-top: 20px;text-align: center">
+        <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+        <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+    </div>
+</form>

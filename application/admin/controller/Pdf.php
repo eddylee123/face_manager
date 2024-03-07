@@ -6,6 +6,7 @@ namespace app\admin\controller;
 
 use app\common\controller\Backend;
 use Mpdf\Mpdf;
+use think\Config;
 
 class Pdf extends Backend
 {
@@ -116,6 +117,50 @@ class Pdf extends Backend
 
         $this->assign('list', $list);
         return $this->view->fetch('multi');
+    }
+
+    public function preExam()
+    {
+        $nid = $this->request->param('nid', '');
+
+        if ($this->request->isPost()) {
+            $exam_date = $this->request->post("exam_date/s", '');
+            $report_date = $this->request->post("report_date/s", '');
+            if (empty($exam_date) || empty($report_date)) {
+                $this->error('请选择打印时间');
+            }
+
+            $this->redirect('pdf/multiExam',compact('nid','exam_date','report_date'));
+        }
+
+        return $this->view->fetch();
+    }
+
+    public function multiExam()
+    {
+        $nid = $this->request->param('nid', '');
+        if (empty($nid)) $this->error('操作记录不能为空');
+        $exam_date = $this->request->param("exam_date/s", '');
+        $report_date = $this->request->param("report_date/s", '');
+
+        $idArr = explode(',', $nid);
+        $listA = $this->empModel->whereIn('id', $idArr)->column('emp_name');
+        if (!$listA) $this->error('员工信息异常', $_SERVER['HTTP_REFERER']);
+
+        $content = Config::get('site.exam_doc06');
+        if (empty($content)) {
+            $this->error('打印模板异常');
+        }
+        $list = [];
+        $examStr = date('Y年m月d日', strtotime($exam_date));
+        $reportStr = date('Y年m月d日', strtotime($report_date));
+        $thisStr = date('Y年m月d日');
+        foreach ($listA as $name=>$v) {
+            $list[] = sprintf($content, $name, $examStr, $reportStr, $thisStr);
+        }
+
+        $this->assign('list', $list);
+        return $this->view->fetch('multi_exam');
     }
 
 }

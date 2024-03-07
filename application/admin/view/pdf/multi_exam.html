@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>体检、入职通知单</title>
+</head>
+<style type="text/css">
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+    section {
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+</style>
+<body>
+{foreach $list as $row}
+<section>
+    {$row}
+</section>
+{/foreach}
+
+<div class="form-group" id="make" style="margin-top: 20px;text-align: center">
+    <button type="button" class="btn btn-danger" onclick="generatePDF()">打印</button>
+</div>
+</body>
+<script type="text/javascript">
+    // javascript
+    function generatePDF() {
+        window.print();
+        return false;
+    }
+    window.onbeforeprint = function() {
+        document.getElementById("make").style.display = "none";
+        document.getElementsByTagName("header")[0].style.display = "none";
+        document.getElementsByTagName("footer")[0].style.display = "none";
+    }
+
+    window.onafterprint = function() {
+        document.getElementById("make").style.display = "block";
+        document.getElementsByTagName("header")[0].style.display = "block";
+        document.getElementsByTagName("footer")[0].style.display = "block";
+    }
+</script>
+</html>

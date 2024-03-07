@@ -209,6 +209,19 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             {area:["100%", "100%"]
                             });
                     });
+                    //体检通知单
+                    $('.pdf-exam').unbind('click').click(function(){
+                        var ids = Table.api.selectedids(table);//获取选中列的id
+                        if(ids.length==0){
+                            Toastr.error("最少选择一条记录操作");
+                            return false;
+                        }
+                        Fast.api.open(
+                            'pdf/preExam?nid='+ids.join(','),
+                            '确认通知单时间',
+                            {area:["100%", "100%"]
+                            });
+                    });
                 }
             });
             //体检导入
