@@ -104,7 +104,7 @@ class Kww
      */
     public static function logout($go)
     {
-        $goStr = urlencode(self::kww().$go);
+        $goStr = urlencode(self::kww()."/".$go);
         $urlPar = urlencode(self::kww()."/api");
         $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
 
