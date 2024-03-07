@@ -41,7 +41,7 @@ trait Jump
         } elseif ('' !== $url && !strpos($url, '://') && 0 !== strpos($url, '/')) {
             $url = Url::build($url);
         } else {
-            $url = '/admin123.php/index/index';
+            $url = '/index/index';
         }
 
         $type = $this->getResponseType();

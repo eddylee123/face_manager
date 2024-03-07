@@ -46,7 +46,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                         //弹窗大小
                                         extend:' target="_blank"',
                                         url: function (row){
-                                            return "/admin123.php/employee/detail?from=notice&ids="+row.link_id;
+                                            return "/employee/detail?from=notice&ids="+row.link_id;
                                         }
                                     },
                                 ], operate:false, formatter: Table.api.formatter.buttons
