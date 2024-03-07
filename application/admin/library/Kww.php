@@ -54,7 +54,7 @@ class Kww
         $url = self::kww()."/api/noauth/login";
         $body = [
             "url" =>  self::kww()."/api",
-            "go" => self::kww()."/admin123.php/index/login2",
+            "go" => self::kww()."/index/login2",
         ];
 
         $rs = curl_request($url, 'POST', $body);
@@ -104,7 +104,7 @@ class Kww
      */
     public static function logout($go)
     {
-        $goStr = urlencode(self::kww()."/admin123.php/$go");
+        $goStr = urlencode(self::kww().$go);
         $urlPar = urlencode(self::kww()."/api");
         $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
 
