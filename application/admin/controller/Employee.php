@@ -3,7 +3,6 @@
 namespace app\admin\controller;
 
 use app\admin\library\Kww;
-use app\admin\library\Ysl;
 use app\admin\model\AdminLog;
 use app\admin\model\EmpImg;
 use app\admin\model\EmpRole;
@@ -14,7 +13,6 @@ use fast\Arr;
 use think\Env;
 use think\Exception;
 use think\Session;
-use function fast\e;
 
 /**
  * 员工基础信息管理
@@ -55,10 +53,6 @@ class Employee extends Backend
      */
     protected $noticeModel = null;
 
-    /**
-     * @var Ysl
-     */
-    protected $ysl = null;
 
     protected $admin;
     protected $cs_list = [];
@@ -68,7 +62,6 @@ class Employee extends Backend
     {
         parent::_initialize();
 
-        $this->ysl = new Ysl();
         $this->model = new \app\admin\model\Employee;
         $this->empImgModel = new EmpImg();
         $this->empRoleModel = new EmpRole();

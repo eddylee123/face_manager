@@ -218,7 +218,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         }
                         Fast.api.open(
                             'pdf/preExam?nid='+ids.join(','),
-                            '确认通知单时间',
+                            '通知时间确认',
                             {area:["100%", "100%"]
                             });
                     });
