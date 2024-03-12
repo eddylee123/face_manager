@@ -7,6 +7,7 @@ namespace app\admin\library;
 use app\cache\BaseCache;
 use fast\Http;
 use think\Cookie;
+use think\Env;
 use think\Request;
 use traits\controller\Jump;
 
@@ -308,7 +309,11 @@ class Kww
      */
     public static function getTmpNo($orgId)
     {
-        $url = "http://10.254.30.43:8085/emp/tmpNo?baseNo=$orgId";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.43:8085/emp/tmpNo?baseNo=$orgId";
+        } else {
+            $url = "http://10.254.30.36:8085/emp/tmpNo?baseNo=$orgId";
+        }
         $rs = Http::get($url);
 
         $tmpNo = '';
