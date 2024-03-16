@@ -194,6 +194,7 @@ class Employ extends Backend
                 $error++;
             }
         }
+        unlink($filePath);
 
         $this->success(sprintf("本次上传共%d条，成功%d条，失败%d条", $all, $success, $error),'', ['err_num'=>$error,'time'=>$time]);
     }
