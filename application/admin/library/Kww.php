@@ -52,7 +52,12 @@ class Kww
      */
     public static function login()
     {
-        $url = self::kww()."/api/noauth/login";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/noauth/login";
+        } else {
+            $url = self::kww()."/api/noauth/login";
+        }
+
         $body = [
             "url" =>  self::kww()."/api",
             "go" => self::kww()."/index/login2",
@@ -74,7 +79,11 @@ class Kww
         //token缓存
         Cookie::forever(BaseCache::kww_token, $tokenId);
 
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "user.self.info",
             "version" => "1.0.0",
@@ -107,7 +116,11 @@ class Kww
     {
         $goStr = urlencode(self::kww()."/".$go);
         $urlPar = urlencode(self::kww()."/api");
-        $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/logout?go=$goStr&url=$urlPar";
+        } else {
+            $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
+        }
 
         header("Location: ".$url);
 
@@ -124,7 +137,12 @@ class Kww
     public static function uploadFile($appId, $file)
     {
         $header = self::header();
-        $url = self::kww()."/api/m/buckets/app/{$appId}/objects";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/m/buckets/app/{$appId}/objects";
+        } else {
+            $url = self::kww()."/api/m/buckets/app/{$appId}/objects";
+        }
+
         $body = [
             "file" => file_get_contents($file),
         ];
@@ -153,7 +171,11 @@ class Kww
     public static function uploadFace($empId, $name, $photo1, $photo1Type, $photo2='', $photo2Type='jpg')
     {
         $header = self::header();
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "face.face.upload",
             "version" => "1.0.0",
@@ -192,7 +214,11 @@ class Kww
     public static function userList($param=[])
     {
         $header = self::header();
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "employee.info.page",
             "version" => "1.0.0",
@@ -221,7 +247,11 @@ class Kww
     public static function userInfo($empNum)
     {
         $header = self::header();
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "employee.info.get",
             "version" => "1.0.0",
@@ -252,7 +282,11 @@ class Kww
     public static function modify($param)
     {
         $header = self::header();
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "employee.info.save",
             "version" => "1.0.0",
@@ -279,7 +313,11 @@ class Kww
     public static function orgList($pid=0)
     {
         $header = self::header();
-        $url = self::kww()."/api/w/dispatch";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/w/dispatch";
+        } else {
+            $url = self::kww() . "/api/w/dispatch";
+        }
         $body = [
             "service" => "employee.org.list",
             "version" => "1.0.0",
