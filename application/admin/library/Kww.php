@@ -52,7 +52,12 @@ class Kww
      */
     public static function login()
     {
-        $url = self::kww()."/api/noauth/login";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/noauth/login";
+        } else {
+            $url = self::kww()."/api/noauth/login";
+        }
+
         $body = [
             "url" =>  self::kww()."/api",
             "go" => self::kww()."/admin123.php/index/login2",
@@ -111,7 +116,11 @@ class Kww
     {
         $goStr = urlencode(self::kww()."/admin123.php/$go");
         $urlPar = urlencode(self::kww()."/api");
-        $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.50:8080/logout?go=$goStr&url=$urlPar";
+        } else {
+            $url = self::kww()."/api/logout?go=$goStr&url=$urlPar";
+        }
 
         header("Location: ".$url);
 
