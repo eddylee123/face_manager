@@ -30,6 +30,15 @@ class Refuse extends Backend
         $this->admin = Session::get('admin');
         $this->model = new \app\admin\model\Employee;
         $this->empExamModel = new \app\admin\model\EmpExam();
+
+        $this->view->assign("sexList", $this->model->getSexList());
+        $this->view->assign("empSourceList", $this->model->getEmpSourceList());
+        $this->view->assign("marryList", $this->model->getMarryList());
+        $this->view->assign("armyList", $this->model->getArmyList());
+        $this->view->assign("transList", $this->model->getTransList());
+        $this->view->assign("eduList", $this->model->getEduList());
+        $this->view->assign("folkList", $this->model->getFolkList());
+        $this->view->assign("statusList", $this->model->getStatusList());
     }
 
     /**
