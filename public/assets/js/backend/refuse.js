@@ -54,19 +54,17 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                 }
                             ], operate:false, formatter: Table.api.formatter.buttons
                         },
-                        {field: 'emp_id', title: __('Emp_id'), operate: 'LIKE'},
                         {field: 'emp_id_2', title: __('Emp_id_2'), operate: 'LIKE'},
-                        {field: 'status', title: __('Status'),searchList: Config.status_list, formatter: Table.api.formatter.status},
+                        {field: 'status', title: __('Status'),searchList: Config.status_list, formatter: Table.api.formatter.status, operate: false},
                         {field: 'emp_name', title: __('Emp_name'), operate: 'LIKE'},
                         {field: 'sex', title: __('Sex'), searchList: {"男":__('男'),"女":__('女')}, formatter: Table.api.formatter.normal},
                         {field: 'education', title: __('Education'), operate: false},
                         {field: 'id_card', title: __('Id_card')},
                         {field: 'emp_source', title: __('Emp_source'), searchList: Config.source_list, formatter: Table.api.formatter.normal},
-                        {field: 'tel', title: __('Tel')},
+                        {field: 'tel', title: __('Tel'), operate: false},
                         {field: 'marry', title: __('Marry'), searchList: Config.marry_list, formatter: Table.api.formatter.normal},
                         {field: 'age', title: __('Age'), operate: false},
                         {field: 'come_date', title: __('Come_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
-                        {field: 'kq_date', title: __('Kq_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'exam_time', title: '体检时间', operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime,visible:false},
                         {field: 'address', title: '身份证地址',operate: false},
                     ]

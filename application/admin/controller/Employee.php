@@ -137,10 +137,12 @@ class Employee extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $total = $this->model
                 ->where('status', 'egt' , 0)
+                ->where('status', '<>' , 21)
                 ->where($where)
                 ->count();
             $list = $this->model
                 ->where('status', 'egt' , 0)
+                ->where('status', '<>' , 21)
                 ->where($where)
                 ->order($sort, $order)
                 ->limit($offset, $limit)
@@ -150,10 +152,13 @@ class Employee extends Backend
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
+        //排除体检未通过筛选
+        $statusList = $this->model->getStatusList();
+        unset($statusList['21']);
 
         $this->assignconfig("sex_list", $this->model->getSexList());
-        $this->assignconfig("marry_list", $this->model->getMarryList());
-        $this->assignconfig("status_list", $this->model->getStatusList());
+        $this->assignconfig("marry_list", array_filter($this->model->getMarryList()));
+        $this->assignconfig("status_list", $statusList);
         $this->assignconfig("source_list", $this->model->getEmpSourceList());
         return $this->view->fetch();
     }
