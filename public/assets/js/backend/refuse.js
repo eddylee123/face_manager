@@ -6,6 +6,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.init({
                 extend: {
                     index_url: 'refuse/index' + location.search,
+                    // add_url: 'refuse/add',
+                    // edit_url: 'refuse/edit',
+                    // del_url: 'refuse/del',
+                    // multi_url: 'refuse/multi',
+                    // import_url: 'refuse/import',
                     table: 'refuse',
                 }
             });
@@ -17,7 +22,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'id',
                 sortName: 'id',
-                sortOrder: 'asc',
                 searchFormVisible:true,
                 showToggle:false,
                 showColumns:false,
@@ -73,33 +77,23 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         $('.dropdown-menu li[data-type="excel"]').trigger('click');
                     });
                     $('#ctime').attr('autocomplete','off');
-                    //导出
-                    $('#btn-export-table').unbind('click').click(function(){
-                        var source = $("select[name='emp_source']").val();
-                        if (source.length == 0) {
-                            Toastr.error('请选择员工类型');
-                            return false;
-                        }
-
-                        var jsonData = JSON.stringify($('form').serializeArray());
-                        // console.log();return;
-
-                        var url = "/employ/export?filter="+btoa(encodeURI(jsonData));
-                        window.open(url, '_blank');
-                    });
-
                 }
             });
 
             // 为表格绑定事件
             Table.api.bindevent(table);
         },
+        // add: function () {
+        //     Controller.api.bindevent();
+        // },
+        // edit: function () {
+        //     Controller.api.bindevent();
+        // },
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
             }
-        },
-
+        }
     };
     return Controller;
 });
