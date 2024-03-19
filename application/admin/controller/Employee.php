@@ -58,6 +58,13 @@ class Employee extends Backend
     protected $cs_list = [];
     protected $kq_list = [];
 
+    protected $stepList = [
+        '1' => '待拍照',
+        '2' => '待体检',
+        '3' => '待报道',
+        '4' => '正常',
+    ];
+
     public function _initialize()
     {
         parent::_initialize();
@@ -153,12 +160,10 @@ class Employee extends Backend
             return json($result);
         }
         //排除体检未通过筛选
-        $statusList = $this->model->getStatusList();
-        unset($statusList['21']);
 
         $this->assignconfig("sex_list", $this->model->getSexList());
         $this->assignconfig("marry_list", array_filter($this->model->getMarryList()));
-        $this->assignconfig("status_list", $statusList);
+        $this->assignconfig("status_list", $this->model->getStatusList());
         $this->assignconfig("source_list", $this->model->getEmpSourceList());
         return $this->view->fetch();
     }
@@ -655,7 +660,11 @@ class Employee extends Backend
         //部门编码
         $dept = $this->model->getDept($this->admin['org_id']);
         $deptList = $dept['Data'] ?? [];
+        //进度处理
+        $step = $row['status'] == 21 ? 2 : $row['status'];
 
+        $this->view->assign("stepList", $this->stepList);
+        $this->view->assign("step", $step);
         $this->view->assign("deptList", $deptList);
         $this->view->assign("row", $row);
         $this->view->assign("img", $img);
@@ -726,12 +735,6 @@ class Employee extends Backend
             ];
         }
         //进度处理
-        $stepList = [
-            '1' => '待拍照',
-            '2' => '待体检',
-            '3' => '待报道',
-            '4' => '正常',
-        ];
         $step = $row['status'] == 21 ? 2 : $row['status'];
         $index = $this->request->baseFile().'/employee?ref=addtabs';
         //部门编码
@@ -739,7 +742,7 @@ class Employee extends Backend
         $deptList = $dept['Data'] ?? [];
 
         $this->view->assign("deptList", $deptList);
-        $this->view->assign("stepList", $stepList);
+        $this->view->assign("stepList", $this->stepList);
         $this->view->assign("step", $step);
         $this->view->assign("index", $index);
         $this->view->assign("row", $row);
