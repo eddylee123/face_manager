@@ -225,7 +225,9 @@ class Backend extends Controller
         //渲染权限对象
         $this->assign('auth', $this->auth);
         //渲染管理员对象
-        $this->assign('admin', Session::get('admin'));
+        $admin = Session::get('admin');
+        empty($admin['org']) && $admin['org'] = '';
+        $this->assign('admin', $admin);
     }
 
     /**
