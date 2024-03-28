@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\library\DormMq;
 use app\admin\model\Admin;
 use app\common\controller\Backend;
 use think\Session;
@@ -103,5 +104,11 @@ class Notice extends Backend
             $this->success('操作成功');
         }
         $this->error('操作成功');
+    }
+
+    public function testmq()
+    {
+        $rs = DormMq::producer(['msg'=>'hello']);
+        var_dump($rs);exit;
     }
 }
