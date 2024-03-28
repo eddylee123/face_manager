@@ -2,6 +2,7 @@
 
 namespace app\admin\model;
 
+use app\admin\library\DormMq;
 use app\admin\library\Kww;
 use think\Model;
 
@@ -132,9 +133,17 @@ class Manager extends Model
         ];
 
         $base['other'] = $this->postOtherField($other);
-//echo '<pre>';print_r($base);exit();
+
         $rs = Kww::modify($base);
         if ($rs['success'] == true) {
+            //住宿队列通知
+            if ($info['transport'] == '住宿') {
+                DormMq::producer([
+                    'emp_id' => $info['emp_id'],
+                    'emp_name' => $info['emp_name'],
+                    'kq_date' => $info['kq_date'],
+                ]);
+            }
             return true;
         }
         return false;

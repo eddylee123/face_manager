@@ -27,7 +27,7 @@ class DormMq
     public static function producer(array $data)
     {
         $body = json_encode($data);
-        $producer = new  Producer(self::instance);
+        $producer = new Producer(self::instance);
         $producer->setInstanceName(self::instance);
         $producer->setNamesrvAddr(self::nameserver);
         $producer->start();

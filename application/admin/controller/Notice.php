@@ -106,9 +106,4 @@ class Notice extends Backend
         $this->error('操作成功');
     }
 
-    public function testmq()
-    {
-        $rs = DormMq::producer(['msg'=>'hello']);
-        var_dump($rs);exit;
-    }
 }
