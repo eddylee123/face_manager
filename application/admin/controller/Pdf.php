@@ -97,7 +97,12 @@ class Pdf extends Backend
             if(!empty($v['family_member'])) {
                 $family_arr = json_decode($v['family_member'], true);
                 if (!empty(reset($family_arr))) {
-                    $v['family_member_arr'] = $family_arr;
+                    $v['family_member_arr'] = array_map(function ($item){
+                        if (empty($item['relation'])) {
+                            $item['relation'] = '其他';
+                        }
+                        return $item;
+                    },$family_arr);
                 }
                 $family_num = count($v['family_member_arr']);
                 for ($i=0; $i<(3-$family_num); $i++) {
