@@ -99,7 +99,7 @@ class Pdf extends Backend
                 if (!empty(reset($family_arr))) {
                     $v['family_member_arr'] = array_map(function ($item){
                         if (empty($item['relation'])) {
-                            $item['relation'] = '其他';
+                            $item['relation'] = '';
                         }
                         return $item;
                     },$family_arr);
