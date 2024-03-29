@@ -191,15 +191,39 @@
             <td colspan="10" class="td-mid">健康状况</td>
         </tr>
         <tr>
-            <td colspan="6" class="td-2">是否有重大疾病/手术史:</td>
-            <td colspan="4" class="td-2">
+            <td colspan="4.5" class="td-2">是否有重大疾病/手术史:</td>
+            <td colspan="2" class="td-2 td-3">
                 {:Form::checkboxs('row[disease_serious]', $check_list, null)}
+            </td>
+            <td colspan="3.5" class="td-2">
+                疾病/手术类别：_________
             </td>
         </tr>
         <tr>
-            <td colspan="6" class="td-2">是否曾经被认定为工伤或职业病或持有残疾人证明:</td>
-            <td colspan="4" class="td-2">
+            <td colspan="4.5" class="td-2">是否曾经被认定为工伤或职业病或持有残疾人证明:</td>
+            <td colspan="2" class="td-2 td-3">
                 {:Form::checkboxs('row[disease]', $check_list, null)}
+            </td>
+            <td colspan="3.5" class="td-2">
+                伤残等级：______ 职业病种类：________
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4.5" class="td-2">是否为退伍军人:</td>
+            <td colspan="2" class="td-2 td-3">
+                {:Form::checkboxs('row[disease]', $check_list, null)}
+            </td>
+            <td colspan="3.5" class="td-2">
+                退伍证编号：_________
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4.5" class="td-2">是否为贫困户:</td>
+            <td colspan="2" class="td-2 td-3">
+                {:Form::checkboxs('row[disease]', $check_list, null)}
+            </td>
+            <td colspan="3.5" class="td-2">
+                贫困证编号：_________
             </td>
         </tr>
         <tr>
