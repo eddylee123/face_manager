@@ -105,7 +105,7 @@ class Pdf extends Backend
                     },$family_arr);
                 }
                 $family_num = count($v['family_member_arr']);
-                for ($i=0; $i<(3-$family_num); $i++) {
+                for ($i=0; $i<(2-$family_num); $i++) {
                     array_push($v['family_member_arr'], [
                         'name' => '&nbsp;',
                         'relation' => '&nbsp;',
