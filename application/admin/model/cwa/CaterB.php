@@ -22,15 +22,15 @@ class CaterB extends Model
         '星期天' => '星期天',
     ];
 
-    public function getList($start_date,$end_date,$org_id,$params=[],$offset=0,$limit=999)
+    public function getList($org_id,$params=[],$offset=0,$limit=999)
     {
         $date = date("Y-m-d");
         $query = "SELECT * FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}' AND [日期] < '{$date}'";
-        if (!empty($start_date)) {
-            $query .= " AND [日期] >= '{$start_date}'";
+        if (!empty($params['start_time'])) {
+            $query .= " AND [日期] >= '{$params['start_time']}'";
         }
-        if (!empty($end_date)) {
-            $query .= " AND [日期] <= '{$end_date}'";
+        if (!empty($params['end_time'])) {
+            $query .= " AND [日期] <= '{$params['end_time']}'";
         }
         if (!empty($params['星期'])) {
             $query .= " AND [星期] = '{$params['星期']}'";
@@ -42,15 +42,15 @@ class CaterB extends Model
         return $rs;
     }
 
-    public function countList($start_date,$end_date,$org_id,$params=[])
+    public function countList($org_id,$params=[])
     {
         $date = date("Y-m-d");
         $query = "SELECT count(*) total FROM [dbo].[tmp_caterlistB] WHERE [org_ID] = '{$org_id}' AND [日期] < '{$date}'";
-        if (!empty($start_date)) {
-            $query .= " AND [日期] >= '{$start_date}'";
+        if (!empty($params['start_time'])) {
+            $query .= " AND [日期] >= '{$params['start_time']}'";
         }
-        if (!empty($end_date)) {
-            $query .= " AND [日期] <= '{$end_date}'";
+        if (!empty($params['end_time'])) {
+            $query .= " AND [日期] <= '{$params['end_time']}'";
         }
         if (!empty($params['星期'])) {
             $query .= " AND [星期] = '{$params['星期']}'";
@@ -98,11 +98,11 @@ class CaterB extends Model
     {
         $query = "SELECT COUNT(*) total FROM View_XFALL_2024 WHERE [基地代码] = '{$org_id}'";
 
-        if (!empty($params['start'])) {
-            $query .= " AND [打卡时间] >= '{$params['start']}'";
+        if (!empty($params['start_time'])) {
+            $query .= " AND [打卡时间] >= '{$params['start_time']}'";
         }
-        if (!empty($params['end'])) {
-            $query .= " AND [打卡时间] <= '{$params['end']}'";
+        if (!empty($params['end_time'])) {
+            $query .= " AND [打卡时间] <= '{$params['end_time']}'";
         }
         if (!empty($params['工号'])) {
             $query .= " and [工号]='{$params['工号']}'";

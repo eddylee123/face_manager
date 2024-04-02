@@ -39,15 +39,15 @@ class CaterB extends Backend
             $limit = $this->request->get("limit/d", 999);
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
-            $start = $end = '';
+
             if (!empty($filter_arr['日期'])) {
                 [$start, $end] = explode(' - ', $filter_arr['日期']);
-                $start = date('Y-m-d', strtotime($start));
-                $end = date('Y-m-d', strtotime($end));
+                $filter_arr['start_time'] = date('Y-m-d', strtotime($start));
+                $filter_arr['end_time'] = date('Y-m-d', strtotime($end));
             }
-            $total = $this->model->countList($start,$end,$this->admin['org_id'],$filter_arr);
+            $total = $this->model->countList($this->admin['org_id'],$filter_arr);
 
-            $list = $this->model->getList($start,$end,$this->admin['org_id'],$filter_arr,$offset,$limit);
+            $list = $this->model->getList($this->admin['org_id'],$filter_arr,$offset,$limit);
             $result = array("total" => $total, "rows" => $list);
             return json($result);
         }
@@ -76,8 +76,8 @@ class CaterB extends Backend
 
             if (!empty($filter_arr['打卡时间'])) {
                 [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
-                $filter_arr['start'] = date('Y-m-d', strtotime($start));
-                $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
+                $filter_arr['start_time'] = date('Y-m-d', strtotime($start));
+                $filter_arr['end_time'] = date('Y-m-d 23:59:59', strtotime($end));
             }
 
             $total = $this->model->countDetail($this->admin['org_id'],$filter_arr);
@@ -111,8 +111,8 @@ class CaterB extends Backend
             $filter = $this->request->request('filter');
 
             $filter_arr = json_decode($filter , true);
-            $filter_arr['start'] = date('Y-m-d', strtotime($date));
-            $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($date));
+            $filter_arr['start_time'] = date('Y-m-d', strtotime($date));
+            $filter_arr['end_time'] = date('Y-m-d 23:59:59', strtotime($date));
             $filter_arr['食堂'] = $area;
 
             $total = $this->model->countDetail($this->admin['org_id'],$filter_arr);
@@ -150,8 +150,8 @@ class CaterB extends Backend
 
             if (!empty($filter_arr['打卡时间'])) {
                 [$start, $end] = explode(' - ', $filter_arr['打卡时间']);
-                $filter_arr['start'] = date('Y-m-d', strtotime($start));
-                $filter_arr['end'] = date('Y-m-d 23:59:59', strtotime($end));
+                $filter_arr['start_time'] = date('Y-m-d', strtotime($start));
+                $filter_arr['end_time'] = date('Y-m-d 23:59:59', strtotime($end));
             }
             $filter_arr['工号'] = $empNum;
 
