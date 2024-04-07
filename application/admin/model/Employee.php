@@ -32,9 +32,9 @@ class Employee extends Model
         'sex_text',
         'emp_source_text',
         'marry_text',
-        'create_time_text',
-        'update_time_text',
-        'delete_time_text'
+//        'create_time_text',
+//        'update_time_text',
+//        'delete_time_text'
     ];
     
 
