@@ -145,10 +145,11 @@ class Manager extends Backend
                 $currentPage = 1;
             }
             $orgId = '10';
+            $empSeqId = 1;
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
 
-            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId'));
+            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId','empSeqId'));
             $list = Kww::userList($param);
             if(!empty($list['records'])) {
                 foreach ($list['records'] as &$v) {
@@ -171,7 +172,7 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $row = Kww::userInfo($empNum);
-        echo '<pre>';print_r($row);exit;
+//        echo '<pre>';print_r($row);exit;
         if (!$row){
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
@@ -188,6 +189,7 @@ class Manager extends Backend
                 $params = array_merge($params, [
                     'id' => $row['id'],
                     'empNum' => $row['empNum'],
+                    'empSeqId' => 1, //一线
                 ]);
                 if (!empty($params['hireDate'])) {
                     $params['hireDate'] = strtotime($params['hireDate']) * 1000;
