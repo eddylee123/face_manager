@@ -187,6 +187,7 @@ class Manager extends Backend
 //                $params['other'] = Handle::toFiled($row['other'], $params['other']);
                 $params = array_merge($params, [
                     'id' => $row['id'],
+                    'empNum' => $row['empNum'],
                 ]);
                 if (!empty($params['hireDate'])) {
                     $params['hireDate'] = strtotime($params['hireDate']) * 1000;
