@@ -185,7 +185,7 @@ class Manager extends Backend
                 if (!$result) {
                     $this->error($validate->getError());
                 }
-                echo '<pre>';print_r($params['other']);exit;
+                echo '<pre>';print_r($row['other'],$params['other']);exit;
                 $params['other'] = Handle::toFiled($row['other'], $params['other']);
                 $params = array_merge($params, [
                     'id' => $row['id'],
