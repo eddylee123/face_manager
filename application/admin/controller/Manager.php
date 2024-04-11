@@ -195,7 +195,7 @@ class Manager extends Backend
                     $params['hireDate'] = strtotime($params['hireDate']) * 1000;
                 }
 
-                echo '<pre>';print_r($params['other']);exit;
+//                echo '<pre>';print_r($params['other']);exit;
                 $rs = Kww::modify($params);
                 if ($rs['success'] == true) {
                     $this->success('操作成功');
