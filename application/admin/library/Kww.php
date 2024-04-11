@@ -259,6 +259,7 @@ class Kww
                 "empNum" => $empNum
             ]
         ];
+        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);
 
