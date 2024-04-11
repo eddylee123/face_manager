@@ -149,6 +149,7 @@ class Manager extends Model
         return false;
     }
 
+
     private function getMarry($state)
     {
         $marry = '';

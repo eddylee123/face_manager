@@ -97,20 +97,24 @@ class Handle
         return $data;
     }
 
-    public static function toFiled($filedArr, $filedNew)
+    public static function toFiled($filedMap, $filedNew)
     {
-        foreach ($filedArr as &$v) {
+        $otherArr = [];
+        $filedArr = array_keys($filedMap);
+        foreach ($filedNew as $field=>$v) {
+            if (in_array($field, $filedArr)) {
+                if (!empty($filedMap[$field])) {
+                    $otherArr[] = [
+                        'fieldLabel' => $filedMap[$field],
+                        'fieldName' => $field,
+                        'fieldValue' => $v,
+                ];
+                }
 
-            if (empty($v['fieldName'])) {
-                continue;
             }
-            if (empty($filedNew[$v['fieldName']])) {
-                continue;
-            }
-            $v['fieldValue'] = $filedNew[$v['fieldName']];
         }
 
-        return $filedArr;
+        return $otherArr;
     }
 
 }
