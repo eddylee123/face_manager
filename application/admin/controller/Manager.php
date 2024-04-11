@@ -171,7 +171,7 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $row = Kww::userInfo($empNum);
-//        echo '<pre>';print_r($row);exit;
+        echo '<pre>';print_r($row);exit;
         if (!$row){
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
