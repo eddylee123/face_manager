@@ -102,6 +102,9 @@ class Handle
         $otherArr = [];
         $filedArr = array_keys($filedMap);
         foreach ($filedNew as $field=>$v) {
+            if (empty($v)) {
+                continue;
+            }
             if (in_array($field, $filedArr)) {
                 if (!empty($filedMap[$field])) {
                     $otherArr[] = [
