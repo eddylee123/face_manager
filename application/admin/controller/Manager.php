@@ -185,7 +185,7 @@ class Manager extends Backend
                 if (!$result) {
                     $this->error($validate->getError());
                 }
-//                $params['other'] = Handle::toFiled($row['other'], $params['other']);
+                $params['other'] = Handle::toFiled($row['other'], $params['other']);
                 $params = array_merge($params, [
                     'id' => $row['id'],
                     'empNum' => $row['empNum'],
@@ -194,6 +194,7 @@ class Manager extends Backend
                 if (!empty($params['hireDate'])) {
                     $params['hireDate'] = strtotime($params['hireDate']) * 1000;
                 }
+
 //                echo '<pre>';print_r($params);exit;
                 $rs = Kww::modify($params);
                 if ($rs['success'] == true) {
