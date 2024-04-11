@@ -293,7 +293,7 @@ class Kww
             "version" => "1.0.0",
             "data" => $param
         ];
-        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
+        var_dump(json_encode($body));exit;
 
         $rs = curl_request($url, 'POST', $body, $header);;
 
