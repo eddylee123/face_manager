@@ -4,37 +4,44 @@
 namespace app\admin\library;
 
 
-use RocketMQ\ConsumeFromWhere;
-use RocketMQ\Message;
-use RocketMQ\MessageModel;
+
 use RocketMQ\Producer;
-use RocketMQ\PushConsumer;
-use think\Log;
+use think\Env;
 
 class DormMq
 {
-    const nameserver = '10.254.50.51:9876';
     const instance = 'dorm-sys-checkin';
     const topic = 'checkin-notification';
+    const group = 'dorm-checkin';
     const tag = 'checkin';
 
+    public static function nameserver()
+    {
+        return Env::get('rocketmq.nameserver', '');
+    }
     /**
      * 消息发送
      * @param array $data
      * @return mixed
      * DateTime: 2024-03-28 11:45
      */
-    public static function producer(array $data)
+
+
+    function newProducer($group)
     {
-        $body = json_encode($data);
-        $producer = new Producer(self::instance);
-        $producer->setInstanceName(self::instance);
-        $producer->setNamesrvAddr(self::nameserver);
-        $producer->start();
+        $producer = new Producer($group);
+        $ret = $producer->setNameServerAddress("10.203.165.25:9876");
+        $producer->setGroupName($group);
+        $producer->setInstanceName($group);
+        if ($ret == 1) {
+            echo "error" . getLatestErrorMessage();
+        }
 
-        $message = new Message(self::topic, self::tag, $body);
-        $sendResult = $producer->send($message);
-
-        return $sendResult->getSendStatus();
+        $producer->setLogPath("/tmp/");
+        $ret = $producer->start();
+        if ($ret != 0) {
+            echo "start error" . getLatestErrorMessage() . "\n";
+        }
+        return $producer;
     }
 }
