@@ -42,6 +42,20 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     //弹窗大小
                                     extend: 'data-area=\'["100%","100%"]\'',
 
+                                },
+                                {
+                                    name: 'photo',
+                                    text:__('拍照'),
+                                    title: __('拍照'),
+                                    //图标
+                                    icon: 'fa fa-camera',
+                                    //btn-dialog表示为弹窗
+                                    classname: 'btn btn-xs btn-default btn-dialog',
+                                    //弹窗位置，//自带参数ids
+                                    url: 'manager/photo?empNum={row.empNum}&uname={row.name}',
+                                    //弹窗大小
+                                    extend: 'data-area=\'["100%","100%"]\'',
+
                                 }
                             ], operate:false, formatter: Table.api.formatter.buttons
                         },                        {field: 'empNum', title: __('EmpNum'), operate: 'LIKE'},

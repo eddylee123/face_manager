@@ -1,0 +1,246 @@
+
+<style>
+    html,body{position:relative;height:100%;}
+    .main { display: flex; flex-direction: row; justify-content:space-left;width:100%;min-height: 580px;padding-top: 20px;}
+    .canvas-cs{background-color:#eee;margin-left: 20px}
+    .btnBox { display:flex;align-items:center;justify-content:center; position: absolute; bottom: 0px; left: 0px; width: 100%; height: 60px; background-color: #eee; border-top: solid 1px #ddd; }
+    .nex{margin-left:20px;}
+    .video-group{width: 640px;text-align: center}
+    .canvas-group{float: left;height: 500px;padding-top: 20px;padding-left: 60px;}
+    .canvas-group1{float: left;width: 300px;text-align: center;margin-right: 20px;}
+    .border1{position: absolute;left: 190px;border: 2px solid yellow;z-index: 999;width: 300px;height: 480px;margin-top: -505px;}
+</style>
+
+<!--<div class="radio-sel">-->
+<!--    <input type="radio" name="flag" value="img_url" checked /> 照片1-->
+<!--    <input type="radio" name="flag" value="dis_img_url" /> 照片2-->
+<!--</div>-->
+
+<div class="main">
+
+    <div class="video-group">
+        <video id="video" autoplay style="width: 640px;height: 480px"></video>
+        <span>拍照区域（素颜、面部无遮挡）</span>
+        <div class="border1"></div>
+    </div>
+
+    <!--描绘video截图-->
+    <div class="canvas-group">
+        <div class="canvas-group1">
+            <canvas id="canvas" class="canvas-cs" width="300" height="460">
+                <img id="img1" src="">
+            </canvas>
+            <input type="radio" name="flag" value="img_url" checked /> 照片1
+        </div>
+        <div class="canvas-group1">
+            <canvas id="canvas2" class="canvas-cs" width="300" height="460">
+                <img id="img2" src="">
+            </canvas>
+            <input type="radio" name="flag" value="dis_img_url" /> 照片2
+        </div>
+    </div>
+</div>
+<div class="form-group layer-footer">
+    <div class="text-center btnBox">
+        <input id="empNum" type="hidden" name="empNum" value="{$empNum}">
+        <input id="uname" type="hidden" name="uname" value="{$uname}">
+        <button id="capture" class="btn btn-danger"><i class="fa fa-camera"></i> 拍照</button>
+        <button type="button" class="btn btn-out btn-embossed ok">确定</button>
+    </div>
+</div>
+
+<script src="/assets/js/index/jquery.min.js"></script>
+<script src="/assets/libs/jquery.cookie/jquery.cookie.js"></script>
+<script>
+    window.onload = function () {
+        //访问用户媒体设备的兼容方法
+        function getUserMedia(constraints, success, error) {
+            if (navigator.mediaDevices.getUserMedia) {
+                //最新的标准API
+                navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+            } else if (navigator.webkitGetUserMedia) {
+                //webkit核心浏览器
+                navigator.webkitGetUserMedia(constraints, success, error)
+            } else if (navigator.mozGetUserMedia) {
+                //firfox浏览器
+                navigator.mozGetUserMedia(constraints, success, error);
+            } else if (navigator.getUserMedia) {
+                //旧版API
+                navigator.getUserMedia(constraints, success, error);
+            }
+        }
+
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let canvas2 = document.getElementById('canvas2');
+        let context = canvas.getContext('2d');
+        let context2 = canvas2.getContext('2d');
+        let imgWidth = 640;
+        let imgHeight = 460;
+        //拍照翻转
+        // video.style.transform='scaleX(-1)';
+
+        function success(stream) {
+            //兼容webkit核心浏览器
+            //let CompatibleURL = window.URL || window.webkitURL;
+            //将视频流设置为video元素的源
+            // console.log(stream);
+            //video.src = CompatibleURL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+        }
+        function error(error) {
+            console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
+        }
+
+        if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                console.log("enumerateDevices() not supported.");
+                return;
+            }
+            // 列出摄像头和麦克风
+            var exArray = [];
+            navigator.mediaDevices.enumerateDevices()
+                .then(function (devices) {
+                    devices.forEach(function (device) {
+                        // console.log(device.kind + ": " + device.label +
+                        // " id = " + device.deviceId);
+                        if (device.kind == "videoinput") {
+                            // alert(device.label);
+                            exArray.push(device.deviceId);
+                        }
+                    });
+                    // var mediaOpts = { video: { width: 420, height: 120 } };
+                    var mediaOpts =
+                        {
+                            video:
+                                {
+                                    deviceId: { exact: exArray[1] }
+                                }
+                        };
+                    //调用用户媒体设备, 访问摄像头
+                    getUserMedia(mediaOpts, success, error);
+                })
+                .catch(function (err) {
+                    console.log(err.name + ": " + err.message);
+                });
+
+        } else {
+            alert('不支持访问用户媒体');
+        }
+        //默认照片
+        var img1 = document.getElementById("img1");
+        var img2 = document.getElementById("img2");
+        context.drawImage(img1, 0, 0, 300, imgHeight);
+        context2.drawImage(img2, 0, 0, 300, imgHeight);
+        var empNum = $('#empNum').val();
+        var token = $.cookie('KWW_TOKEN');
+        var imgFile1 = '';
+        var imgFile2 = '';
+
+        $('#capture').click(function () {
+            var flag = $("input[name='flag']:checked").val();
+
+            var image = new Image();
+            if (flag === 'dis_img_url') {
+                context2.drawImage(video, -imgWidth/4, 0, imgWidth, imgHeight);
+                image.src = canvas2.toDataURL('image/jpeg');
+            } else {
+                context.drawImage(video, -imgWidth/4, 0, imgWidth, imgHeight);
+                image.src = canvas.toDataURL('image/jpeg');
+            }
+
+            return uploadImg(image.src, flag, empNum);
+        })
+
+        function uploadImg(photo, flag, empNum) {
+            var picFile = dataURLtoFile(photo, "picFile");
+
+            var pid = empNum;
+            if (flag === 'dis_img_url') {
+                pid = empNum+'A';
+            }
+
+            // 创建FromData()并赋值
+            var formFile = new FormData();
+            // ***注意此处为附件数据
+            formFile.append("file", picFile);
+
+            $.ajax({
+                url: "/api/m/buckets/app/"+pid+"/objects",
+                type: 'POST',
+                headers: {
+                    Tokenid : token
+                },
+                data: formFile,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (ret) {
+                    // console.log(ret);
+                    if (ret.hasOwnProperty("success")) {
+                        if (ret.success == true) {
+                            if (flag === 'dis_img_url') {
+                                imgFile2 = ret.data;
+                            } else {
+                                imgFile1 = ret.data;
+                            }
+                            return true;
+                        } else {
+                            var msg = ret.hasOwnProperty("errorMessage") && ret.errorMessage != "" ? ret.errorMessage : "";
+                            Toastr.error(msg);
+                            if (ret.errorCode == "A1010000") {
+                                setTimeout(function () {
+                                    parent.location.href = base_file + "/index/logout";
+                                }, 1000);
+                            }
+                        }
+                    } else {
+                        Toastr.error(__('Unknown data format'));
+                    }
+                }, error: function () {
+                    Toastr.error(__('系统异常，请稍后再试'));
+                }
+            });
+        }
+
+        //确定
+        $(".ok").click(function () {
+            var uname = $('#uname').val();
+            $.post(
+                base_file+'/manager/uploadImg',
+                {"img_url": imgFile1, "dis_img_url": imgFile2, "empNum": empNum,"uname":uname},
+                function (ret) {
+                    console.log(ret);
+                    if (ret.code === 1) {
+                        Toastr.success(ret.msg);
+                        setTimeout(function(){
+                            parent.location.reload();
+                        }, 2000);
+                    } else {
+                        Toastr.error(ret.msg);
+                    }
+                }
+            );
+        });
+
+        $(".canvas-group1").click(function () {
+            $(this).find('input[type=radio]').prop('checked', true);
+        });
+    }
+
+    //将base64转换为文件
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
+</script>
+</body>
+</html>

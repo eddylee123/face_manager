@@ -399,7 +399,7 @@ class Employee extends Backend
             $rs = $this->empImgModel->save($data);
         }
         if ($rs === false) {
-            $this->error('上传成功');
+            $this->error('上传失败');
         }
         //更新操作步骤
         $emp_info = $this->model->where(['emp_id_2'=>$emp2,'status'=>1])->find();

@@ -28,6 +28,22 @@ class Kww
         'LEAVE'=>'离职'
     ];
 
+    const orgMap = [
+        '01' => '5',
+        '02' => '6',
+        '03' => '7',
+        '04' => '8',
+        '05' => '9',
+        '06' => '10',
+        '07' => '11',
+        '08' => '12',
+        '09' => '13',
+        '10' => '15',
+        '11' => '16',
+        '12' => '17',
+        '13' => '14',
+    ];
+
     public static function kww()
     {
         return Request::instance()->domain();
@@ -194,7 +210,7 @@ class Kww
         }
 //        var_dump(json_encode($body,JSON_UNESCAPED_UNICODE));exit;
 
-        $rs = curl_request($url, 'POST', $body, $header);;
+        $rs = curl_request($url, 'POST', $body, $header);
 
         $data = [];
         if ($rs) {
@@ -217,7 +233,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.50:8080/w/dispatch";
         } else {
-            $url = self::kww() . "/api/w/dispatch";
+            $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
         $body = [
             "service" => "employee.info.page",
@@ -250,7 +266,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.50:8080/w/dispatch";
         } else {
-            $url = self::kww() . "/api/w/dispatch";
+            $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
         $body = [
             "service" => "employee.info.get",
@@ -286,7 +302,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.50:8080/w/dispatch";
         } else {
-            $url = self::kww() . "/api/w/dispatch";
+            $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
         $body = [
             "service" => "employee.info.save",
