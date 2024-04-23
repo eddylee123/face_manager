@@ -35,7 +35,8 @@
                     success: function (ret) {
                         // console.log(ret);return;
                         if (ret.code === 1) {
-                            sessionStorage.setItem('device', ret.data.device);
+                            // sessionStorage.setItem('device', ret.data.device);
+                            localStorage.setItem('device', ret.data.device);
                             Toastr.success('操作成功');
                             Fast.api.close();
                             parent.location.reload();
