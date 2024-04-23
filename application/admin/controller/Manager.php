@@ -310,8 +310,11 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $uname = $this->request->get("uname/s", '');
+        $photo = $this->empModel->empPhoto($empNum);
+
         $this->view->assign('empNum', $empNum);
         $this->view->assign('uname', $uname);
+        $this->view->assign('photo', $photo);
         return $this->view->fetch();
     }
 

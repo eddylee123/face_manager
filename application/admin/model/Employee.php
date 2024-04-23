@@ -415,4 +415,26 @@ class Employee extends Model
         return $emp;
     }
 
+    public function empPhoto($emp_id)
+    {
+        $img = $this->getEmpImg($emp_id);
+
+        $image = [
+            'img1' => '',
+            'img2' => '',
+        ];
+        if (!empty($img['Data'])) {
+            if (!empty($img['Data']['PFILE1Name'])) {
+                $image['img1'] = str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                    'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE1Name']);
+            }
+            if (!empty($img['Data']['PFILE2Name'])) {
+                $image['img2'] =str_replace('\\\\10.254.30.42\\BaseEmployeesPhotos',
+                    'https://kwwhrp.kwwict.com:10213/photo', $img['Data']['PFILE2Name']);
+            }
+        }
+
+        return $image;
+    }
+
 }
