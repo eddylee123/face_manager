@@ -251,7 +251,7 @@
         }
 
         $(".read").click(function () {
-            var device = localStorage.getItem('device');
+            var device = sessionStorage.getItem('device');
             if (device !== null) {
                 $.get(base_file+"/employee/readCard?flag=add&device="+device, function (ret) {
                     // console.log(ret);
