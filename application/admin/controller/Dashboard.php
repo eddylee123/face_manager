@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\library\DormMq;
 use app\common\controller\Backend;
 use think\Config;
 use think\Db;
@@ -24,4 +25,9 @@ class Dashboard extends Backend
 //        return $this->view->fetch();
     }
 
+    public function testmq()
+    {
+        $rs = DormMq::producer(['msg'=>'hello']);
+        var_dump($rs);exit;
+    }
 }

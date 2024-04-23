@@ -399,7 +399,7 @@ class Employee extends Backend
             $rs = $this->empImgModel->save($data);
         }
         if ($rs === false) {
-            $this->error('上传成功');
+            $this->error('上传失败');
         }
         //更新操作步骤
         $emp_info = $this->model->where(['emp_id_2'=>$emp2,'status'=>1])->find();
@@ -431,12 +431,9 @@ class Employee extends Backend
             $this->error(__('No Results were found'), $_SERVER['HTTP_REFERER']);
         }
         $kq_arr = $cs_arr = [];
-        if (!empty($row['kq_level'])) {
-            $kq_arr = split_param($row['kq_level'], $this->kq_list);
-            $cs_arr = split_param($row['cs_level'], $this->cs_list);
-        }
+        !empty($row['kq_level']) && $kq_arr = split_param($row['kq_level'], $this->kq_list);
+        !empty($row['cs_level']) && $cs_arr = split_param($row['cs_level'], $this->cs_list);
         //判断合同工
-
         if ($row['emp_source'] == '劳务工' && empty($row['auth_date'])) {
              $row['auth_date'] = date("Y-m-d", strtotime("+7 day"));
         }
@@ -693,11 +690,9 @@ class Employee extends Backend
             $this->noticeModel->read($ids, $this->admin['id']);
         }
         $kq_arr = $cs_arr = [];
+        !empty($row['kq_level']) && $kq_arr = split_param($row['kq_level'], $this->kq_list);
+        !empty($row['cs_level']) && $cs_arr = split_param($row['cs_level'], $this->cs_list);
 
-        if (!empty($row['kq_level'])) {
-            $kq_arr = split_param($row['kq_level'], $this->kq_list);
-            $cs_arr = split_param($row['cs_level'], $this->cs_list);
-        }
         //人脸信息
         $img = $this->empImgModel->where(['emp_id_2'=>$row['emp_id_2']])->find();
         $img['img1'] = $img['img2'] = '/assets/img/face_default.png';

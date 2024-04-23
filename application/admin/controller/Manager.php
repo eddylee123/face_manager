@@ -8,6 +8,7 @@ use app\admin\library\Handle;
 use app\admin\library\Hro;
 use app\admin\library\Kww;
 use app\admin\model\EmpRole;
+use app\admin\model\FaceInit;
 use app\common\controller\Backend;
 use fast\Http;
 use think\Config;
@@ -32,6 +33,8 @@ class Manager extends Backend
      */
     protected $managerModel = null;
 
+    protected $faceModel = null;
+
     protected $org;
     protected $admin;
     protected $cs_list = [];
@@ -46,6 +49,7 @@ class Manager extends Backend
         $this->empRoleModel = new EmpRole();
         $this->empModel = new \app\admin\model\Employee();
         $this->managerModel = new \app\admin\model\Manager();
+        $this->faceModel = new FaceInit();
         $this->admin = Session::get('admin');
         $this->org = $this->admin['org_id'] ?? 0;
 
@@ -144,11 +148,12 @@ class Manager extends Backend
             } else {
                 $currentPage = 1;
             }
-            $orgId = '06';
+            $orgId = Kww::orgMap[$this->org] ?? '10';
+            $empSeqId = 1;
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
 
-            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId'));
+            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId','empSeqId'));
             $list = Kww::userList($param);
             if(!empty($list['records'])) {
                 foreach ($list['records'] as &$v) {
@@ -184,14 +189,17 @@ class Manager extends Backend
                 if (!$result) {
                     $this->error($validate->getError());
                 }
-//                $params['other'] = Handle::toFiled($row['other'], $params['other']);
+                $params['other'] = Handle::toFiled($this->managerModel->fieldMap, $params['other']);
                 $params = array_merge($params, [
                     'id' => $row['id'],
+                    'empNum' => $row['empNum'],
+                    'empSeqId' => 1, //一线
                 ]);
                 if (!empty($params['hireDate'])) {
                     $params['hireDate'] = strtotime($params['hireDate']) * 1000;
                 }
-//                echo '<pre>';print_r($params);exit;
+
+//                echo '<pre>';print_r($params['other']);exit;
                 $rs = Kww::modify($params);
                 if ($rs['success'] == true) {
                     $this->success('操作成功');
@@ -291,6 +299,76 @@ class Manager extends Backend
         $this->view->assign('tabList', Handle::getEmpTab($empNum)); //tab
 
         return $this->view->fetch();
+    }
+
+    /**
+     * 拍照
+     * @return string
+     * DateTime: 2024-04-22 9:52
+     */
+    public function photo()
+    {
+        $empNum = $this->request->get("empNum/s", '');
+        $uname = $this->request->get("uname/s", '');
+        $this->view->assign('empNum', $empNum);
+        $this->view->assign('uname', $uname);
+        return $this->view->fetch();
+    }
+
+    /**
+     * 人脸上传
+     * DateTime: 2023/12/16 16:37
+     */
+    public function uploadImg()
+    {
+        $empNum = $this->request->param('empNum', '');
+        $uname = $this->request->param('uname', '');
+        $img1 = $this->request->param('img_url', '');
+        $img2 = $this->request->param('dis_img_url', '');
+        $pType = 'jpeg';
+
+        if (empty($empNum)) {
+            $this->error('工号异常');
+        }
+        $info = $this->faceModel->where('emp_id', $empNum)->find();
+        if (empty($info['img_url'])) {
+            if (empty($img1)) {
+                $this->error('照片1不能为空');
+            }
+        }
+        $imgDir = "/www/winshare/";;
+        $date = date("Y-m-d");
+        $data = [];
+        if (!empty($img1)) {
+            $data['img_url'] = $imgDir.$empNum."_".$uname."_".$date.".jpg";
+        }
+        if (!empty($img2)) {
+            $data['dis_img_url'] = $imgDir.$empNum."A_".$uname."_".$date.".jpg";
+        }
+        if (empty($data)) {
+            $this->success('操作成功');
+        }
+
+        $res = Kww::uploadFace($empNum, $uname, $img1, $pType, $img2, $pType);
+        if (!empty($res['errorMessage'])) {
+            $this->error($res['errorMessage']);
+        }
+
+        //更新照片
+        if (!empty($info)) {
+            $data['update_id'] = $this->admin['id'];
+            $rs  = $info->save($data);
+        } else {
+            $data['emp_id'] = $empNum;
+            $data['org_id'] = $this->admin['org_id'];
+            $data['create_id'] = $this->admin['id'];
+            $rs = $this->faceModel->save($data);
+        }
+        if ($rs === false) {
+            $this->error('上传失败');
+        }
+
+        $this->success('上传成功');
     }
 
 }
