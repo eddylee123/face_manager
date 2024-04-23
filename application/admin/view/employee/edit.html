@@ -249,7 +249,7 @@
 <script type="text/javascript">
     $(function ($) {
         $(".read").click(function () {
-            var device = sessionStorage.getItem('device');
+            var device = localStorage.getItem('device');
             if (device !== null) {
                 $.get(base_file+"/employee/readCard?flag=add&device="+device, function (ret) {
                     if (ret.code === 1) {
