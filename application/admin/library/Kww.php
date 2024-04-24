@@ -239,9 +239,9 @@ class Kww
             "service" => "employee.info.page",
             "version" => "1.0.0",
             "data" => $param
-        ];var_dump($url,json_encode($body,JSON_UNESCAPED_UNICODE));exit;
+        ];var_dump($url,json_encode($body,JSON_UNESCAPED_UNICODE));
 
-        $rs = curl_request($url, 'POST', $body, $header);;
+        $rs = curl_request($url, 'POST', $body, $header);var_dump($rs);exit;
 
         $data = ["total"=>0,"records"=>[]];
         if ($rs) {
