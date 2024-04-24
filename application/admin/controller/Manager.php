@@ -148,7 +148,7 @@ class Manager extends Backend
             } else {
                 $currentPage = 1;
             }
-            $orgId = Kww::orgMap[$this->org] ?? '10';var_dump($orgId);
+            $orgId = Kww::orgMap[$this->org] ?? '10';
             $empSeqId = 1;
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
