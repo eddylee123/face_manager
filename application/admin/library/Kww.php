@@ -237,7 +237,7 @@ class Kww
         }
         $body = [
 //            "service" => "employee.info.page",
-            "service" => "employee.allocation.page",
+            "service" => "employee.info.allocation.page",
             "version" => "1.0.0",
             "data" => $param
         ];
