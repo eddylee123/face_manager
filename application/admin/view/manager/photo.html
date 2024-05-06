@@ -160,12 +160,12 @@
             if (flag === 'dis_img_url') {
                 pid = empNum+'A';
             }
-            console.log(picFile);
+
             // 创建FromData()并赋值
             var formFile = new FormData();
             // ***注意此处为附件数据
             formFile.append("file", picFile);
-
+            console.log(formFile);
             $.ajax({
                 url: "/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
