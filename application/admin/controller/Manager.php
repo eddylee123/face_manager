@@ -374,11 +374,4 @@ class Manager extends Backend
         $this->success('上传成功');
     }
 
-    public function putObj()
-    {
-        $pid = $this->request->param('pid');
-        $file = $this->request->post('file');var_dump($pid,$file);exit;
-        $this->success('上传成功','', Kww::uploadObject($pid,$file));
-
-    }
 }

@@ -150,62 +150,8 @@
                 image.src = canvas.toDataURL('image/jpeg');
             }
 
-            return putObj(image.src, flag, empNum);
+            return uploadImg(image.src, flag, empNum);
         })
-
-        function putObj(photo, flag, empNum) {
-            var picFile = dataURLtoFile(photo, "picFile");
-
-            var pid = empNum;
-            if (flag === 'dis_img_url') {
-                pid = empNum+'A';
-            }
-
-            // 创建FromData()并赋值
-            var formFile = new FormData();
-            // ***注意此处为附件数据
-            formFile.append("file", picFile);
-            formFile.append("pid", pid);
-            console.log(formFile);
-            $.ajax({
-
-                url: base_file+'/manager/putObj',
-                type: 'POST',
-                headers: {
-                    Tokenid : token
-                },
-                data: formFile,
-                cache: false,
-                processData: false,
-                contentType: false,
-                async: true,
-                success: function (ret) {
-                    console.log(ret);
-                    if (ret.hasOwnProperty("success")) {
-                        if (ret.success == true) {
-                            if (flag === 'dis_img_url') {
-                                imgFile2 = ret.data;
-                            } else {
-                                imgFile1 = ret.data;
-                            }
-                            return true;
-                        } else {
-                            var msg = ret.hasOwnProperty("errorMessage") && ret.errorMessage != "" ? ret.errorMessage : "";
-                            Toastr.error(msg);
-                            if (ret.errorCode == "A1010000") {
-                                setTimeout(function () {
-                                    parent.location.href = base_file + "/index/logout";
-                                }, 1000);
-                            }
-                        }
-                    } else {
-                        Toastr.error(__('Unknown data format'));
-                    }
-                }, error: function () {
-                    Toastr.error(__('系统异常，请稍后再试'));
-                }
-            });
-        }
 
         function uploadImg(photo, flag, empNum) {
             var picFile = dataURLtoFile(photo, "picFile");
@@ -219,7 +165,7 @@
             var formFile = new FormData();
             // ***注意此处为附件数据
             formFile.append("file", picFile);
-            console.log(formFile);
+
             $.ajax({
                 url: "/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
@@ -230,7 +176,6 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                async: true,
                 success: function (ret) {
                      console.log(ret);
                     if (ret.hasOwnProperty("success")) {
