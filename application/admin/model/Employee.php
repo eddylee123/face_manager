@@ -415,7 +415,7 @@ class Employee extends Model
         return $emp;
     }
 
-    public function empPhoto($emp_id)
+    public function empImage($emp_id)
     {
         $img = $this->getEmpImg($emp_id);
 
