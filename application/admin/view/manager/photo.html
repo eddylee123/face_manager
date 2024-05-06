@@ -167,7 +167,7 @@
             formFile.append("file", picFile);
             console.log(formFile);
             $.ajax({
-                url: "https://10.254.30.50:8080/m/buckets/app/"+pid+"/objects",
+                url: "/api/m/buckets/app/"+pid+"/objects",
                 type: 'POST',
                 headers: {
                     Tokenid : token
