@@ -310,7 +310,7 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $uname = $this->request->get("uname/s", '');
-        $photo = $this->empModel->empPhoto($empNum);
+        $photo = $this->empModel->empImage($empNum);
 
         $this->view->assign('empNum', $empNum);
         $this->view->assign('uname', $uname);
@@ -374,4 +374,11 @@ class Manager extends Backend
         $this->success('上传成功');
     }
 
+    public function putObj()
+    {
+        $pid = $this->request->param('pid');
+        $file = $this->request->file('file');
+        $this->success('上传成功','', Kww::uploadObject($pid,$file));
+
+    }
 }
