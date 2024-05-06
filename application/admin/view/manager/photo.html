@@ -154,14 +154,13 @@
         })
 
         function uploadImg(photo, flag, empNum) {
-            console.log(photo);
             var picFile = dataURLtoFile(photo, "picFile");
 
             var pid = empNum;
             if (flag === 'dis_img_url') {
                 pid = empNum+'A';
             }
-
+            console.log(picFile);
             // 创建FromData()并赋值
             var formFile = new FormData();
             // ***注意此处为附件数据
