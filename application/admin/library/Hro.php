@@ -4,6 +4,8 @@
 namespace app\admin\library;
 
 
+use fast\Http;
+
 class Hro
 {
     const hrOldApi = "http://220.168.154.86:50522";
@@ -39,4 +41,27 @@ class Hro
 
         return $data;
     }
+
+    public static function checkEmpStatus($id_card, $start, $end)
+    {
+        $str = self::hrOldApi."/GETEmpStatus?IDCARDS=%s&sDate=%s&eDate=%s";
+        $url = sprintf($str, $id_card, $start, $end);
+        $rs = Http::get($url);
+        if (!empty($rs)) {
+            $arr = json_decode($rs, true);
+            if ($arr['st'] != 0) {
+                $msg = !empty($arr['msg']) ? $arr['msg'] : '员工状态异常，请核实后操作';
+                if (in_array($arr['st'], ['999'])) {
+                    //不能注册错误返回
+                    return output(0, $msg);
+                } else {
+                    return output(100, $msg);
+                }
+            }
+            return output(200);
+        }
+        return output(-1, '员工信息核对失败');
+    }
+
+
 }
