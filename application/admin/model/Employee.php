@@ -10,7 +10,7 @@ use think\Model;
 use traits\model\SoftDelete;
 
 
-class Employee extends Model
+class   Employee extends Model
 {
 
     use SoftDelete;
