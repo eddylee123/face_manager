@@ -301,11 +301,6 @@ return [
     'api_url'               => 'https://api.fastadmin.net',
     ],
     'p_key'=>'qAp1kU8xYT9URFOq',
-    'redis_master'=>[
-        'hostname'=>'10.254.30.16',
-        'hostport'=>'6379',
-        'password'=>'XgD4LbC5wiJfIu8CbjBuT0hJt0CWL*rU',
-    ],
     //消费机SqlServer
     'srv_kwwsys' => [
         'type'    =>   'sqlsrv',
@@ -324,4 +319,16 @@ return [
         'password'     =>   'Auto@123456',
         'hostport'    =>   '10212 ',
     ],
-    ];
+    'redis_master' => [
+        'hostname' => Env::get('redis.hostname', '10.254.30.16'),
+        'hostport' => Env::get('redis.hostport', '6379'),
+        'password' => Env::get('redis.password', ''),
+    ],
+    //oss
+    'oss' => [
+        'endpoint' => Env::get('oss.endpoint', ''),
+        'ossKeyId' => Env::get('oss.ossKeyId', ''),
+        'ossKeySecret' => Env::get('oss.ossKeySecret', ''),
+        'bucket' => Env::get('oss.bucket', ''),
+    ],
+];
