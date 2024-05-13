@@ -149,11 +149,11 @@ class Manager extends Backend
                 $currentPage = 1;
             }
             $orgId = Kww::orgMap[$this->org] ?? '10';
-            $empSeqId = 1;
+//            $empSeqId = 1;
             $filter = $this->request->request('filter');
             $filter_arr = json_decode($filter , true);
 
-            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId','empSeqId'));
+            $param = array_merge($filter_arr, compact('currentPage', 'pageSize','orgId'));
             $list = Kww::userList($param);
             if(!empty($list['records'])) {
                 foreach ($list['records'] as &$v) {
@@ -310,8 +310,11 @@ class Manager extends Backend
     {
         $empNum = $this->request->get("empNum/s", '');
         $uname = $this->request->get("uname/s", '');
+        $photo = $this->empModel->empImage($empNum);
+
         $this->view->assign('empNum', $empNum);
         $this->view->assign('uname', $uname);
+        $this->view->assign('photo', $photo);
         return $this->view->fetch();
     }
 

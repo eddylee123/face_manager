@@ -236,12 +236,13 @@ class Kww
             $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
         $body = [
-            "service" => "employee.info.page",
+//            "service" => "employee.info.page",
+            "service" => "employee.info.allocation.page",
             "version" => "1.0.0",
             "data" => $param
         ];
 
-        $rs = curl_request($url, 'POST', $body, $header);;
+        $rs = curl_request($url, 'POST', $body, $header);
 
         $data = ["total"=>0,"records"=>[]];
         if ($rs) {
