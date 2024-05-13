@@ -274,23 +274,18 @@ class InviteService extends BaseService
             app_exception('数据不存在');
         }
 
-        $length = strlen($params['role_remark']);
-        if ($length < 10 || $length > 255) {
-            app_exception('描述内容长度为10~255个字');
-        }
-        Arr::forget($params, ['emp_id_2','emp_name','id_card']);
+        $data = [
+            'cs_level' => -1,
+            'kq_level' => -1,
+            'is_new' => 0,
+        ];
         if (!empty($params['cs_list'])) {
-            $params['cs_level'] = array_sum($params['cs_list']);
-        } else {
-            $params['cs_level'] = -1;
+            $data['cs_level'] = array_sum($params['cs_list']);
         }
         if (!empty($params['kq_list'])) {
-            $params['kq_level'] = array_sum($params['kq_list']);
-        } else {
-            $params['kq_level'] = -1;
+            $data['kq_level'] = array_sum($params['kq_list']);
         }
-        $params['is_new'] = 0;
-        $res = $this->empModel->where(['emp_id_2'=>$emp2])->update($params);
+        $res = $row->save($data);
         if ($res === false) {
             app_exception('操作失败，请稍后再试');
         }
@@ -298,7 +293,7 @@ class InviteService extends BaseService
         return $res;
     }
 
-    public function sign(string $idCard, array $params, array $admin)
+    public function sign(string $idCard, string $orgId, array $params)
     {
         try {
             //基础信息
@@ -310,8 +305,8 @@ class InviteService extends BaseService
                 app_exception('暂无待确认基础资料，请核对后再试');
             }
             if (empty($row['come_date'])) $row['come_date'] = date('Y-m-d');
-            if (!empty($admin['org_id'])) {
-                $params['org_id'] = $admin['org_id'];
+            if (!empty($orgId)) {
+                $params['org_id'] = $orgId;
             }
             $params['status'] = 1;
 

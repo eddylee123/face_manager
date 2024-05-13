@@ -88,4 +88,39 @@ class Invite extends BaseController
 
         app_response(200, $rs);
     }
+
+    public function setRole()
+    {
+        $rs = $this->inviteSer->setRole($this->Data);
+
+        app_response(200, $rs);
+    }
+
+    public function sign()
+    {
+        $rs = $this->inviteSer->sign($this->Data['id_card'], $this->OrgId, $this->Data);
+
+        app_response(200, $rs);
+    }
+
+    public function report()
+    {
+        $rs = $this->inviteSer->report($this->Data['id_card'], $this->Data);
+
+        app_response(200, $rs);
+    }
+
+    public function empExport()
+    {
+        $rs = $this->inviteSer->export($this->OrgId, $this->Data);
+
+        app_response(200, $rs);
+    }
+
+    public function examImport()
+    {
+        $rs = $this->examSer->import($this->Data['file']);
+
+        app_response(200, $rs);
+    }
 }
