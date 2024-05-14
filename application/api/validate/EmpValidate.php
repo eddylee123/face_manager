@@ -135,14 +135,14 @@ class EmpValidate extends Validate
      * 验证场景
      */
     protected $scene = [
-        'add' => ['emp_name','sex','address','education','folk','id_card','id_department','id_date','id_validity','birthday','emp_source','tel','urgency_man','urgency_relation','urgency_tel','marry','age','shoe','army','transport'],
+            'add' => ['emp_name','sex','address','education','folk','id_card','id_department','id_date','id_validity','birthday','emp_source','tel','urgency_man','urgency_relation','urgency_tel','marry','age','shoe','army','transport'],
         'edit' => ['emp_id_2','emp_name','sex','address','education','folk','id_card','id_department','id_date','id_validity','birthday','emp_source','tel','urgency_man','urgency_relation','urgency_tel','marry','age','shoe','army','transport'],
         'save_img' => ['emp_id_2','img_url'],
         'info_id' => ['id_card'],
         'info_no' => ['emp_id_2'],
         'set_role' => ['emp_id_2','cs_list','kq_list'],
-        'set_exam' => ['emp_id_2','cert_number','exam_date','cert_date','cert_validity','remark','status'],
+        'set_exam' => ['emp_id_2','cert_number','exam_date','cert_date','cert_validity','status'],
         'sign' => ['id_card'],
-        'report' => ['id_card','contract_date','contract_validate'],
+        'report' => ['id_card','contract_date','contract_validate','dept_id'],
     ];
 }

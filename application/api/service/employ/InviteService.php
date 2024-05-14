@@ -326,7 +326,7 @@ class InviteService extends BaseService
         try {
             //基础信息
             $row = $this->empModel
-                ->field('status,org_id,emp_source,emp_name')
+                ->field('id,status,org_id,emp_source,emp_name')
                 ->where(['id_card'=>$idCard])
                 ->order('id', 'desc')
                 ->find();

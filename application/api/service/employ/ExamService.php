@@ -43,8 +43,13 @@ class ExamService extends BaseService
             }
         }
 
+        $params['username'] = $emp_info['emp_name'];
+        $params['age'] = $emp_info['age'];
+        $params['id_card'] = $emp_info['id_card'];
+        $params['tel'] = $emp_info['tel'];
+        $params['sex'] = $emp_info['sex'];
         $params['create_time'] = time();
-        $res = $this->examModel->insert($params);
+        $res = $this->examModel->allowField(true)->save($params);
 
         if (!$res) {
             app_exception('体检信息录入失败');
