@@ -121,7 +121,7 @@ class InviteService extends BaseService
                 app_exception('操作失败，请稍后再试');
             }
 
-            return $result;
+            return ['emp_id_2'=>$params['emp_id_2']];
         } catch (Exception $e) {
             app_exception($e->getMessage());
         }
@@ -141,7 +141,7 @@ class InviteService extends BaseService
                 app_exception('操作失败，请稍后再试');
             }
 
-            return $result;
+            return ['emp_id_2'=>$emp2];
         } catch (Exception $e) {
             app_exception($e->getMessage());
         }
