@@ -35,7 +35,7 @@ class InviteService extends BaseService
         $object = $this->initEmpModel($orgId, $param);
 
         $list = $object
-            ->order('status,delete_time,create_id', 'asc')
+            ->order('status,create_time', 'asc')
             ->paginate(['list_rows' => $param['page_size'], 'page' => $param['page']])
             ->toArray();
         

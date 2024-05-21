@@ -27,6 +27,48 @@ class ExamService extends BaseService
 
     }
 
+    public function examList(array $param)
+    {
+        $object = $this->examModel
+            ->field('emp_id,emp_id_2,cert_number,exam_date,cert_date,cert_validity,remark,status,create_time');
+
+        if (!empty($param['emp_id'])) {
+            $object->where('emp_id','like', '%'.$param['emp_id'].'%');
+        }
+        if (!empty($param['emp_id_2'])) {
+            $object->where('emp_id_2','like', '%'.$param['emp_id_2'].'%');
+        }
+        if (!empty($param['status'])) {
+            $object->where('status', $param['status']);
+        }
+
+        $list = $object
+            ->order('create_time', 'asc')
+            ->paginate(['list_rows' => $param['page_size'], 'page' => $param['page']])
+            ->toArray();
+
+        if (!empty($list['data'])) {
+            $emp2Ids = array_column($list['data'], 'emp_id_2');
+            $empArr = $this->empModel
+                ->whereIn('emp_id_2', $emp2Ids)
+                ->column('emp_id_2,emp_name,id_card,tel,birthday', 'emp_id_2');
+
+            foreach ($list['data'] as &$v) {
+                $empInfo = $empArr[$v['emp_id_2']] ?? [];
+
+                $v['username'] = $empInfo['emp_name'] ?? '';
+                $v['id_card'] = $empInfo['id_card'] ?? '';
+                $v['tel'] = $empInfo['tel'] ?? '';
+                $v['sex'] = $empInfo['sex'] ?? '';
+                $v['sex'] = $empInfo['sex'] ?? '';
+                $v['age'] = get_age($empInfo['birthday']);
+            }
+        }
+
+
+        return $list;
+    }
+
     public function setExam(array $params)
     {
         $emp_info = $this->empModel->where(['emp_id_2' => $params['emp_id_2']])->find();

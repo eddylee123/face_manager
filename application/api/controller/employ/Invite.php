@@ -152,4 +152,18 @@ class Invite extends BaseController
 
         app_response(200, $rs);
     }
+
+    public function examList()
+    {
+        $result = $this->empValid->scene('exam_list')->check($this->Data);
+        if (!$result) {
+            app_exception($this->empValid->getError());
+        }
+
+        $this->Data['page'] = $this->Data['page'] ?? 1;
+        $this->Data['page_size'] = $this->Data['page_size'] ?? 10;
+        $rs = $this->examSer->examList($this->Data);
+
+        app_response(200, $rs);
+    }
 }
