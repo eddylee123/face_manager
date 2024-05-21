@@ -218,26 +218,20 @@ class InviteService extends BaseService
         $img = $this->fileModel->where(['emp_id_2'=>$empInfo['emp_id_2']])->column('img_url,dis_img_url');
 
         //体检信息
-        $exam = $this->examModel->where(['emp_id_2' => $empInfo['emp_id_2']])->order('id desc')->find();
-
-        if (!$exam){
-            $exam = [
-                'username' => '',
-                'age' => '',
-                'id_card' => '',
-                'tel' => '',
-                'sex' => '',
-                'cert_number' => '',
-                'exam_date' => '',
-                'cert_date' => '',
-                'cert_validity' => '',
-                'hb' => '',
-                'remark' => '',
-                're_exam' => '',
-                'exam_org' => '',
-                'status' => 0,
-            ];
+        $exam = $this->examModel
+            ->field('id,emp_id,emp_id_2,cert_number,exam_date,cert_date,cert_validity,remark,status,create_time')
+            ->where(['emp_id_2' => $empInfo['emp_id_2']])
+            ->order('id desc')
+            ->find();
+        if (!empty($exam)) {
+            $exam['username'] = $empInfo['emp_name'] ?? '';
+            $exam['id_card'] = $empInfo['id_card'] ?? '';
+            $exam['tel'] = $empInfo['tel'] ?? '';
+            $exam['sex'] = $empInfo['sex'] ?? '';
+            $exam['sex'] = $empInfo['sex'] ?? '';
+            $exam['age'] = get_age($empInfo['birthday']);
         }
+
         //权限
         $role = [
             'kq_list' => [],

@@ -51,7 +51,7 @@ class ExamService extends BaseService
             $emp2Ids = array_column($list['data'], 'emp_id_2');
             $empArr = $this->empModel
                 ->whereIn('emp_id_2', $emp2Ids)
-                ->column('emp_id_2,emp_name,id_card,tel,birthday', 'emp_id_2');
+                ->column('id,emp_id_2,emp_name,id_card,tel,birthday', 'emp_id_2');
 
             foreach ($list['data'] as &$v) {
                 $empInfo = $empArr[$v['emp_id_2']] ?? [];
