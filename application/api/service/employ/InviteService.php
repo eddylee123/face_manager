@@ -219,7 +219,7 @@ class InviteService extends BaseService
 
         //体检信息
         $exam = $this->examModel
-            ->field('id,emp_id,emp_id_2,cert_number,exam_date,cert_date,cert_validity,remark,status,create_time')
+            ->field('username,age,id_card,tel,sex,create_id,delete_time,update_time', true)
             ->where(['emp_id_2' => $empInfo['emp_id_2']])
             ->order('id desc')
             ->find();
