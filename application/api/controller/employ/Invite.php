@@ -166,4 +166,15 @@ class Invite extends BaseController
 
         app_response(200, $rs);
     }
+
+    public function delete()
+    {
+        $result = $this->empValid->scene('info_no')->check($this->Data);
+        if (!$result) {
+            app_exception($this->empValid->getError());
+        }
+        $rs = $this->inviteSer->delete($this->Data['emp_id_2']);
+
+        app_response(200, $rs);
+    }
 }

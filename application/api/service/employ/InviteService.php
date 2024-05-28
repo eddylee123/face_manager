@@ -437,4 +437,14 @@ class InviteService extends BaseService
             return CommonService::instance()->putExcel($header, $data, '招聘人员');
         }
     }
+
+    public function delete(string $emp2)
+    {
+        $rs = $this->empModel->where('emp_id_2',$emp2)->delete();
+        if ($rs === false) {
+            app_exception('删除失败');
+        }
+
+        return ['msg'=>'删除成功'];
+    }
 }
