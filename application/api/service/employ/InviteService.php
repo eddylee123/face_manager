@@ -215,7 +215,10 @@ class InviteService extends BaseService
         }
 
         //人脸信息
-        $img = $this->fileModel->where(['emp_id_2'=>$empInfo['emp_id_2']])->column('img_url,dis_img_url');
+        $img = $this->fileModel
+            ->where(['emp_id_2'=>$empInfo['emp_id_2']])
+            ->field('img_url,dis_img_url')
+            ->find();
 
         //体检信息
         $exam = $this->examModel
