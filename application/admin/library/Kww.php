@@ -368,7 +368,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.43:8085/emp/tmpNo?baseNo=$orgId";
         } else {
-            $url = "http://10.254.30.36:8085/emp/tmpNo?baseNo=$orgId";
+            $url = "http://10.254.30.36:8099/emp/tmpNo?baseNo=$orgId";
         }
         $rs = Http::get($url);
 
