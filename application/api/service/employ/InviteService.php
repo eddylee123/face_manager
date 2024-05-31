@@ -71,23 +71,32 @@ class InviteService extends BaseService
         if (!empty($param['tel'])) {
             $object->where('tel', $param['tel']);
         }
+        if (!empty($param['sex'])) {
+            $object->where('sex', $param['sex']);
+        }
         if (!empty($param['come_start'])) {
-            $object->where("come_start", '>=', $param['come_start']);
+            $object->where("come_date", '>=', $param['come_start']);
         }
         if (!empty($param['come_end'])) {
-            $object->where("come_end", '<=', $param['come_end']);
+            $object->where("come_date", '<=', $param['come_end']);
         }
         if (!empty($param['kq_start'])) {
-            $object->where("kq_start", '>=', $param['kq_start']);
+            $object->where("kq_date", '>=', $param['kq_start']);
         }
         if (!empty($param['kq_end'])) {
-            $object->where("kq_end", '<=', $param['kq_end']);
+            $object->where("kq_date", '<=', $param['kq_end']);
         }
         if (!empty($param['exam_start'])) {
-            $object->where("exam_start", '>=', $param['exam_start']);
+            $rsExam = $this->examModel
+                ->where('create_time','>=', strtotime($param['exam_start']))
+                ->column('emp_id_2');
+            $object->whereIn('emp_id_2', array_keys($rsExam));
         }
         if (!empty($param['exam_end'])) {
-            $object->where("exam_end", '<=', $param['exam_end']);
+            $rsExam = $this->examModel
+                ->where('create_time','<=', strtotime($param['exam_end'].' 23:59:59'))
+                ->column('emp_id_2');
+            $object->whereIn('emp_id_2', array_keys($rsExam));
         }
 
         return $object;
