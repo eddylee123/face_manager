@@ -303,7 +303,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.50:8080/w/dispatch";
         } else {
-            $url = "http://220.168.154.86:18801/api/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18801/api/w/dispatch";
         }
         $body = [
             "service" => "employee.info.save",
