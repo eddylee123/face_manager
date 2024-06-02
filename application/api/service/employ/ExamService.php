@@ -242,7 +242,7 @@ class ExamService extends BaseService
         //导出失败记录
         $errData = [];
         if (!empty($errArr)) {
-            $header = ['健康证号','姓名','身份证号','手机号','体检日期','是否合格','失败原因'];
+            $header = ['健康证号','姓名','手机号','身份证号','体检日期','是否合格','失败原因'];
             $errData = CommonService::instance()->putExcel($header, $errArr, '导入失败记录');
         }
 
