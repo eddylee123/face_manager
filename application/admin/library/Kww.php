@@ -383,6 +383,12 @@ class Kww
         return $tmpNo;
     }
 
+    /**
+     * 新增获取工号
+     * @param $param
+     * @return array|mixed
+     * DateTime: 2024-06-04 15:42
+     */
     public static function saveGetId($param)
     {
         if (Env::get('app.master')) {
@@ -390,7 +396,7 @@ class Kww
         } else {
             $url = "http://10.254.30.36:8090/employee/info/save";
         }
-        $rs = Http::post($url, $param);
+        $rs = Http::post($url, $param);var_dump($rs);exit();
 
         $data = [];
         if ($rs) {
