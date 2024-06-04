@@ -9,10 +9,9 @@ use app\admin\model\EmpExam;
 use app\admin\model\EmpFile;
 use app\admin\model\EmpImg;
 use app\admin\model\Employee;
+use app\admin\model\Manager;
 use app\api\service\api\CommonService;
 use app\api\service\BaseService;
-use fast\Arr;
-use think\Env;
 use think\Exception;
 
 class InviteService extends BaseService
@@ -343,16 +342,13 @@ class InviteService extends BaseService
                 app_exception('当前员工暂无法报道，请确认状态后再试~');
             }
 
-            //获取工号
-            if (Env::get('app.master') == false) {
-                if ($row['emp_source'] == '合同工') {
-                    $params['emp_id'] = $this->empModel->getEmpHtg($row['org_id']);
-                } else {
-                    $params['emp_id'] = $this->empModel->getEmpLwg($row['org_id']);
-                }
-            } else {
-                $params['emp_id'] = $this->empModel->getNewEmpId($row['org_id'], $row['emp_name'], $row['emp_source']);
+            //初始化正式工
+            $empData = (new Manager())->initInsert($this->empModel->get($row['id']));
+            if (empty($empData)) {
+                app_exception('系统异常，暂无法报道');
             }
+            //获取工号
+            $params['emp_id'] = $empData['data'];
             //开启所有权限
             $roleConf = ConfigService::instance()->levelList($row['org_id']);
             $params['cs_level'] = array_sum(array_keys($roleConf['cs_list']));
@@ -363,8 +359,6 @@ class InviteService extends BaseService
 
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
-                //初始化正式工
-                (new \app\admin\model\Manager())->initInsert($this->empModel->get($row['id']));
                 return $idCard;
             } else {
                 app_exception($row->getError());
