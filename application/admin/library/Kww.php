@@ -396,7 +396,12 @@ class Kww
         } else {
             $url = "http://10.254.30.59:8090/employee/info/save";
         }
-        $rs = curl_request($url, 'POST', $param);;
+        $body = [
+            "service" => "employee.info.save",
+            "version" => "1.0.0",
+            "data" => json_encode($param)
+        ];
+        $rs = curl_request($url, 'POST', $body);;
         var_dump($rs);exit();
 
         $data = [];
