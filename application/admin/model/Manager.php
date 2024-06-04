@@ -137,12 +137,11 @@ class Manager extends Model
 
         if ($api) {
             //接口内网新增
-            $rs = Kww::saveGetId($base);
+            return Kww::saveGetId($base);
         } else {
             $rs = Kww::modify($base);
-        }
-        if ($rs['success'] == true) {
-            //住宿队列通知
+            if ($rs['success'] == true) {
+                //住宿队列通知
 //            if ($info['transport'] == '住宿') {
 //                DormMq::producer([
 //                    'emp_id' => $info['emp_id'],
@@ -150,9 +149,10 @@ class Manager extends Model
 //                    'kq_date' => $info['kq_date'],
 //                ]);
 //            }
-            return true;
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
 
