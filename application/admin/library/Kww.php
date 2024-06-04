@@ -396,7 +396,8 @@ class Kww
         } else {
             $url = "http://10.254.30.36:8090/employee/info/save";
         }
-        $rs = Http::post($url, $param);var_dump($rs);exit();
+        $rs = curl_request($url, 'POST', $param);;
+        var_dump($rs);exit();
 
         $data = [];
         if ($rs) {
