@@ -137,6 +137,7 @@ class Manager extends Model
 
         if ($api) {
             //接口内网新增
+            unset($base['empNum']);
             return Kww::saveGetId($base);
         } else {
             $rs = Kww::modify($base);

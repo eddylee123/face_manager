@@ -394,7 +394,7 @@ class Kww
         if (Env::get('app.master')) {
             $url = "http://10.254.30.43:8090/employee/info/save";
         } else {
-            $url = "http://10.254.30.36:8090/employee/info/save";
+            $url = "http://10.254.30.59:8090/employee/info/save";
         }
         $rs = curl_request($url, 'POST', $param);;
         var_dump($rs);exit();
