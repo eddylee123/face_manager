@@ -343,7 +343,7 @@ class InviteService extends BaseService
             }
 
             //初始化正式工
-            $empData = (new Manager())->initInsert($this->empModel->get($row['id']));
+            $empData = (new Manager())->initInsert($this->empModel->get($row['id']));var_dump($empData);exit();
             if (empty($empData)) {
                 app_exception('系统异常，暂无法报道');
             }

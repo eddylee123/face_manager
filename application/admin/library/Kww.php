@@ -382,4 +382,21 @@ class Kww
 
         return $tmpNo;
     }
+
+    public static function saveGetId($param)
+    {
+        if (Env::get('app.master')) {
+            $url = "http://10.254.30.43:8090/employee/info/save";
+        } else {
+            $url = "http://10.254.30.36:8090/employee/info/save";
+        }
+        $rs = Http::post($url, $param);
+
+        $data = [];
+        if ($rs) {
+            $data = json_decode($rs, true);
+        }
+
+        return $data;
+    }
 }

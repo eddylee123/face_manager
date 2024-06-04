@@ -77,10 +77,11 @@ class Manager extends Model
     /**
      * 新增正式工
      * @param $info
+     * @param bool $api
      * @return bool
-     * DateTime: 2024-02-29 17:01
+     * DateTime: 2024-06-04 15:32
      */
-    public function initInsert($info)
+    public function initInsert($info, $api=false)
     {
 
         $base = [
@@ -134,16 +135,21 @@ class Manager extends Model
 
         $base['other'] = $this->postOtherField($other);
 
-        $rs = Kww::modify($base);
+        if ($api) {
+            //接口内网新增
+            $rs = Kww::saveGetId($base);
+        } else {
+            $rs = Kww::modify($base);
+        }
         if ($rs['success'] == true) {
             //住宿队列通知
-            if ($info['transport'] == '住宿') {
-                DormMq::producer([
-                    'emp_id' => $info['emp_id'],
-                    'emp_name' => $info['emp_name'],
-                    'kq_date' => $info['kq_date'],
-                ]);
-            }
+//            if ($info['transport'] == '住宿') {
+//                DormMq::producer([
+//                    'emp_id' => $info['emp_id'],
+//                    'emp_name' => $info['emp_name'],
+//                    'kq_date' => $info['kq_date'],
+//                ]);
+//            }
             return true;
         }
         return false;
