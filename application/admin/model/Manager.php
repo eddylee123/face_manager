@@ -96,7 +96,8 @@ class Manager extends Model
             'marriageStatus' => $this->getMarry($info['marry']),
             'orgId' => $info['org_id'],
             'deptId' => $info['dept_id'],
-            'status' => 'FORMAL'
+            'status' => 'FORMAL',
+            'empType' => $info['emp_source'],
         ];
 
         $other = [
@@ -130,7 +131,6 @@ class Manager extends Model
             'introducerdept' => '',
             'introducerRemark' => '',
             'workExperience' => $info['work_exp'],
-            'empType' => $info['emp_source'],
         ];
 
         $base['other'] = $this->postOtherField($other);

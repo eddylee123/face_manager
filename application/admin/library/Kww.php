@@ -402,7 +402,6 @@ class Kww
             "data" => json_encode($param)
         ];
         $rs = curl_request($url, 'POST', $body);;
-        var_dump($rs);exit();
 
         $data = [];
         if ($rs) {
