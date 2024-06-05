@@ -139,7 +139,9 @@ class Manager extends Model
 
         if ($api) {
             //接口内网新增
+            $base['orgId'] = Kww::orgMap[$info['org_id']] ?? '5';
             unset($base['empNum']);
+            unset($base['deptId']);
             return Kww::saveGetId($base);
         } else {
             $rs = Kww::modify($base);
