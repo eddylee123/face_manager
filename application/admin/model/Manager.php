@@ -97,7 +97,8 @@ class Manager extends Model
             'orgId' => $info['org_id'],
             'deptId' => $info['dept_id'],
             'status' => 'FORMAL',
-            'empType' => $info['emp_source'],
+            'empType' => $info['emp_source'] == '合同工' ? '正式工' : $info['emp_source'],
+            'storage' => true,
         ];
 
         $other = [

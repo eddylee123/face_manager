@@ -401,7 +401,7 @@ class Kww
             "version" => "1.0.0",
             "data" => json_encode($param)
         ];
-        $rs = curl_request($url, 'POST', $body);;
+        $rs = curl_request($url, 'POST', $body);
 
         $data = [];
         if ($rs) {
