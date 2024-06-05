@@ -345,7 +345,7 @@ class InviteService extends BaseService
             //初始化正式工
             $empData = (new Manager())->initInsert($this->empModel->get($row['id']), true);
             if (empty($empData['data'])) {
-                app_exception('系统异常，暂无法报道');
+                app_exception($empData['errorMessage']);
             }
             //获取工号
             $params['emp_id'] = $empData['data'];
