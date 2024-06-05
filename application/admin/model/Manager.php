@@ -91,7 +91,7 @@ class Manager extends Model
             'education' => $info['education'],
             'ethnicity' => $info['folk'],
             'contactPhone' => $info['tel'],
-            'hireDate' => strtotime($info['kq_date']) * 1000,
+            'hireDate' => time() * 1000,
             'jobLevel' => '一线员工',
             'marriageStatus' => $this->getMarry($info['marry']),
             'orgId' => $info['org_id'],
