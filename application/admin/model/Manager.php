@@ -99,6 +99,7 @@ class Manager extends Model
             'status' => 'FORMAL',
             'empType' => $info['emp_source'] == '合同工' ? '正式工' : $info['emp_source'],
             'storage' => true,
+            'seqId' => 1,
         ];
 
         $other = [
