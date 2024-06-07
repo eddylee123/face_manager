@@ -87,6 +87,7 @@ class Manager extends Model
         $base = [
             'name' => $info['emp_name'],
             'empNum' => $info['emp_id'],
+            'tmpEmpNo' => $info['emp_id_2'],
             'idCard' => $info['id_card'],
             'education' => $info['education'],
             'ethnicity' => $info['folk'],
