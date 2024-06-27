@@ -12,6 +12,7 @@ use app\admin\model\Employee;
 use app\admin\model\Manager;
 use app\api\service\api\CommonService;
 use app\api\service\BaseService;
+use think\Db;
 use think\Exception;
 
 class InviteService extends BaseService
@@ -343,10 +344,16 @@ class InviteService extends BaseService
             }
 
             //初始化正式工
-            $empData = (new Manager())->initInsert($this->empModel->get($row['id']), true);
+            $empNew = $this->empModel->get($row['id']);
+            $empData = (new Manager())->initInsert($empNew, true);
             if (empty($empData['data'])) {
                 app_exception($empData['errorMessage']);
             }
+            //旧系统同步员工数据
+            unset($empNew['id']);
+            Db::connect('srv_kwwsys')
+                ->table('fa_employee')
+                ->insert($empNew);
             //获取工号
             $params['emp_id'] = $empData['data'];
             //开启所有权限
