@@ -344,16 +344,10 @@ class InviteService extends BaseService
             }
 
             //初始化正式工
-            $empNew = $this->empModel->get($row['id']);
-            $empData = (new Manager())->initInsert($empNew, true);
+            $empData = (new Manager())->initInsert($this->empModel->get($row['id']), true);
             if (empty($empData['data'])) {
                 app_exception($empData['errorMessage']);
             }
-            //旧系统同步员工数据
-            unset($empNew['id']);
-            Db::connect('srv_kwwsys')
-                ->table('fa_employee')
-                ->insert($empNew);
             //获取工号
             $params['emp_id'] = $empData['data'];
             //开启所有权限
@@ -366,6 +360,12 @@ class InviteService extends BaseService
 
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
+                //旧系统同步员工数据
+//                $empNew = $this->empModel->get($row['id'])->toArray();
+//                unset($empNew['id']);
+//                $rs1 = Db::connect('srv_kwwsys')
+//                    ->table('fa_employee')
+//                    ->insert($empNew);var_dump($rs1);exit();
                 return $idCard;
             } else {
                 app_exception($row->getError());
