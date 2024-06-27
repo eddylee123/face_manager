@@ -21,6 +21,9 @@ class ConfigService extends BaseService
 
     public function levelList(string $orgId)
     {
+        $empNew = $this->empModel
+//            ->fetchSql(true)
+            ->where('ID',1)->find();var_dump($empNew);exit();
         $cs_list = $this->empRoleModel->csLevel($orgId);
         $kq_list = $this->empRoleModel->kqLevel($orgId);
 
