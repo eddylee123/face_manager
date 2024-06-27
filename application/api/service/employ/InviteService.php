@@ -367,6 +367,9 @@ class InviteService extends BaseService
                 unset($empNew['sex_text']);
                 unset($empNew['emp_source_text']);
                 unset($empNew['marry_text']);
+                $empNew = array_filter($empNew, function ($it) {
+                    return !empty($it);
+                });
                 $rs1 = Db::connect('srv_kwwsys')
                     ->table('fa_employee')
                     ->insert($empNew);
