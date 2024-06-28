@@ -154,7 +154,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/m/buckets/app/{$appId}/objects";
+            $url = "https://kwwhrp.kwwict.com:18009/api/api/m/buckets/app/{$appId}/objects";
         } else {
             $url = self::kww()."/api/m/buckets/app/{$appId}/objects";
         }
@@ -188,7 +188,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
         } else {
             $url = self::kww() . "/api/w/dispatch";
         }
@@ -231,7 +231,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
         } else {
             $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
@@ -265,7 +265,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
         } else {
             $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
@@ -301,7 +301,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
         } else {
             $url = "https://kwwhrp.kwwict.com:18801/api/w/dispatch";
         }
@@ -332,7 +332,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.50:8080/w/dispatch";
+            $url = "https://kwwhrp.kwwict.com:18009/api/api/w/dispatch";
         } else {
             $url = self::kww() . "/api/w/dispatch";
         }
@@ -366,7 +366,7 @@ class Kww
     public static function getTmpNo($orgId)
     {
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.43:8085/emp/tmpNo?baseNo=$orgId";
+            $url = "http://10.254.30.67:9092/emp/tmpNo?baseNo=$orgId";
         } else {
             $url = "http://10.254.30.36:8099/emp/tmpNo?baseNo=$orgId";
         }
@@ -392,7 +392,7 @@ class Kww
     public static function saveGetId($param)
     {
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.43:8090/employee/info/save";
+            $url = "http://10.254.30.67:9092/employee/info/save";
         } else {
             $url = "http://10.254.30.59:8090/employee/info/save";
         }
