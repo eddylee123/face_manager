@@ -154,7 +154,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/api/m/buckets/app/{$appId}/objects";
+            $url = "https://blcglpt.kwwict.com:18013/api/api/m/buckets/app/{$appId}/objects";
         } else {
             $url = self::kww()."/api/m/buckets/app/{$appId}/objects";
         }
@@ -188,7 +188,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
+            $url = "https://blcglpt.kwwict.com:18013/api/w/dispatch";
         } else {
             $url = self::kww() . "/api/w/dispatch";
         }
@@ -231,7 +231,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
+            $url = "https://blcglpt.kwwict.com:18013/api/w/dispatch";
         } else {
             $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
@@ -265,7 +265,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
+            $url = "https://blcglpt.kwwict.com:18013/api/w/dispatch";
         } else {
             $url = "http://220.168.154.86:18801/api/w/dispatch";
         }
@@ -301,7 +301,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/w/dispatch";
+            $url = "https://blcglpt.kwwict.com:18013/api/w/dispatch";
         } else {
             $url = "https://kwwhrp.kwwict.com:18801/api/w/dispatch";
         }
@@ -332,7 +332,7 @@ class Kww
     {
         $header = self::header();
         if (Env::get('app.master')) {
-            $url = "https://kwwhrp.kwwict.com:18009/api/api/w/dispatch";
+            $url = "https://blcglpt.kwwict.com:18013/api/api/w/dispatch";
         } else {
             $url = self::kww() . "/api/w/dispatch";
         }
