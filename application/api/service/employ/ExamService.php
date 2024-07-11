@@ -197,6 +197,7 @@ class ExamService extends BaseService
                 ->where(['id_card' => $data['id_card']])
                 ->whereIn('status', [1,2,21,4])
                 ->field('emp_id_2,status')
+                ->order('id','desc')
                 ->find();
             if (!empty($emp_info)) {
                 //状态判断
