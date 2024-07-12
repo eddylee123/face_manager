@@ -402,13 +402,6 @@ class InviteService extends BaseService
                 ->order("id","desc")
                 ->distinct(true)
                 ->column('id,status,cert_date,cert_validity', 'emp_id_2');
-            //照片信息
-            $imgArr = $this->imgModel
-                ->whereNotNull('img_url')
-                ->whereNotNull('dis_img_url')
-                ->whereIn('emp_id_2', $emp2In)
-                ->distinct(true)
-                ->column('id', 'emp_id_2');
 
             $data = [];
             foreach ($list as $v) {
@@ -419,7 +412,6 @@ class InviteService extends BaseService
                     $cert_date = $examArr[$v['emp_id_2']]['cert_date'];
                     $cert_validity = $examArr[$v['emp_id_2']]['cert_validity'];
                 }
-                $img = !empty($imgArr[$v['emp_id_2']]) ? '已拍照' : '未拍照';
 
                 $data[] = [
                     $v['emp_id_2'],
@@ -439,7 +431,6 @@ class InviteService extends BaseService
                     $v['education'],
                     $v['emp_source'],
                     $exam,
-                    $img,
                     $v['emp_id_2'],
                     $v['position'],
                     $v['intro_name'],
@@ -453,7 +444,7 @@ class InviteService extends BaseService
             }
             //上传excel
             $header = ['工号','姓名','性别','身份证号码','身份证住址','年龄','电话','民族','紧急联系人','紧急联系人电话','与本人关系','鞋码','婚否','身份证有效期',
-                '学历','员工类型','体检结果','是否拍照','临时工号','意向岗位','介绍人','介绍人工号','口味王工作经验','劳务公司','健康证日期','健康证结束日期','是否退伍'];
+                '学历','员工类型','体检结果','临时工号','意向岗位','介绍人','介绍人工号','口味王工作经验','劳务公司','健康证日期','健康证结束日期','是否退伍'];
             return CommonService::instance()->putExcel($header, $data, '招聘人员');
         }
     }
