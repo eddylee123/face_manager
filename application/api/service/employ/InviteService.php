@@ -414,7 +414,7 @@ class InviteService extends BaseService
                 }
 
                 $data[] = [
-                    $v['emp_id_2'],
+                    $v['emp_id'],
                     $v['emp_name'],
                     $v['sex'],
                     $v['id_card'],
