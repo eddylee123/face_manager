@@ -177,4 +177,11 @@ class Invite extends BaseController
 
         app_response(200, $rs);
     }
+
+    public function addOldEmp()
+    {
+
+        return $this->inviteSer->addOldEmp($this->Data['emp_id_2']);
+
+    }
 }
