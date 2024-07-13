@@ -180,8 +180,8 @@ class Invite extends BaseController
 
     public function addOldEmp()
     {
+        $rs = $this->inviteSer->addOldEmp($this->Data['emp_id_2']);
 
-        return $this->inviteSer->addOldEmp($this->Data['emp_id_2']);
-
+        app_response(200, $rs);
     }
 }
