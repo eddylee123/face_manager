@@ -361,18 +361,7 @@ class InviteService extends BaseService
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
                 //旧系统同步员工数据
-                $empNew = $this->empModel->get($row['id'])->toArray();
-                unset($empNew['id']);
-                unset($empNew['self_leave']);
-                unset($empNew['sex_text']);
-                unset($empNew['emp_source_text']);
-                unset($empNew['marry_text']);
-                $empNew = array_filter($empNew, function ($it) {
-                    return !empty($it);
-                });
-                $rs1 = Db::connect('srv_kwwsys')
-                    ->table('fa_employee')
-                    ->insert($empNew);
+                $rs1 = $this->addOldEmp($row['emp_id_2']);
                 return $idCard;
             } else {
                 app_exception($row->getError());
