@@ -85,6 +85,7 @@ class ExamService extends BaseService
             }
         }
 
+        $params['exam_date'] = $params['cert_date'];
         $params['username'] = $emp_info['emp_name'];
         $params['age'] = $emp_info['age'];
         $params['id_card'] = $emp_info['id_card'];

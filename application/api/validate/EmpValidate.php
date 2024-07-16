@@ -141,7 +141,7 @@ class EmpValidate extends Validate
         'info_id' => ['id_card'],
         'info_no' => ['emp_id_2'],
         'set_role' => ['emp_id_2','cs_list','kq_list'],
-        'set_exam' => ['emp_id_2','cert_number','exam_date','cert_date','cert_validity','status'],
+        'set_exam' => ['emp_id_2','cert_number','cert_date','cert_validity','status'],
         'sign' => ['id_card'],
         'report' => ['id_card','contract_date','contract_validate','dept_id'],
         'exam_list' => ['emp_id_2'],
