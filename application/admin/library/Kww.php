@@ -366,7 +366,7 @@ class Kww
     public static function getTmpNo($orgId)
     {
         if (Env::get('app.master')) {
-            $url = "http://10.254.30.67:9092/emp/tmpNo?baseNo=$orgId";
+            $url = "http://10.254.30.66:9090/emp/tmpNo?baseNo=$orgId";
         } else {
             $url = "http://10.254.30.36:8099/emp/tmpNo?baseNo=$orgId";
         }
